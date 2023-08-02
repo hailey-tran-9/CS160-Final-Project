@@ -1,9 +1,16 @@
 {
-  "dependencies": {
-    "express": "^4.18.2",
-    "three": "^0.155.0"
+  "name": "threejs-journey-exercise",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
   },
   "devDependencies": {
-    "vite": "^4.4.8"
+    "vite": "^4.3.9"
+  },
+  "dependencies": {
+    "three": "^0.153.0"
   }
 }
