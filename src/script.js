@@ -2,6 +2,11 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+// React imports 
+import { useLoader } from '@react-three/fiber';
+
+
+
 // Create the scene, camera, and renderer
 // Add scene
 const scene = new THREE.Scene();
@@ -16,7 +21,7 @@ scene.add(light)
 const ambientLight = new THREE.AmbientLight()
 scene.add(ambientLight)
 
-// Add camera
+// set up the camera
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 camera.position.set( 0, 10, 5 );
 
@@ -29,7 +34,6 @@ document.body.appendChild( renderer.domElement );
 // Add controls
 const controls = new OrbitControls( camera, renderer.domElement );
 controls.enableDamping = true
-controls.target.set(0, 1, 0)
 
 // Add raycaster
 const raycaster = new THREE.Raycaster();
@@ -54,8 +58,12 @@ function loadModel( objName, objPath, position = defaultPosition, rotation = def
     loader.load( objPath, function ( gltf ) {
 
         gltf.scene.name = objName;
-
+        
         scene.add( gltf.scene );
+
+        if (objName == 'rooms') {
+            initializeCamera(gltf.scene);
+        }
 
         gltf.animations; // Array<THREE.AnimationClip>
         gltf.scene; // THREE.Group
@@ -94,31 +102,51 @@ function vector(x, y, z) {
 
 
 /* Load models */
-loadModel('rooms', 'room.glb', defaultPosition, defaultRotation, vector(10, 10, 10))
+let roomsModel;
+loadModel('rooms', 'rooms.glb', defaultPosition, defaultRotation, vector(10, 10, 10))
 
 loadModel('couch', 'couch.glb', vector(-3, 0.32, -3), vector(0, Math.PI, 0), vector(0.9, 0.9, 0.9));
 loadModel('couch2', 'couch.glb', vector(-3.9, 0.32, -1.7), vector(0, -Math.PI/2, 0), vector(0.9, 0.9, 0.9));
 
 loadModel('tvStand', 'tvStand.glb', vector(2, 0.1, 4.3), vector(0, Math.PI/2, 0), vector(0.018, 0.018, 0.018));
 loadModel('tv', 'tv.glb', vector(-1.75, 0.5, -1.73), vector(0, Math.PI/2, 0), vector(0.08, 0.08, 0.08));
-loadModel('coffeeTable', 'coffeeTable.glb', vector(-3, 0.0, -1.8), vector(0, Math.PI/2, 0), vector(0.8, 0.4, 0.8));
-loadModel('electricGuitar', 'electricGuitar.glb', vector(-1.8, 0.3, -2.5), vector(0, -Math.PI/2, 0), vector(0.03, 0.03, 0.03));
+loadModel('coffeeTable', 'coffeeTable.glb', vector(-3, 0.3, -1.8), vector(0, Math.PI/2, 0), vector(0.8, 0.4, 0.8));
+loadModel('electricGuitar', 'electricGuitar.glb', vector(-1.55, 0.155, -2.7), vector(0, -Math.PI/2, 0), vector(0.036, 0.036, 0.036));
 
-loadModel('desk', 'desk.glb', defaultPosition, new THREE.Vector3(0, 0, 0), defaultScale);
-loadModel('coffee', 'coffee.glb', defaultPosition, new THREE.Vector3(0, -Math.PI/2, 0), defaultScale);
+loadModel('desk', 'Desk.glb', vector(-2, 0.35, 2), vector(0, 0, 0), vector(0.4, 0.4, 0.5));
+//no gaming chair??
+// loadModel('gamingChair', 'gamingChair.glb', vector(0, 0, 0), vector(0, 0, 0), vector(2000, 2000, 2000))
 
 loadModel('carpet', 'carpet.glb', vector(-3, 0.17, -1.8), new THREE.Vector3(0, Math.PI, 0), vector(0.8, 0.8, 0.8));
 
-loadModel('stairs', 'stairs.glb', vector(-4.4, 0.08, 1.5), vector(0,Math.PI/2, 0), vector(0.8, 0.8, 0.8));
+loadModel('stairs', 'stairs.glb', vector(-4.4, 0.08, 1.1), vector(0,Math.PI/2, 0), vector(0.8, 0.8, 0.8));
 
-loadModel('polaroids', 'polaroids.glb', defaultPosition, new THREE.Vector3(0, 0, 0), defaultScale);
+loadModel('polaroids', 'polaroids.glb', vector(-1.56, 1, -0.5), vector(0, Math.PI, 0), vector(0.7, 0.7, 0.7));
 
-loadModel('shelves', 'shelves.glb', defaultPosition, new THREE.Vector3(0, Math.PI/2, 0), defaultScale);
-loadModel('shelves2', 'shelves.glb', defaultPosition, new THREE.Vector3(0, Math.PI/2, 0), defaultScale);
+loadModel('shelves', 'shelves.glb', vector(-2, 0.35, 2), vector(0, 0, 0), defaultScale);
+loadModel('shelves2', 'shelves.glb', vector(-2, 0.35, 2), vector(0, 0, 0), defaultScale);
 
-let box = loadModel('packageClosed', 'boxClosed.glb', vector(-2, 0.15, 0), vector(0, 0, 0), defaultScale);
-loadModel('boxingRing', 'boxingRing.glb', vector(0, 0, 0), vector(0, 0, 0), vector(2, 2, 2));
+let box = loadModel('packageClosed', 'boxClosed.glb', vector(-1.75, 0.15, -0.45), vector(0, Math.PI/9, 0), defaultScale);
+loadModel('packageOpen', 'cardboardBox.glb', vector(-1.7, 0.17, -0.9), vector(0, -Math.PI/7, 0), vector(1.5, 1.5, 1.5));
+loadModel('boxingRing', 'boxingRing.glb', vector(0, 0, 0), vector(0, 0, 0), vector(0, 0, 0));
 
+
+//set camera location towards the room
+function initializeCamera(roomsModel) {
+    camera.position.set(0, 10, 5);
+    controls.target.set(0, 1, 0);
+    camera.rotation.set(0, 90, 0);
+    camera.scale.set(1, 1, 1);
+    const box = new THREE.Box3().setFromObject(roomsModel);
+    const center = box.getCenter(new THREE.Vector3());
+    const direction = new THREE.Vector3(0, 0, 1); 
+    camera.position.copy(center).addScaledVector(direction, -10);
+}
+
+//react load model
+function model({url}) {
+    const obj = useGLTF(url)
+}
 
 
 // Create a render/animate loop

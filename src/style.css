@@ -1,10 +1,20 @@
-#settings-popup {
-    position:fixed;
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
+.popup {
+    position:absolute;
     padding:0;
     margin:0;
 
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
 
     width: 100%;
     height: 100%;
@@ -21,4 +31,7 @@
 
 #settings-popup-btns {
     position: absolute center;
+    margin-top: 45vh;
+    margin-left: 42.5vw;
+    margin-bottom: 45vh;
 }
