@@ -18,7 +18,7 @@ scene.add(ambientLight)
 
 // Add camera
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-camera.position.set( 0, 10, 20 );
+camera.position.set( 0, 10, 5 );
 
 // Add renderer
 const renderer = new THREE.WebGLRenderer( {antialias:true} );
@@ -32,26 +32,51 @@ controls.enableDamping = true
 controls.target.set(0, 1, 0)
 
 // GLTF Loader
-const loader = new GLTFLoader();
-loader.load( 'Desk.glb', function ( gltf ) {
+const defaultPosition = new THREE.Vector3(0, 0, 0);
+const defaultRotation = new THREE.Vector3(0, 0, 0);
+const defaultScale = new THREE.Vector3(0, 0, 0);
 
-	scene.add( gltf.scene );
+/* Call this function to load your models */
+function loadModel( objName, objPath, position = defaultPosition, rotation = defaultRotation, scale = defaultScale ) {
+    var loader = new GLTFLoader( );
+    loader.load( objPath, function ( gltf ) {
 
-    gltf.animations; // Array<THREE.AnimationClip>
-    gltf.scene; // THREE.Group
-    gltf.scenes; // Array<THREE.Group>
-    gltf.cameras; // Array<THREE.Camera>
-    gltf.asset; // Object
+        gltf.scene.name = objName;
 
-}, function ( xhr ) {
+        scene.add( gltf.scene );
 
-    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+        gltf.animations; // Array<THREE.AnimationClip>
+        gltf.scene; // THREE.Group
+        gltf.scenes; // Array<THREE.Group>
+        gltf.cameras; // Array<THREE.Camera>
+        gltf.asset; // Object
 
-}, undefined, function ( error ) {
+        // console.log(gltf.scene.position);
+        // console.log(gltf.scene.rotation);
+        // console.log(gltf.scene.scale);
 
-	console.error( error );
+        gltf.scene.position.set(position.x, position.y, position.z);
+        gltf.scene.rotation.set(rotation.x, rotation.y, rotation.z);
+        gltf.scene.scale.set(scale.x, scale.y, scale.z);
 
-} );
+        // console.log(gltf.scene.position);
+        // console.log(gltf.scene.rotation);
+        // console.log(gltf.scene.scale);
+
+    }, function ( xhr ) {
+
+        console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+    }, undefined, function ( error ) {
+
+        console.error( error );
+
+    } );
+}
+
+// loadModel('Rooms', 'Rooms.glb', new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, Math.PI, 0), new THREE.Vector3(2, 2, 2));
+loadModel('Desk', 'desk.glb', new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, Math.PI, 0), new THREE.Vector3(2, 2, 2));
+loadModel('Carpet', 'carpet.glb', new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, Math.PI, 0), new THREE.Vector3(2, 2, 2));
 
 // Create a render/animate loop
 function animate() {
