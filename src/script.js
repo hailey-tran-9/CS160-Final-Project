@@ -78,6 +78,8 @@ function vector(x, y, z) {
     return new THREE.Vector3(x, y, z)
 }
 
+
+/* Load models */
 loadModel('rooms', 'room.glb', defaultPosition, defaultRotation, vector(10, 10, 10))
 
 loadModel('couch', 'couch.glb', defaultPosition, new THREE.Vector3(0, Math.PI, 0), defaultScale);
