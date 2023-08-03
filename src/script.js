@@ -74,6 +74,7 @@ function loadModel( objName, objPath, position = defaultPosition, rotation = def
     } );
 }
 
+/* instantiate THREE.Vector3 */
 function vector(x, y, z) {
     return new THREE.Vector3(x, y, z)
 }
@@ -82,7 +83,7 @@ function vector(x, y, z) {
 /* Load models */
 loadModel('rooms', 'room.glb', defaultPosition, defaultRotation, vector(10, 10, 10))
 
-loadModel('couch', 'couch.glb', defaultPosition, new THREE.Vector3(0, Math.PI, 0), defaultScale);
+loadModel('couch', 'couch.glb', vector(-3, 0.5, -3), new THREE.Vector3(0, Math.PI, 0), defaultScale);
 loadModel('couch2', 'couch.glb', defaultPosition, new THREE.Vector3(0, -Math.PI/2, 0), defaultScale);
 
 loadModel('desk', 'desk.glb', defaultPosition, new THREE.Vector3(0, 0, 0), defaultScale);
@@ -90,7 +91,7 @@ loadModel('coffee', 'coffee.glb', defaultPosition, new THREE.Vector3(0, -Math.PI
 
 loadModel('carpet', 'carpet.glb', defaultPosition, new THREE.Vector3(0, Math.PI, 0), defaultScale);
 
-loadModel('stairs', 'stairs.glb', defaultPosition, new THREE.Vector3(0, 0, 0), defaultScale);
+loadModel('stairs', 'stairs.glb', vector(-4, 0, 0), vector(0,-Math.PI/2, 0), defaultScale);
 
 loadModel('polaroids', 'polaroids.glb', defaultPosition, new THREE.Vector3(0, 0, 0), defaultScale);
 
