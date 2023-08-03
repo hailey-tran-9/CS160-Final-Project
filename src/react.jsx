@@ -7,3 +7,17 @@ import { Canvas, useFrame } from '@react-three/fiber'
 // root.render(
     
 // )
+
+var settingsOpen = false;
+
+document.getElementById( "settings-btn" ).onclick = 
+function() {
+    // console.log(settingsOpen);
+    if (!settingsOpen) {
+        document.getElementById( "settings-popup" ).style.visibility = "visible";
+        settingsOpen = true;
+    } else {
+        document.getElementById( "settings-popup" ).style.visibility = "hidden";
+        settingsOpen = false;
+    }
+};

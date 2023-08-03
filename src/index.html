@@ -8,17 +8,42 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <container>
-        <div class="row">
+    <div class="container-fluid">
+        <div class="row align-items-start">
             <div class="col">
                 <div id="taskbar">
-                    <h1>GDD 3D Showcase</h1>
+                    <h1 class="pl-3 py-3">GDD 3D Showcase</h1>
                 </div>
             </div>
+            <div class="col">
+                <button type="button" class="btn btn-dark float-right mt-3 mr-3" id="settings-btn">Settings</button>
+            </div>
         </div>
-    </container>
-    <canvas class="webgl"></canvas>
-    <script type="module" src="./script.js"></script>
-    <script type="module" src="./react.jsx"></script>
+
+        <div class="row align-items-center">
+            <div class="col"></div>
+            
+            <div class="col">
+                <div id="settings-popup">
+                    <div class="d-flex justify-content-center" id="settings-popup-btns">
+                        <div class="btn-group-vertical" role="group">
+                            <button type="button" class="btn btn-secondary">Keyboard Controls</button>
+                            <button type="button" class="btn btn-secondary">Help</button>
+                            <button type="button" class="btn btn-secondary">Credits</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col"></div>
+        </div>
+
+        <div class="row align-items-end">
+            <canvas class="webgl"></canvas>
+            <script type="module" src="./script.js"></script>
+            <script type="module" src="./react.jsx"></script>
+        </div>
+        
+    </div>
 </body>
 </html>
