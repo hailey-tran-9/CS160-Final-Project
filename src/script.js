@@ -113,7 +113,7 @@ loadModel('tv', 'tv.glb', vector(-1.75, 0.5, -1.73), vector(0, Math.PI/2, 0), ve
 loadModel('coffeeTable', 'coffeeTable.glb', vector(-3, 0.3, -1.8), vector(0, Math.PI/2, 0), vector(0.8, 0.4, 0.8));
 loadModel('electricGuitar', 'electricGuitar.glb', vector(-1.55, 0.155, -2.7), vector(0, -Math.PI/2, 0), vector(0.036, 0.036, 0.036));
 
-loadModel('desk', 'Desk.glb', vector(-2, 0.35, 2), vector(0, 0, 0), vector(0.4, 0.4, 0.5));
+loadModel('desk', 'desk.glb', vector(-2, 0.35, 2), vector(0, 0, 0), vector(0.4, 0.4, 0.5));
 //no gaming chair??
 // loadModel('gamingChair', 'gamingChair.glb', vector(0, 0, 0), vector(0, 0, 0), vector(2000, 2000, 2000))
 
@@ -139,8 +139,8 @@ function initializeCamera(roomsModel) {
     camera.scale.set(1, 1, 1);
     const box = new THREE.Box3().setFromObject(roomsModel);
     const center = box.getCenter(new THREE.Vector3());
-    const direction = new THREE.Vector3(0, 0, 1); 
-    camera.position.copy(center).addScaledVector(direction, -10);
+    const direction = new THREE.Vector3(1, 0.1, 0); 
+    camera.position.copy(center).addScaledVector(direction, 12);
 }
 
 //react load model
