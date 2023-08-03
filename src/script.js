@@ -34,7 +34,7 @@ controls.target.set(0, 1, 0)
 // GLTF Loader
 const defaultPosition = new THREE.Vector3(0, 0, 0);
 const defaultRotation = new THREE.Vector3(0, 0, 0);
-const defaultScale = new THREE.Vector3(0, 0, 0);
+const defaultScale = new THREE.Vector3(1, 1, 1);
 
 /* Call this function to load your models */
 function loadModel( objName, objPath, position = defaultPosition, rotation = defaultRotation, scale = defaultScale ) {
@@ -65,7 +65,7 @@ function loadModel( objName, objPath, position = defaultPosition, rotation = def
 
     }, function ( xhr ) {
 
-        console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+        // console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
 
     }, undefined, function ( error ) {
 
@@ -74,9 +74,27 @@ function loadModel( objName, objPath, position = defaultPosition, rotation = def
     } );
 }
 
-// loadModel('Rooms', 'Rooms.glb', new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, Math.PI, 0), new THREE.Vector3(2, 2, 2));
-loadModel('Desk', 'desk.glb', new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, Math.PI, 0), new THREE.Vector3(2, 2, 2));
-loadModel('Carpet', 'carpet.glb', new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, Math.PI, 0), new THREE.Vector3(2, 2, 2));
+function vector(x, y, z) {
+    return new THREE.Vector3(x, y, z)
+}
+
+loadModel('rooms', 'room.glb', defaultPosition, defaultRotation, vector(10, 10, 10))
+
+loadModel('couch', 'couch.glb', defaultPosition, new THREE.Vector3(0, Math.PI, 0), defaultScale);
+loadModel('couch2', 'couch.glb', defaultPosition, new THREE.Vector3(0, -Math.PI/2, 0), defaultScale);
+
+loadModel('desk', 'desk.glb', defaultPosition, new THREE.Vector3(0, 0, 0), defaultScale);
+loadModel('coffee', 'coffee.glb', defaultPosition, new THREE.Vector3(0, -Math.PI/2, 0), defaultScale);
+
+loadModel('carpet', 'carpet.glb', defaultPosition, new THREE.Vector3(0, Math.PI, 0), defaultScale);
+
+loadModel('stairs', 'stairs.glb', defaultPosition, new THREE.Vector3(0, 0, 0), defaultScale);
+
+loadModel('polaroids', 'polaroids.glb', defaultPosition, new THREE.Vector3(0, 0, 0), defaultScale);
+
+loadModel('shelves', 'shelves.glb', defaultPosition, new THREE.Vector3(0, Math.PI/2, 0), defaultScale);
+loadModel('shelves2', 'shelves.glb', defaultPosition, new THREE.Vector3(0, Math.PI/2, 0), defaultScale);
+
 
 // Create a render/animate loop
 function animate() {
