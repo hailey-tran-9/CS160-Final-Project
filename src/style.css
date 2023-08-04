@@ -8,7 +8,7 @@ body {
     height: 100%;
 }
 
-.popup {
+.overlay {
     position:absolute;
     padding:0;
     margin:0;
@@ -23,13 +23,28 @@ body {
     visibility: hidden;
 }
 
+.popup {
+    position: absolute;
+
+    top: 20vh;
+    left: 40vw;
+
+    width: 200px;
+    height: 300px;
+    background:rgba(35, 35, 35, 0.75);
+    border: white solid 2px;
+    border-radius: 10px;
+
+    visibility: hidden;
+}
+
 #settings-btn {
     position: absolute;
     right: 0.5rem;
     z-index: 1070;
 }
 
-#settings-popup-btns {
+#settings-overlay-btns {
     position: absolute center;
     margin-top: 45vh;
     margin-left: 42.5vw;

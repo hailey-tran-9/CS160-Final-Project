@@ -8,22 +8,8 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <!-- Settings Popup -->
-    <div class="popup d-flex" id="settings-popup">
-        <div class="btn-group-vertical d-flex justify-content-center align-items-center" role="group" id="settings-popup-btns">
-            <button type="button" class="btn btn-secondary" id="keyboard-controls-btn">Keyboard Controls</button>
-            <button type="button" class="btn btn-secondary" id="help-btn">Help</button>
-            <button type="button" class="btn btn-secondary" id="credits-btn">Credits</button>
-        </div>
-    </div>
-
-    <!-- Keyboard Controls Popup -->
-    <div class="popup d-flex" id="keyboard-controls-popup">
-        
-    </div>
-
     <div class="container-fluid">
-        <div class="row align-items-start">
+        <div class="row top">
             <div class="col">
                 <div id="taskbar">
                     <h1 class="pl-3 py-3">GDD 3D Showcase</h1>
@@ -41,6 +27,25 @@
     </div>
 
     <div id="root"></div>
+
+    <!-- Settings Overlay -->
+    <div class="overlay d-flex" id="settings-overlay">
+        <div class="btn-group-vertical d-flex justify-content-center align-items-center" role="group" id="settings-overlay-btns">
+            <button type="button" class="btn btn-secondary" id="keyboard-controls-btn">Keyboard Controls</button>
+            <button type="button" class="btn btn-secondary" id="help-btn">Help</button>
+            <button type="button" class="btn btn-secondary" id="credits-btn">Credits</button>
+        </div>
+    </div>
+
+    <!-- Keyboard Controls Overlay -->
+    <div class="overlay d-flex" id="keyboard-controls-overlay">
+        
+    </div>
+
+    <!-- Game Popup -->
+    <div class="popup d-flex" id="game-popup">
+        
+    </div>
 
     <!-- <script type="module" src="./script.js"></script> -->
     <script type="module" src="./react.jsx"></script>
