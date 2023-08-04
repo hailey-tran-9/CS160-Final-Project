@@ -102,33 +102,33 @@ function vector(x, y, z) {
 
 
 /* Load models */
-let roomsModel;
-loadModel('rooms', 'rooms.glb', defaultPosition, defaultRotation, vector(10, 10, 10))
+// let roomsModel;
+// loadModel('rooms', 'rooms.glb', defaultPosition, defaultRotation, vector(10, 10, 10))
 
-loadModel('couch', 'couch.glb', vector(-3, 0.32, -3), vector(0, Math.PI, 0), vector(0.9, 0.9, 0.9));
-loadModel('couch2', 'couch.glb', vector(-3.9, 0.32, -1.7), vector(0, -Math.PI/2, 0), vector(0.9, 0.9, 0.9));
+// loadModel('couch', 'couch.glb', vector(-3, 0.32, -3), vector(0, Math.PI, 0), vector(0.9, 0.9, 0.9));
+// loadModel('couch2', 'couch.glb', vector(-3.9, 0.32, -1.7), vector(0, -Math.PI/2, 0), vector(0.9, 0.9, 0.9));
 
-loadModel('tvStand', 'tvStand.glb', vector(2, 0.1, 4.3), vector(0, Math.PI/2, 0), vector(0.018, 0.018, 0.018));
-loadModel('tv', 'tv.glb', vector(-1.75, 0.5, -1.73), vector(0, Math.PI/2, 0), vector(0.08, 0.08, 0.08));
-loadModel('coffeeTable', 'coffeeTable.glb', vector(-3, 0.3, -1.8), vector(0, Math.PI/2, 0), vector(0.8, 0.4, 0.8));
-loadModel('electricGuitar', 'electricGuitar.glb', vector(-1.55, 0.155, -2.7), vector(0, -Math.PI/2, 0), vector(0.036, 0.036, 0.036));
+// loadModel('tvStand', 'tvStand.glb', vector(2, 0.1, 4.3), vector(0, Math.PI/2, 0), vector(0.018, 0.018, 0.018));
+// loadModel('tv', 'tv.glb', vector(-1.75, 0.5, -1.73), vector(0, Math.PI/2, 0), vector(0.08, 0.08, 0.08));
+// loadModel('coffeeTable', 'coffeeTable.glb', vector(-3, 0.3, -1.8), vector(0, Math.PI/2, 0), vector(0.8, 0.4, 0.8));
+// loadModel('electricGuitar', 'electricGuitar.glb', vector(-1.55, 0.155, -2.7), vector(0, -Math.PI/2, 0), vector(0.036, 0.036, 0.036));
 
-loadModel('desk', 'desk.glb', vector(-2, 0.35, 2), vector(0, 0, 0), vector(0.4, 0.4, 0.5));
-//no gaming chair??
-// loadModel('gamingChair', 'gamingChair.glb', vector(0, 0, 0), vector(0, 0, 0), vector(2000, 2000, 2000))
+// loadModel('desk', 'desk.glb', vector(-2, 0.35, 2), vector(0, 0, 0), vector(0.4, 0.4, 0.5));
+// //no gaming chair??
+// // loadModel('gamingChair', 'gamingChair.glb', vector(0, 0, 0), vector(0, 0, 0), vector(2000, 2000, 2000))
 
-loadModel('carpet', 'carpet.glb', vector(-3, 0.17, -1.8), new THREE.Vector3(0, Math.PI, 0), vector(0.8, 0.8, 0.8));
+// loadModel('carpet', 'carpet.glb', vector(-3, 0.17, -1.8), new THREE.Vector3(0, Math.PI, 0), vector(0.8, 0.8, 0.8));
 
-loadModel('stairs', 'stairs.glb', vector(-4.4, 0.08, 1.1), vector(0,Math.PI/2, 0), vector(0.8, 0.8, 0.8));
+// loadModel('stairs', 'stairs.glb', vector(-4.4, 0.08, 1.1), vector(0,Math.PI/2, 0), vector(0.8, 0.8, 0.8));
 
-loadModel('polaroids', 'polaroids.glb', vector(-1.56, 1, -0.5), vector(0, Math.PI, 0), vector(0.7, 0.7, 0.7));
+// loadModel('polaroids', 'polaroids.glb', vector(-1.56, 1, -0.5), vector(0, Math.PI, 0), vector(0.7, 0.7, 0.7));
 
-loadModel('shelves', 'shelves.glb', vector(-2, 0.35, 2), vector(0, 0, 0), defaultScale);
-loadModel('shelves2', 'shelves.glb', vector(-2, 0.35, 2), vector(0, 0, 0), defaultScale);
+// loadModel('shelves', 'shelves.glb', vector(-2, 0.35, 2), vector(0, 0, 0), defaultScale);
+// loadModel('shelves2', 'shelves.glb', vector(-2, 0.35, 2), vector(0, 0, 0), defaultScale);
 
-let box = loadModel('packageClosed', 'boxClosed.glb', vector(-1.75, 0.15, -0.45), vector(0, Math.PI/9, 0), defaultScale);
-loadModel('packageOpen', 'cardboardBox.glb', vector(-1.7, 0.17, -0.9), vector(0, -Math.PI/7, 0), vector(1.5, 1.5, 1.5));
-loadModel('boxingRing', 'boxingRing.glb', vector(0, 0, 0), vector(0, 0, 0), vector(0, 0, 0));
+// let box = loadModel('packageClosed', 'boxClosed.glb', vector(-1.75, 0.15, -0.45), vector(0, Math.PI/9, 0), defaultScale);
+// loadModel('packageOpen', 'cardboardBox.glb', vector(-1.7, 0.17, -0.9), vector(0, -Math.PI/7, 0), vector(1.5, 1.5, 1.5));
+// loadModel('boxingRing', 'boxingRing.glb', vector(0, 0, 0), vector(0, 0, 0), vector(0, 0, 0));
 
 
 //set camera location towards the room

@@ -1,30 +1,22 @@
+import React from 'react'
 import { createRoot } from 'react-dom/client'
-import React, { useRef, useState } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, extend } from '@react-three/fiber'
+import { PerspectiveCamera, OrbitControls } from '@react-three/drei'
 
-const root = createRoot(document.querySelector('#canvas'))
+import Papa from 'papaparse'
 
-root.render(
-    <>
-        < mesh visible userData={{ hello: 'world' }} position={[1, 2, 3]} rotation={[Math.PI / 2, 0, 0]}>
-            <sphereGeometry args={[1, 16, 16]} />
-            <meshStandardMaterial color="hotpink" transparent />
-            onClick={(e) => console.log('click')}
-            onContextMenu={(e) => console.log('context menu')}
-            onDoubleClick={(e) => console.log('double click')}
-            onWheel={(e) => console.log('wheel spins')}
-            onPointerUp={(e) => console.log('up')}
-            onPointerDown={(e) => console.log('down')}
-            onPointerOver={(e) => console.log('over')}
-            onPointerOut={(e) => console.log('out')}
-            onPointerEnter={(e) => console.log('enter')} // see note 1
-            onPointerLeave={(e) => console.log('leave')} // see note 1
-            onPointerMove={(e) => console.log('move')}
-            onPointerMissed={() => console.log('missed')}
-            onUpdate={(self) => console.log('props have been updated')}
-        </mesh>
-    </>
-)
+import { Rooms } from '../static/Rooms'
+import { Couch } from '../static/Couch'
+import { BoxClosed } from '../static/BoxClosed'
+import { BoxingRing } from '../static/BoxingRing'
+import { BoxOpen } from '../static/BoxOpen'
+import { CardboardBox } from '../static/CardboardBox'
+import { ElectricGuitar } from '../static/ElectricGuitar'
+import { Controller } from '../static/Controller'
+import { CoffeeTable } from '../static/CoffeeTable'
+import { Coffee } from '../static/Coffee'
+import { Desk } from '../static/Desk'
+import { Catharsis } from '../static/Catharsis'
 
 // Toggle the settings menu
 var settingsOpen = false;
@@ -53,3 +45,67 @@ function() {
         keyBoardControlsOpen = false;
     }
 };
+
+function App() {
+
+    return (
+
+        <div id="canvas-container" style={{ width: "100%", height: "100vh" }}>
+
+            <Canvas>
+
+                <ambientLight />
+                <directionalLight />
+
+                <PerspectiveCamera makeDefault position={[7, 3, 0]} />
+                <Rooms position={[0, 0, 0]}  scale={[8, 8, 8]}/>
+                <Couch onPointerEnter={(e) => HighlightObject(e)} onPointerLeave={(e) => UnhighlightObject(e)} position={[-2.4, 0.28, -2.5]} rotation={[0, Math.PI, 0]} scale={[0.9, 0.9, 0.9]}/>
+                <Desk onPointerEnter={(e) => HighlightObject(e)} onPointerLeave={(e) => UnhighlightObject(e)} position={[0, 0, 0]}/>
+                
+                <Controller onClick={(e) => DisplayInfo( "TEST" )} position={[0, 2, 0]} scale={[0.05, 0.05, 0.05]} />
+
+                <OrbitControls />
+
+            </Canvas>
+            
+        </div>
+    )
+
+  }
+
+  //Model focus functions
+function HighlightObject (e) {
+    let thisScale = e.eventObject.scale;
+    thisScale.set(thisScale.x * 1.2, thisScale.y * 1.2, thisScale.z * 1.2);
+}
+
+function UnhighlightObject (e) {
+    let thisScale = e.eventObject.scale;
+    thisScale.set(thisScale.x / 1.2, thisScale.y / 1.2, thisScale.z / 1.2);
+}
+
+// Helper func for clicking on game models
+function DisplayInfo ( objName ) {
+    for (let i in data) {
+        // console.log(data[i]);
+        if (data[i]["Game Title"] == objName) {
+            console.log(data[i]);
+        }
+    }
+
+}
+
+// Store the info from descriptions.csv into an JS object
+var data;
+var papa_csv = Papa.parse('/descriptions.csv', {
+    download: true,
+    header: true,
+    delimiter:",",
+    complete: function(results) {
+        console.log("Parse results: ", results.data);
+        data = results.data;
+    }
+});
+// console.log("console: ", data);
+  
+createRoot(document.getElementById('root')).render(<App />)
