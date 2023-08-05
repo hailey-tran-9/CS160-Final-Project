@@ -6,21 +6,50 @@ const settingsOverlay = document.getElementById( "settings-overlay" );
 const keyboardControlsOverlay = document.getElementById( "keyboard-controls-overlay" );
 const helpOverlay = document.getElementById( "help-overlay" );
 const creditsOverlay = document.getElementById( "credits-overlay" );
+const keybindPopup = document.getElementById( "keybind-popup" );
 
 const zoomKeybindContainer = document.getElementById( "zoom-keybind-container" );
 const movementKeybindContainer = document.getElementById( "movement-keybind-container" );
 const rotationKeybindContainer = document.getElementById( "rotation-keybind-container" );
 
+var keybindPrompt = document.getElementById("keybind-prompt");
+var keybindError = document.getElementById("keybind-error");
+
 // Keybinds
-var toggleSettingsKey = "Escape";
-var ToggleKeyboardControlsKey = "t";
+const keybinds = new Set();
+var setToKey;
+var toggleSettingsKey;
 
 // Handle keyboard input
 document.onkeydown = 
 function( e ) {
     // console.log(e.key);
 
-    if (e.key == "Escape") {
+    if (keybindOpen) {
+        let prefix = keybindPrompt.innerHTML.split("to")[0];
+        // console.log(keybinds);
+        // console.log(e.key);
+        // console.log(keybinds.has(e.key));
+        if (!keybinds.has(e.key)) {
+            if (e.key == "ArrowUp") {
+                keybindPrompt.innerHTML = prefix + "to ↑";
+            } else if (e.key == "ArrowLeft") {
+                keybindPrompt.innerHTML = prefix + "to ←";
+            } else if (e.key == "ArrowDown") {
+                keybindPrompt.innerHTML = prefix + "to ↓";
+            } else if (e.key == "ArrowRight") {
+                keybindPrompt.innerHTML = prefix + "to →";
+            } else {
+                keybindPrompt.innerHTML = prefix + "to " + e.key;
+            }
+            keybindError.style.visibility = "hidden";
+            setToKey = e.key;
+        } else {
+            keybindError.style.visibility = "visible";
+        }
+    }
+
+    if (e.key == toggleSettingsKey) {
         ToggleSettings();
     }
 
@@ -113,14 +142,27 @@ function ToggleCredits() {
 }
 
 function CreateKeybind( control, key ) {
+    keybinds.add(key);
+
+    if (control == "Toggle Settings") {
+        toggleSettingsKey = key;
+    }
+
+    if (key == "ArrowUp") {
+        key = "↑";
+    } else if (key == "ArrowLeft") {
+        key = "←";
+    } else if (key == "ArrowDown") {
+        key = "↓";
+    } else if (key == "ArrowRight") {
+        key = "→";
+    }
+
     return (
-        <div className="keybind-container" id={control+"-keybind"}>
+        <div className="keybind-container">
 
             <div className="row">
-                <div className="large-keybind-btn">
-                    <button type="button" className="btn btn-dark">{key}</button>
-                </div>
-
+                <button type="button" className="btn btn-dark keybind-btn" id={control+"-btn"}>{key}</button>
                 <p className="align-middle text-center ml-2">{control}</p>
             </div>
            
@@ -131,9 +173,9 @@ function CreateKeybind( control, key ) {
 function GenerateZoomKeybinds () {
     return (
         <>
-            {CreateKeybind("Toggle Settings", "ESC")}
-            {CreateKeybind("Zoom In", "SHIFT")}
-            {CreateKeybind("Zoom Out", "CTRL")}
+            {CreateKeybind("Toggle Settings", "Escape")}
+            {CreateKeybind("Zoom In", "Shift")}
+            {CreateKeybind("Zoom Out", "Ctrl")}
         </>
     )
 }
@@ -141,10 +183,10 @@ function GenerateZoomKeybinds () {
 function GenerateMovementKeybinds () {
     return (
         <>
-            {CreateKeybind("Move Up", "W")}
-            {CreateKeybind("Move Left", "A")}
-            {CreateKeybind("Move Down", "S")}
-            {CreateKeybind("Move Right", "D")}
+            {CreateKeybind("Move Up", "w")}
+            {CreateKeybind("Move Left", "a")}
+            {CreateKeybind("Move Down", "s")}
+            {CreateKeybind("Move Right", "d")}
         </>
     )
 }
@@ -152,10 +194,10 @@ function GenerateMovementKeybinds () {
 function GenerateRotationKeybinds () {
     return (
         <>
-            {CreateKeybind("Rotate Up", "↑")}
-            {CreateKeybind("Rotate Left", "←")}
-            {CreateKeybind("Rotate Down", "↓")}
-            {CreateKeybind("Rotate Right", "→")}
+            {CreateKeybind("Rotate Up", "ArrowUp")}
+            {CreateKeybind("Rotate Left", "ArrowLeft")}
+            {CreateKeybind("Rotate Down", "ArrowDown")}
+            {CreateKeybind("Rotate Right", "ArrowRight")}
         </>
     )
 }
@@ -163,3 +205,48 @@ function GenerateRotationKeybinds () {
 createRoot(zoomKeybindContainer).render(<GenerateZoomKeybinds />)
 createRoot(movementKeybindContainer).render(<GenerateMovementKeybinds />)
 createRoot(rotationKeybindContainer).render(<GenerateRotationKeybinds />)
+
+// Keybind Popup vars
+var keybindOpen = false;
+
+var allKeybindBtns = document.getElementsByClassName( "keybind-btn" );
+
+// Open the keybind popup
+function OpenKeybind() {
+    if (!keybindOpen) {
+        keybindError.style.visibility = "hidden";
+        keybindPopup.style.visibility = "visible";
+        keybindOpen = true;
+    }
+}
+
+// Close the keybind popup
+function CloseKeybind() {
+    if (keybindOpen) {
+        keybindError.style.visibility = "hidden";
+        keybindPopup.style.visibility = "hidden";
+        keybindOpen = false;
+    }
+}
+
+// Wait for the doc to load, then assign all keybind btn onclick events to open the keybind popup
+document.addEventListener("DOMContentLoaded", function() {
+    for ( let keybind of allKeybindBtns ) {
+        // console.log(keybind);
+        keybind.onclick = 
+            function () {
+                keybindPrompt.innerHTML = "Change " + keybind.innerHTML + " to ___";
+                OpenKeybind();
+            };
+    }
+});
+
+document.getElementById("keybind-confirm-btn").onclick =
+function () {
+    CloseKeybind();
+};
+
+document.getElementById("keybind-cancel-btn").onclick =
+function () {
+    CloseKeybind();
+};

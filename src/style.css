@@ -40,11 +40,13 @@ body {
     top: 20vh;
     left: 40vw;
 
-    width: 25vw;
+    width: auto;
     height: auto;
-    background:rgba(35, 35, 35, 0.75);
+    background:rgba(35, 35, 35, 0.9);
     border: white solid 2px;
     border-radius: 10px;
+
+    color: white;
 
     visibility: hidden;
 }
@@ -74,8 +76,12 @@ body {
     margin-bottom: auto;
 }
 
-#game-popup {
-    color: white;
+#keybind-error {
+    visibility: hidden;
+}
+
+#keybind-error p {
+    margin-bottom: 0.5rem;
 }
 
 #game-popup .container-fluid {
