@@ -29,8 +29,8 @@ body {
     top: 20vh;
     left: 40vw;
 
-    width: 200px;
-    height: 300px;
+    width: 25vw;
+    height: auto;
     background:rgba(35, 35, 35, 0.75);
     border: white solid 2px;
     border-radius: 10px;
@@ -49,4 +49,35 @@ body {
     margin-top: 45vh;
     margin-left: 42.5vw;
     margin-bottom: 45vh;
+}
+
+#keyboard-controls-overlay .container-fluid {
+    margin: 2rem;
+    margin-top: 5rem;
+}
+
+#keyboard-controls-overlay h3 {
+    color: white;
+}
+
+#game-popup {
+    color: white;
+}
+
+#game-popup .container-fluid {
+    margin-left: 1rem;
+}
+
+#game-title {
+    margin-top: 0.5rem;
+    margin-right: 1rem;
+}
+
+#game-description {
+    margin-top: 0.5rem;
+    margin-right: 0.75rem;
+}
+
+#game-url {
+    margin-bottom: 0.5rem;
 }
