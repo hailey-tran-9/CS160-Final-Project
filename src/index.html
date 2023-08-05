@@ -16,20 +16,15 @@
                 </div>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-dark float-right mt-3 mr-3" id="settings-btn">Settings</button>
+                <button type="button" class="btn btn-dark float-right mt-3 mr-3" id="settings-btn">ESC</button>
             </div>
         </div>
-
-        <!-- <div id="canvasContainer" class="row align-items-end">
-            <canvas id="canvas" class="webgl"></canvas>
-        </div> -->
-
     </div>
 
     <div id="root"></div>
 
     <!-- Settings Overlay -->
-    <div class="overlay d-flex" id="settings-overlay">
+    <div class="overlay-setup d-flex" id="settings-overlay">
         <div class="btn-group-vertical d-flex justify-content-center align-items-center" role="group" id="settings-overlay-btns">
             <button type="button" class="btn btn-secondary" id="keyboard-controls-btn">Keyboard Controls</button>
             <button type="button" class="btn btn-secondary" id="help-btn">Help</button>
@@ -38,10 +33,44 @@
     </div>
 
     <!-- Keyboard Controls Overlay -->
-    <div class="overlay d-flex" id="keyboard-controls-overlay">
+    <div class="overlay-setup overlay d-flex" id="keyboard-controls-overlay">
         <div class="container-fluid">
             <div class="row">
                 <h3>Keyboard Controls</h3>
+            </div>
+
+            <div class="row">
+                <div class="col keybind-container" id="zoom-keybind-container"></div>
+                <div class="col keybind-container" id="movement-keybind-container"></div>
+                <div class="col keybind-container" id="rotation-keybind-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Overlay -->
+    <div class="overlay-setup overlay d-flex" id="help-overlay">
+        <div class="container-fluid">
+            <div class="row">
+                <h3>Help</h3>
+            </div>
+
+            <div class="row">
+                <p>You haven't been good for long<br>
+                    Is it the sound of your own thoughts<br>
+                    That always keeps you up at night?</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Credits Overlay -->
+    <div class="overlay-setup overlay d-flex" id="credits-overlay">
+        <div class="container-fluid">
+            <div class="row">
+                <h3>Credits</h3>
+            </div>
+
+            <div class="row">
+                <h5>Project Members: Billy Dong, Hailey Tran, Jackie Dai, Judith No</h5>
             </div>
         </div>
     </div>
@@ -71,7 +100,7 @@
         
     </div>
 
-    <script type="module" src="./script.js"></script>
+    <script type="module" src="./script.jsx"></script>
     <script type="module" src="./react.jsx"></script>
 
 </body>
