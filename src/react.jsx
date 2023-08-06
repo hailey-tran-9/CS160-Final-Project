@@ -86,7 +86,7 @@ function App() {
     useFrame((state, delta) => {
         cameraRef.current.position.x = MathUtils.lerp(cameraRef.current.position.x, x, 0.1)
         cameraRef.current.position.y = MathUtils.lerp(cameraRef.current.position.y,y, 0.1)
-        cameraRef.current.position.z = MathUtils.lerp(cameraRef.current.position.y, z, 0.1)
+        cameraRef.current.position.z = MathUtils.lerp(cameraRef.current.position.z, z, 0.1)
     })
   }
   
