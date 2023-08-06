@@ -17,8 +17,23 @@ var keybindError = document.getElementById("keybind-error");
 
 // Keybinds
 const keybinds = new Set();
+const keybindsDict = 
+{
+    "Toggle Settings": "",
+    "Zoom In": "",
+    "Zoom Out": "",
+    "Move Up": "",
+    "Move Left": "",
+    "Move Down": "",
+    "Move Right": "",
+    "Rotate Up": "",
+    "Rotate Left": "",
+    "Rotate Down": "",
+    "Rotate Right": ""
+};
 var setToKey;
-var toggleSettingsKey;
+var validKeybind;
+var changeControl;
 
 // Handle keyboard input
 document.onkeydown = 
@@ -44,17 +59,36 @@ function( e ) {
             }
             keybindError.style.visibility = "hidden";
             setToKey = e.key;
+            validKeybind = true;
         } else {
+            let errorPostfix = keybindError.innerHTML.split("is")[1];
+            if (e.key == "ArrowUp") {
+                keybindPrompt.innerHTML = prefix + "to ↑";
+                keybindError.innerHTML = "'↑' is" + errorPostfix;
+            } else if (e.key == "ArrowLeft") {
+                keybindPrompt.innerHTML = prefix + "to ←";
+                keybindError.innerHTML = "'←' is" + errorPostfix;
+            } else if (e.key == "ArrowDown") {
+                keybindPrompt.innerHTML = prefix + "to ↓";
+                keybindError.innerHTML = "'↓' is" + errorPostfix;
+            } else if (e.key == "ArrowRight") {
+                keybindPrompt.innerHTML = prefix + "to →";
+                keybindError.innerHTML = "'→' is" + errorPostfix;
+            } else {
+                keybindPrompt.innerHTML = prefix + "to " + e.key;
+                keybindError.innerHTML = `'${e.key}' is` + errorPostfix;
+            }
+            validKeybind = false;
+            keybindError.style.color = "red";
             keybindError.style.visibility = "visible";
         }
     }
 
-    if (e.key == toggleSettingsKey) {
+    if (e.key == keybindsDict["Toggle Settings"]) {
         ToggleSettings();
     }
 
 };
-
 
 // Overlay vars
 var settingsOpen = false;
@@ -143,10 +177,7 @@ function ToggleCredits() {
 
 function CreateKeybind( control, key ) {
     keybinds.add(key);
-
-    if (control == "Toggle Settings") {
-        toggleSettingsKey = key;
-    }
+    keybindsDict[control] = key;
 
     if (key == "ArrowUp") {
         key = "↑";
@@ -175,7 +206,7 @@ function GenerateZoomKeybinds () {
         <>
             {CreateKeybind("Toggle Settings", "Escape")}
             {CreateKeybind("Zoom In", "Shift")}
-            {CreateKeybind("Zoom Out", "Ctrl")}
+            {CreateKeybind("Zoom Out", "Control")}
         </>
     )
 }
@@ -214,6 +245,7 @@ var allKeybindBtns = document.getElementsByClassName( "keybind-btn" );
 // Open the keybind popup
 function OpenKeybind() {
     if (!keybindOpen) {
+        setToKey = "";
         keybindError.style.visibility = "hidden";
         keybindPopup.style.visibility = "visible";
         keybindOpen = true;
@@ -232,9 +264,9 @@ function CloseKeybind() {
 // Wait for the doc to load, then assign all keybind btn onclick events to open the keybind popup
 document.addEventListener("DOMContentLoaded", function() {
     for ( let keybind of allKeybindBtns ) {
-        // console.log(keybind);
         keybind.onclick = 
             function () {
+                changeControl = keybind.id.replace("-btn", "");
                 keybindPrompt.innerHTML = "Change " + keybind.innerHTML + " to ___";
                 OpenKeybind();
             };
@@ -243,7 +275,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
 document.getElementById("keybind-confirm-btn").onclick =
 function () {
-    CloseKeybind();
+    if (setToKey != "" && validKeybind) {
+        keybinds.delete(keybindsDict[changeControl]);
+        keybindsDict[changeControl] = setToKey;
+
+        let key = keybindsDict[changeControl];
+        if (key == "ArrowUp") {
+            document.getElementById( changeControl + "-btn" ).innerHTML = "↑";
+        } else if (key == "ArrowLeft") {
+            document.getElementById( changeControl + "-btn" ).innerHTML = "←";
+        } else if (key == "ArrowDown") {
+            document.getElementById( changeControl + "-btn" ).innerHTML = "↓";
+        } else if (key == "ArrowRight") {
+            document.getElementById( changeControl + "-btn" ).innerHTML = "→";
+        } else {
+            document.getElementById( changeControl + "-btn" ).innerHTML = keybindsDict[changeControl];
+        }
+
+        if (changeControl == "Toggle Settings") {
+            document.getElementById( "settings-btn" ).innerHTML = keybindsDict[changeControl];
+        }
+
+        CloseKeybind();
+    }
 };
 
 document.getElementById("keybind-cancel-btn").onclick =

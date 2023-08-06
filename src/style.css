@@ -34,21 +34,30 @@ body {
     margin-bottom: 2rem;
 }
 
+.fill {
+    position: absolute;
+    padding:0;
+    margin:0;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    visibility: hidden;
+}
+
 .popup {
     position: absolute;
-
-    top: 20vh;
-    left: 40vw;
-
     width: auto;
     height: auto;
+    
     background:rgba(35, 35, 35, 0.9);
     border: white solid 2px;
     border-radius: 10px;
 
     color: white;
-
-    visibility: hidden;
 }
 
 #settings-btn {
@@ -59,16 +68,19 @@ body {
 
 #settings-overlay-btns {
     position: absolute center;
-    margin-top: 45vh;
-    margin-left: 42.5vw;
-    margin-bottom: 45vh;
+
+    width: 20rem;
+
+    margin: auto;
+}
+
+#settings-overlay-btns button {
+    width: 20rem;
 }
 
 .keybind-container {
     width: 200px;
     height: 50px;
-
-    margin: auto;
 }
 
 .keybind-container p {

@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-dark float-right mt-3 mr-3" id="settings-btn">ESC</button>
+                <button type="button" class="btn btn-dark float-right mt-3 mr-3" id="settings-btn">Escape</button>
             </div>
         </div>
     </div>
@@ -26,9 +26,9 @@
     <!-- Settings Overlay -->
     <div class="overlay-setup d-flex" id="settings-overlay">
         <div class="btn-group-vertical d-flex justify-content-center align-items-center" role="group" id="settings-overlay-btns">
-            <button type="button" class="btn btn-secondary" id="keyboard-controls-btn">Keyboard Controls</button>
-            <button type="button" class="btn btn-secondary" id="help-btn">Help</button>
-            <button type="button" class="btn btn-secondary" id="credits-btn">Credits</button>
+            <button type="button" class="btn-lg btn-secondary" id="keyboard-controls-btn">Keyboard Controls</button>
+            <button type="button" class="btn-lg btn-secondary" id="help-btn">Help</button>
+            <button type="button" class="btn-lg btn-secondary" id="credits-btn">Credits</button>
         </div>
     </div>
 
@@ -76,50 +76,54 @@
     </div>
 
     <!-- Keybind Popup -->
-    <div class="popup d-flex" id="keybind-popup">
+    <div class="fill d-flex justify-content-center align-items-center" id="keybind-popup-container">
+        <div class="popup d-flex justify-content-center align-items-center" id="keybind-popup">
 
-        <div class="container-fluid ml-5 mr-5">
-
-            <div class="row d-flex justify-content-center mt-5" id="keybind-error">
-                <p>Keybind is already being used. Enter a different key.</p>
+            <div class="container-fluid ml-5 mr-5">
+    
+                <div class="row d-flex justify-content-center mt-5" id="keybind-error">
+                    <p>Keybind is already being used. Enter a different key.</p>
+                </div>
+    
+                <div class="row d-flex justify-content-center mb-3">
+                    <h3 id="keybind-prompt"></h3>
+                </div>
+    
+                <div class="row d-flex justify-content-center mb-5">
+                    <button type="button" class="btn btn-success mr-3" id="keybind-confirm-btn">Confirm</button>
+                    <button type="button" class="btn btn-danger ml-3" id="keybind-cancel-btn">Cancel</button>
+                </div>
+    
             </div>
-
-            <div class="row d-flex justify-content-center mb-3">
-                <h3 id="keybind-prompt"></h3>
-            </div>
-
-            <div class="row d-flex justify-content-center mb-5">
-                <button type="button" class="btn btn-success mr-3" id="keybind-confirm-btn">Confirm</button>
-                <button type="button" class="btn btn-danger ml-3" id="keybind-cancel-btn">Cancel</button>
-            </div>
-
+            
         </div>
-        
     </div>
 
     <!-- Game Popup -->
-    <div class="popup d-flex" id="game-popup">
+    <div class="fill d-flex justify-content-center align-items-center" id="game-popup-container">
+        <div class="popup d-flex" id="game-popup">
 
-        <div class="container-fluid">
-
-            <div class="row">
-                <h4 id="game-title">TEST</h4>
-            </div>
-
-            <div class="row">
-                <img src="" alt="[ME][TA]L Cover Image" id="game-img">
+            <div class="container-fluid">
+    
+                <div class="row">
+                    <h4 id="game-title">TEST</h4>
+                </div>
+    
+                <div class="row">
+                    <img src="" alt="[ME][TA]L Cover Image" id="game-img">
+                </div>
+                
+                <div class="row">
+                    <p id="game-description"></p>
+                </div>
+    
+                <div class="row">
+                    <a href="url" id="game-url" target="_blank"></a>
+                </div>
+    
             </div>
             
-            <div class="row">
-                <p id="game-description"></p>
-            </div>
-
-            <div class="row">
-                <a href="url" id="game-url"></a>
-            </div>
-
         </div>
-        
     </div>
 
     <script type="module" src="./script.jsx"></script>

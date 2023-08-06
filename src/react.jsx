@@ -1,9 +1,10 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState  } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Canvas, extend } from '@react-three/fiber'
+import { Canvas, extend, useFrame, useThree } from '@react-three/fiber'
 import { PerspectiveCamera, OrbitControls, Bounds, useBounds } from '@react-three/drei'
 import { Outline } from '@react-three/postprocessing'
 import { BlendFunction, Resizer, KernelSize } from 'postprocessing'
+import { MathUtils } from 'three'
 
 import Papa from 'papaparse'
 
@@ -20,10 +21,30 @@ import { Coffee } from '../static/Coffee'
 import { Desk } from '../static/Desk'
 import { Catharsis } from '../static/Catharsis'
 
-// to reference Camera later
 
 function App() {
     const cameraRef = useRef()
+    const [couchActive, setCouchActive] = useState(false);
+  const [deskActive, setDeskActive] = useState(false);
+  const [guitarActive, setGuitarActive] = useState(false);
+
+  const handleCouchClick = () => {
+    setCouchActive(true);
+    setDeskActive(false);
+    setGuitarActive(false);
+  };
+
+  const handleDeskClick = () => {
+    setCouchActive(false);
+    setDeskActive(true);
+    setGuitarActive(false);
+  };
+
+  const handleGuitarClick = () => {
+    setCouchActive(false);
+    setDeskActive(false);
+    setGuitarActive(true);
+  };
 
     return (
 
@@ -36,19 +57,20 @@ function App() {
 
                 <PerspectiveCamera ref = {cameraRef} makeDefault position={[8, 3, 0]} />
                 <Rooms position={[0, 0, 0]}  scale={[8, 8, 8]}/>
-                <Bounds>
-                    <FocusObject>
+                {/* <Bounds> */}
+                    {/* <FocusObject> */}
                         <Couch 
                             onPointerEnter={(e) => HighlightObject(e, cameraRef)} 
                             onPointerLeave={(e) => UnhighlightObject(e, cameraRef)} 
                             position={[-2.4, 0.28, -2.5]} rotation={[0, Math.PI, 0]} 
-                            scale={[0.9, 0.9, 0.9]}
+                            scale={[0.9, 0.9, 0.9]} 
                         />
                         <Couch 
                             onPointerEnter={(e) => HighlightObject(e, cameraRef)} 
                             onPointerLeave={(e) => UnhighlightObject(e, cameraRef)} 
                             position={[-3.25, 0.28, -1.5]} rotation={[0, - Math.PI / 2, 0]} 
                             scale={[0.9, 0.9, 0.9]}
+                            cameraPosition={[-2.4, 1.5, -3]}
                         />
 
                         <Desk 
@@ -56,32 +78,32 @@ function App() {
                             onPointerLeave={(e) => UnhighlightObject(e, cameraRef)} 
                             position={[-1.6, 0.270, 1.5]}
                             scale={[0.3, 0.3, 0.3]}
+                            cameraPosition={[-2.4, 1.5, -3]}
                         />
 
                         <ElectricGuitar 
                             onClick={(e) => DisplayInfo( "[ME][TA]L" )} 
                             onPointerEnter={(e) => HighlightObject(e, cameraRef)} 
-                            onPointerLeave={(e) => UnhighlightObject(e, cameraRef)} 
+                            onPointerLeave={(e) => UnhighlightObject(e, cameraRef)}
+                            onPointerMissed={(e) => CloseGamePopup()} 
                             position={[-1.25, 0.125, -2.25]} 
                             rotation={[0, -Math.PI/2, 0]} 
                             scale={[0.04, 0.04, 0.04]} 
-                        />
-
-
-                    </FocusObject>   
-                </Bounds>            
-                    
+                            cameraPosition={[-2.4, 1.5, -3]}
+                            
+                        />  
+                    {/* </FocusObject>          */}
+                {/* </Bounds>    */}
                 {/* <Controller onClick={(e) => DisplayInfo( "TEST" )} position={[0, 2, 0]} scale={[0.05, 0.05, 0.05]} /> */}
 
                 <OrbitControls />
-
+                {/* <Signal active={couchActive || deskActive || guitarActive} targetX={20} /> */}
             </Canvas>
-            
         </div>
     )
 
   }
-  
+
 // set up a camera's position storage var
 let cameraPos; 
   
@@ -96,30 +118,77 @@ function UnhighlightObject (e, cameraRef) {
     thisScale.set(thisScale.x / 1.2, thisScale.y / 1.2, thisScale.z / 1.2);
 }
 
-function FocusObject({children}) {
-    // get and set the position of the object that the Camera want to focus on
-    console.log()
-    const api = useBounds()
-    return (
-        <group onClick={(e) => (e.stopPropagation(), e.delta <= 2 && api.refresh(e.object).fit())} onPointerMissed={(e) => e.button === 0 && api.refresh().fit()}>
-            {children}
-        </group>
-    )
+// function FocusObject({children}) {
+//     // get and set the position of the object that the Camera want to focus on
+//             const api = useBounds();
+
+//             return (
+//                 <group onClick={(e) => (e.stopPropagation(),
+//                  e.delta <= 2, api.refresh(e.object).fit() && console.log(e))} 
+//                  onPointerMissed={(e) => e.button === 0 && api.refresh().fit()}>
+//                     {children}
+//                 </group>
+//             )
+// }
+
+// function Signal({ active }, cameraRef) {
+    
+//     // This function will be called on every frame update
+//     useFrame((state, delta) => {
+//         // Use lerp to smoothly interpolate the position of the mesh between 0 and 100 based on the value of the 'active' prop.
+//         cameraRef.current.position.x = MathUtils.lerp(cameraRef.current.position.x, active ? 100 : 0, 0.1);
+        
+//     });
+    
+//     return <camere ref={cameraRef} />;
+// }
+
+  
+    // return <PerspectiveCamera ref={cameraRef} makeDefault position={[8, 3, 0]} />;
+
+function FocusObject({children}, e) {
+    // console.log(children.props.position)
+    // const vec = new THREE.Vector3();
+    // useFrame((state) => {
+    //     const step = 0.05
+    //     vec.set()
+    // })
 }
 
+    
 function UnfocusObject(e) {
 
 }
 
 // Helper func for clicking on game models
+var gamePopup = document.getElementById( "game-popup" );
 var gamePopupOpen = false;
+
+// Toggle game popup
+function ToggleGamePopup () {
+    // console.log(gamePopupOpen);
+    if (!gamePopupOpen) {
+        gamePopup.style.visibility = "visible";
+        gamePopupOpen = true;
+    } else {
+        gamePopup.style.visibility = "hidden";
+        gamePopupOpen = false;
+    }
+}
+
+function CloseGamePopup() {
+    // console.log(gamePopupOpen);
+    if (gamePopupOpen) {
+        ToggleGamePopup();
+    }
+}
+
 function DisplayInfo ( objName ) {
     for (let i in data) {
         if (data[i]["Game Title"] == objName) {
             // console.log(data[i]);
 
             // Get HTML elements
-            var gamePopup = document.getElementById( "game-popup" );
             var gameTitle = document.getElementById( "game-title" );
             var gameImg = document.getElementById( "game-img" );
             var gameDescription = document.getElementById( "game-description" );
@@ -138,17 +207,10 @@ function DisplayInfo ( objName ) {
             img.src = data[i]["Game Title"] + ".png";
 
             gameDescription.innerHTML = data[i]["Description"];
+            gameUrl.href = data[i]["Itch.io Link"];
             gameUrl.innerHTML = data[i]["Itch.io Link"];
 
-            // Toggle game popup
-            if (!gamePopupOpen) {
-                gamePopup.style.visibility = "visible";
-                gamePopupOpen = true;
-            } else {
-                gamePopup.style.visibility = "hidden";
-                gamePopupOpen = false;
-            }
-            
+            ToggleGamePopup();
         }
     }
 
