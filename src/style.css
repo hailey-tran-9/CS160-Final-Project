@@ -95,6 +95,7 @@ body {
 .keybind-container {
     width: 100%;
     height: 50px;
+    margin-bottom: 1rem;
 }
 
 .keybind-container p {
@@ -121,6 +122,8 @@ body {
 #game-popup {
     padding-top: 2rem;
     padding-bottom: 2rem;
+
+    width: 55vw;
 }
 
 #game-popup .container-fluid {

@@ -41,7 +41,7 @@ import { ToyBlocks } from '../static/ToyBlocks'
 import { Shirts } from '../static/Shirts'
 import { KawaiiArcade } from '../static/KawaiiArcade'
 import { AdjustableDesk } from '../static/AdjustableDesk'
-
+//import * as Model from '../static'
 
 import jjk from '../static/jjk.jpeg'
 import AnimalCross from '../static/ac.jpg'
@@ -51,6 +51,7 @@ import erased from '../static/erased.png'
 
 function App() {
     const cameraRef = useRef()
+    const goToGamesBtn = document.getElementById("go-to-games-btn");
 
     return (
 
@@ -429,6 +430,26 @@ function CameraZoom (q = new THREE.Quaternion(), p = new THREE.Vector3()) {
         easing.damp3(state.camera.position, p, 0.4, dt)
         easing.dampQ(state.camera.quaternion, q, 0.4, dt)
     })
+} 
+
+function CreateGoToBtn( roomName ) {
+    return (
+        <button type="button" className="btn btn-primary" id={"go-to-" + roomName + "-btn"}>Go To</button>
+    );
 }
+
+createRoot(document.getElementById('go-to-lobby-btn-container')).render(<CreateGoToBtn roomName={"lobby"} />)
+createRoot(document.getElementById('go-to-games-btn-container')).render(<CreateGoToBtn roomName={"games"} />)
+createRoot(document.getElementById('go-to-ie-btn-container')).render(<CreateGoToBtn roomName={"ie"} />)
+createRoot(document.getElementById('go-to-faq-btn-container')).render(<CreateGoToBtn roomName={"faq"} />)
+
+// function RepositionCamera() {
+//     const api = useBounds()
+//     return (
+//         <CreateGoToBtn onClick={(e) => e.button === 0 && api.refresh().fit().to({position: [-8, 3, 0]})}></CreateGoToBtn>
+//     )
+// }
+
+// createRoot(document.getElementById('go-to-games-btn-container')).render(<RepositionCamera></RepositionCamera>)
   
 createRoot(document.getElementById('root')).render(<App />)

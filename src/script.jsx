@@ -197,10 +197,10 @@ function CreateKeybind( control, key ) {
         <div className="keybind-container">
 
             <div className="row">
-                <div className="col">
+                <div className="col-6">
                     <button type="button" className="btn btn-dark keybind-btn" id={control+"-btn"}>{key}</button>
                 </div>
-                <div className="col-8">
+                <div className="col-6">
                     <p className="align-middle text-left ml-2">{control}</p>
                 </div>
             </div>
