@@ -4,15 +4,19 @@ Command: npx gltfjsx@6.2.10 boxingRing.glb --transform
 Files: boxingRing.glb [169.62KB] > boxingRing-transformed.glb [18.78KB] (89%)
 */
 
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { Select } from '@react-three/postprocessing'
 
 export function BoxingRing(props) {
   const { nodes, materials } = useGLTF('/boxingRing-transformed.glb')
+  const [hovered, hover] = useState(null)
   return (
-    <group {...props} dispose={null}>
-      <mesh geometry={nodes.group328789628.geometry} material={materials.PaletteMaterial001} />
-    </group>
+    <Select enabled = {hovered}>
+      <group {...props} dispose={null} onPointerOver={() => hover(true)} onPointerOut={() => hover(false)}>
+        <mesh geometry={nodes.group328789628.geometry} material={materials.PaletteMaterial001} />
+      </group>
+    </Select>
   )
 }
 

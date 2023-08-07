@@ -4,17 +4,21 @@ Command: npx gltfjsx@6.2.10 boxOpen.glb --transform
 Files: boxOpen.glb [14.22KB] > boxOpen-transformed.glb [3.64KB] (74%)
 */
 
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { Select } from '@react-three/postprocessing'
 
 export function BoxOpen(props) {
   const { nodes, materials } = useGLTF('/boxOpen-transformed.glb')
+  const [hovered, hover] = useState(null)
   return (
-    <group {...props} dispose={null}>
-      <mesh geometry={nodes.boxOpen_1.geometry} material={materials.woodDark} />
-      <mesh geometry={nodes.boxOpen_1_1.geometry} material={materials.wood} />
-      <mesh geometry={nodes.boxOpen_1_2.geometry} material={materials.rock} />
-    </group>
+    <Select enabled = {hovered}>
+      <group {...props} dispose={null} onPointerOver={() => hover(true)} onPointerOut={() => hover(false)}>
+        <mesh geometry={nodes.boxOpen_1.geometry} material={materials.woodDark} />
+        <mesh geometry={nodes.boxOpen_1_1.geometry} material={materials.wood} />
+        <mesh geometry={nodes.boxOpen_1_2.geometry} material={materials.rock} />
+      </group>
+    </Select>
   )
 }
 

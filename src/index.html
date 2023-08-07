@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GDD 3D Showcase</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row top">
+    <div class="container-fluid" id="taskbar">
+        <div class="row top" id="taskbar-row">
             <div class="col">
-                <div id="taskbar">
-                    <h1 class="pl-3 py-3">GDD 3D Showcase</h1>
+                <div>
+                    <h1 class="pl-3 py-3" id="page-title">
+                        <img src="gddLogo.png"></img>
+                    </h1>
                 </div>
             </div>
-            <div class="col">
-                <button type="button" class="btn btn-dark float-right mt-3 mr-3" id="settings-btn">Escape</button>
+            <div class="col d-flex justify-content-center align-items-center">
+                <button type="button" class="btn btn-dark" id="nav-bar-toggle-btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">Navigation</button>
+                <button type="button" class="btn btn-dark float-right" id="settings-btn">Settings</button>
             </div>
         </div>
     </div>
@@ -26,9 +29,9 @@
     <!-- Settings Overlay -->
     <div class="overlay-setup d-flex" id="settings-overlay">
         <div class="btn-group-vertical d-flex justify-content-center align-items-center" role="group" id="settings-overlay-btns">
-            <button type="button" class="btn-lg btn-secondary" id="keyboard-controls-btn">Keyboard Controls</button>
-            <button type="button" class="btn-lg btn-secondary" id="help-btn">Help</button>
-            <button type="button" class="btn-lg btn-secondary" id="credits-btn">Credits</button>
+            <button type="button" class="btn btn-secondary" id="keyboard-controls-btn">Keyboard Controls</button>
+            <button type="button" class="btn btn-secondary" id="help-btn">Help</button>
+            <button type="button" class="btn btn-secondary" id="credits-btn">Credits</button>
         </div>
     </div>
 
@@ -86,12 +89,18 @@
                 </div>
     
                 <div class="row d-flex justify-content-center mb-3">
-                    <h3 id="keybind-prompt"></h3>
+                    <div class="col d-flex justify-content-center">
+                        <h3 id="keybind-prompt"></h3>
+                    </div>
                 </div>
     
                 <div class="row d-flex justify-content-center mb-5">
-                    <button type="button" class="btn btn-success mr-3" id="keybind-confirm-btn">Confirm</button>
-                    <button type="button" class="btn btn-danger ml-3" id="keybind-cancel-btn">Cancel</button>
+                    <div class="col d-flex justify-content-center">
+                        <button type="button" class="btn btn-success mr-3" id="keybind-confirm-btn">Confirm</button>
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <button type="button" class="btn btn-danger ml-3" id="keybind-cancel-btn">Cancel</button>
+                    </div>
                 </div>
     
             </div>
@@ -126,8 +135,113 @@
         </div>
     </div>
 
+    <!-- Nav Bar -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="overflow-auto" id="nav-bar">
+
+            <div class="nav-bar-tab" id="nav-bar-lobby">
+                <div class="row">
+                    <div class="col-8">
+                        <h3>Lobby</h3>
+                    </div>
+                    <div class="col-4">
+                        <div class="row">
+                            <div class="col tab-btn-col">
+                                <button type="button" class="btn btn-primary" id="go-to-lobby-btn">Go To</button>
+                            </div>
+                            <div class="col tab-btn-col">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#lobby-collapse" aria-expanded="false" aria-controls="lobby-collapse">Hide</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse" id="lobby-collapse">
+                    <div class="row">
+                        <p>Lobby Info</p>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="nav-bar-tab" id="nav-bar-games">
+                <div class="row">
+                    <div class="col-8">
+                        <h3>Games</h3>
+                    </div>
+                    <div class="col-4">
+                        <div class="row">
+                            <div class="col tab-btn-col">
+                                <button type="button" class="btn btn-primary" id="go-to-games-btn">Go To</button>
+                            </div>
+                            <div class="col tab-btn-col">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#games-collapse" aria-expanded="false" aria-controls="games-collapse">Hide</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse" id="games-collapse">
+                    <div class="row">
+                        <div class="overflow-auto" id="nav-bar-game-lst"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-bar-tab" id="nav-bar-ie">
+                <div class="row">
+                    <div class="col-8">
+                        <h3>Industry Events</h3>
+                    </div>
+                    <div class="col-4">
+                        <div class="row">
+                            <div class="col tab-btn-col">
+                                <button type="button" class="btn btn-primary">Go To</button>
+                            </div>
+                            <div class="col tab-btn-col">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#ie-collapse" aria-expanded="false" aria-controls="ie-collapse">Hide</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse" id="ie-collapse">
+                    <div class="row">
+                        <p>Industry Events Info</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-bar-tab" id="nav-bar-faq">
+                <div class="row">
+                    <div class="col-8">
+                        <h3>FAQ</h3>
+                    </div>
+                    <div class="col-4">
+                        <div class="row">
+                            <div class="col tab-btn-col">
+                                <button type="button" class="btn btn-primary">Go To</button>
+                            </div>
+                            <div class="col tab-btn-col">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#faq-collapse" aria-expanded="false" aria-controls="faq-collapse">Hide</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse" id="faq-collapse">
+                    <div class="row">
+                        <p>FAQ Info</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script type="module" src="./script.jsx"></script>
     <script type="module" src="./react.jsx"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
 </body>
 </html>

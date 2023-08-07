@@ -4,15 +4,19 @@ Command: npx gltfjsx@6.2.10 electricGuitar.glb --transform
 Files: electricGuitar.glb [804.38KB] > electricGuitar-transformed.glb [28.38KB] (96%)
 */
 
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { Select } from '@react-three/postprocessing'
 
 export function ElectricGuitar(props) {
   const { nodes, materials } = useGLTF('/electricGuitar-transformed.glb')
+  const [hovered, hover] = useState(null)
   return (
-    <group {...props} dispose={null}>
-      <mesh geometry={nodes.ElectricGuitar_mesh.geometry} material={materials.lambert2SG} />
-    </group>
+    <Select enabled = {hovered}>
+      <group {...props} dispose={null} onPointerOver={() => hover(true)} onPointerOut={() => hover(false)}>
+        <mesh geometry={nodes.ElectricGuitar_mesh.geometry} material={materials.lambert2SG} />
+      </group>
+    </Select>
   )
 }
 

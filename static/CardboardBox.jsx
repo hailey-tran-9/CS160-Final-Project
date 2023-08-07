@@ -4,16 +4,20 @@ Command: npx gltfjsx@6.2.10 cardboardBox.glb --transform
 Files: cardboardBox.glb [11.29KB] > cardboardBox-transformed.glb [2.38KB] (79%)
 */
 
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { Select } from '@react-three/postprocessing'
 
 export function CardboardBox(props) {
   const { nodes, materials } = useGLTF('/cardboardBox-transformed.glb')
+  const [hovered, hover] = useState(null)
   return (
-    <group {...props} dispose={null}>
-      <mesh geometry={nodes.cardboardBoxOpen_2.geometry} material={materials.wood} />
-      <mesh geometry={nodes.cardboardBoxOpen_2_1.geometry} material={materials.woodDark} />
-    </group>
+    <Select enabled = {hovered}>
+      <group {...props} dispose={null} onPointerOver={() => hover(true)} onPointerOut={() => hover(false)}>
+        <mesh geometry={nodes.cardboardBoxOpen_2.geometry} material={materials.wood} />
+        <mesh geometry={nodes.cardboardBoxOpen_2_1.geometry} material={materials.woodDark} />
+      </group>
+    </Select>
   )
 }
 

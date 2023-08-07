@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { createRoot } from 'react-dom/client'
+
+import Papa from 'papaparse'
 
 // HTML element vars
 const settingsOverlay = document.getElementById( "settings-overlay" );
@@ -14,6 +16,8 @@ const rotationKeybindContainer = document.getElementById( "rotation-keybind-cont
 
 var keybindPrompt = document.getElementById("keybind-prompt");
 var keybindError = document.getElementById("keybind-error");
+
+const navBarGameLst = document.getElementById( "nav-bar-game-lst" );
 
 // Keybinds
 const keybinds = new Set();
@@ -193,8 +197,12 @@ function CreateKeybind( control, key ) {
         <div className="keybind-container">
 
             <div className="row">
-                <button type="button" className="btn btn-dark keybind-btn" id={control+"-btn"}>{key}</button>
-                <p className="align-middle text-center ml-2">{control}</p>
+                <div className="col">
+                    <button type="button" className="btn btn-dark keybind-btn" id={control+"-btn"}>{key}</button>
+                </div>
+                <div className="col-8">
+                    <p className="align-middle text-left ml-2">{control}</p>
+                </div>
             </div>
            
         </div>
@@ -292,10 +300,6 @@ function () {
             document.getElementById( changeControl + "-btn" ).innerHTML = keybindsDict[changeControl];
         }
 
-        if (changeControl == "Toggle Settings") {
-            document.getElementById( "settings-btn" ).innerHTML = keybindsDict[changeControl];
-        }
-
         CloseKeybind();
     }
 };
@@ -304,3 +308,55 @@ document.getElementById("keybind-cancel-btn").onclick =
 function () {
     CloseKeybind();
 };
+
+// Store the info from descriptions.csv into an JS object
+var data;
+var papa_csv = Papa.parse('/descriptions.csv', {
+    download: true,
+    header: true,
+    quoteChar: '"',
+    delimiter:",",
+    complete: function(results) {
+        // console.log("Parse results: ", results.data);
+        data = results.data;
+        createRoot(navBarGameLst).render(<GenerateGameLst />)
+    }
+});
+// console.log("console: ", data);
+
+function CreateGameTab( gameTitle, description, link ) {
+    return (
+        <div className="game-tab" id={gameTitle+"-tab"} key={gameTitle+"-tab"}>
+
+            <div className="row">
+                <div className="col-4">
+                    <button type="button" className="btn btn-light" id={gameTitle+"-btn"}>{gameTitle}</button>
+                </div>
+                <div className="col-8">
+                    <p>{description}</p>
+                </div>
+            </div>
+
+            <div className="row">
+                <div className="col-4"></div>
+                <div className="col-8">
+                    <a href={link} target="_blank">{link}</a>
+                </div>
+            </div>
+           
+        </div>
+    )
+}
+
+function GenerateGameLst() {
+    let tabs = [];
+    for (let i in data) {
+        tabs.push(CreateGameTab(data[i]["Game Title"], data[i]["Description"], data[i]["Itch.io Link"]));
+    }
+
+    return (
+        <>
+            {tabs}
+        </>
+    )
+}
