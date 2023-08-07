@@ -39,11 +39,14 @@ import { Nightstand } from '../static/Nightstand'
 import { Railing } from '../static/Railing'
 import { ToyBlocks } from '../static/ToyBlocks'
 import { Shirts } from '../static/Shirts'
+import { KawaiiArcade } from '../static/KawaiiArcade'
+import { AdjustableDesk } from '../static/AdjustableDesk'
+
 
 import jjk from '../static/jjk.jpeg'
 import AnimalCross from '../static/ac.jpg'
 import ruby from '../static/ruby.png'
-
+import erased from '../static/erased.png'
 
 
 function App() {
@@ -95,6 +98,14 @@ function App() {
                             position={[-2.6, 0.2, -0.5]} rotation={[0, 7*Math.PI/5, 0]} 
                             scale={[0.04, 0.04, 0.04]}
                         />
+
+                        <ToyBlocks
+                            onPointerEnter={(e) => HighlightObject(e)} 
+                            onPointerLeave={(e) => UnhighlightObject(e)}
+                            position={[-3, 0.18, -0.1]} rotation={[0, 0, 0]}
+                            scale={[2, 2, 2]}
+                        />
+                        
                     </SelectToZoom>
                 </Selection>
 
@@ -116,8 +127,14 @@ function App() {
                         scale={[0.8, 0.8, 0.8]}
                     />
 
-                    <Desk 
+                    {/* <Desk 
                         position={[-1.6, 0.270, 1.6]}
+                        scale={[0.5, 0.35, 0.46]}
+                    /> */}
+                    
+                    <AdjustableDesk 
+                        position={[-1.48, 0.125, 1.7]}
+                        rotation={[0, Math.PI, 0]} 
                         scale={[0.5, 0.35, 0.46]}
                     />
 
@@ -182,20 +199,27 @@ function App() {
 
                     <Ruby />
 
+                    <Erased />
+
                     <FigPlant
                         position={[-1.5, 0.1, -2.6]}
                         scale={[0.08, 0.08, 0.08]}
                     />
 
                     <Railing
-                        position={[-1.45, 1, 1]} rotation={[0, 0, 0]}
-                        scale={[0.3, 0.3, 0.3]}
+                        position={[-1.8, 1, 1]} rotation={[0, 0, 0]}
+                        scale={[0.8, 0.3, 0.6]}
                     />
-                    <Railing
-                        position={[-2.1, 1, 1]} rotation={[0, 0, 0]}
+
+                    <Nightstand
+                        position={[-1.4, 1, 1.5]} rotation={[0, Math.PI, 0]}
                         scale={[0.3, 0.3, 0.3]}
                     />
 
+                    <Shirts
+                        position={[-2.6, 0.17, 0.3]} rotation={[0, Math.PI/9, 0]}
+                        scale={[0.3, 0.3, 0.3]}
+                    />
 
 
 
@@ -217,6 +241,11 @@ function App() {
                     />
 
                     {/* Tavern */}
+                    <KawaiiArcade 
+                    position={[-0.9, 0.45, 1.5]}
+                    rotation={[0, Math.PI/2, 0]}
+                    scale={[20, 20, 20]}
+                    />
 
                 </Bounds>
                 <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 2} enableDamping={false} />
@@ -243,7 +272,7 @@ function App() {
     const texture = useLoader(THREE.TextureLoader, AnimalCross);
 
     return (
-      <mesh position={[-2.7, 0.85, -2.84]}>
+      <mesh position={[-2.6, 0.85, -2.84]}>
         <planeBufferGeometry attach="geometry" args={[0.5, 0.5]} />
         <meshBasicMaterial attach="material" map={texture} />
       </mesh>
@@ -256,6 +285,17 @@ function App() {
     return (
       <mesh position={[-1.8, 0.9, -2.84]}>
         <planeBufferGeometry attach="geometry" args={[0.85, 0.5]} />
+        <meshBasicMaterial attach="material" map={texture} />
+      </mesh>
+    )
+  }
+
+  function Erased() {
+    const texture = useLoader(THREE.TextureLoader, erased);
+
+    return (
+      <mesh position={[-1.25, 0.9, 0.5]} rotation={[0, -Math.PI/2, 0]}>
+        <planeBufferGeometry attach="geometry" args={[0.3, 0.4]} />
         <meshBasicMaterial attach="material" map={texture} />
       </mesh>
     )

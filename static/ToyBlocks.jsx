@@ -4,15 +4,19 @@ Command: npx gltfjsx@6.2.10 ToyBlocks.glb --transform
 Files: ToyBlocks.glb [52.45KB] > ToyBlocks-transformed.glb [8.98KB] (83%)
 */
 
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { Select } from '@react-three/postprocessing'
 
 export function ToyBlocks(props) {
   const { nodes, materials } = useGLTF('/ToyBlocks-transformed.glb')
+  const [hovered, hover] = useState(null)
   return (
-    <group {...props} dispose={null}>
-      <mesh geometry={nodes.D.geometry} material={materials.PaletteMaterial001} position={[0.078, -0.003, 0.021]} rotation={[1.57, 0.002, -0.021]} scale={[0.019, 0.01, 0.01]} />
-    </group>
+    <Select enabled = {hovered}>
+      <group {...props} dispose={null} onPointerOver={() => hover(true)} onPointerOut={() => hover(false)}>
+        <mesh geometry={nodes.D.geometry} material={materials.PaletteMaterial001} position={[0.078, -0.003, 0.021]} rotation={[1.57, 0.002, -0.021]} scale={[0.019, 0.01, 0.01]} />
+      </group>
+    </Select>
   )
 }
 
