@@ -1,7 +1,7 @@
 import React, { useRef, useState, Suspense, useMemo, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Canvas, extend, useFrame, useThree, useLoader } from '@react-three/fiber'
-import { PerspectiveCamera, OrbitControls, Bounds, useBounds, Sky} from '@react-three/drei'
+import { PerspectiveCamera, OrbitControls, Bounds, useBounds, Sky, useAnimations, useGLTF } from '@react-three/drei'
 import { Selection, Select, EffectComposer, Outline } from '@react-three/postprocessing'
 import { BlendFunction, Resizer, KernelSize } from 'postprocessing'
 import { MathUtils } from 'three'
@@ -50,7 +50,12 @@ import { BarCounter } from '../static/BarCounter'
 import { ModernRug } from '../static/ModernRug'
 import { InvisibleWall } from '../static/InvisibleWall'
 import { StardewValley } from '../static/StardewValley'
-//import * as Model from '../static'
+import { Sink } from '../static/Sink'
+import { Fridge } from '../static/Fridge'
+import { TavernCouch } from '../static/TavernCouch'
+import { TavernCouchSmall } from '../static/TavernCouchSmall'
+import { TavernShelf } from '../static/TavernShelf'
+import { Champagne } from '../static/Champagne'
 
 
 import jjk from '../static/jjk.jpeg'
@@ -73,7 +78,7 @@ function App() {
             <Canvas>
                 <ambientLight intensity={.7}/>
                 <directionalLight />
-                <PerspectiveCamera ref = {cameraRef} makeDefault position={[-10, 3, 0]} near={0.1} far={1000}  fov={45}/>
+                <PerspectiveCamera ref = {cameraRef} makeDefault position={[-1, 3, 15]} near={0.1} far={1000} fov={45}/>
                 <Rooms_1 position={[0, 0, 0]}  scale={[8, 8, 8]}/>
                 <Bounds fit clip observe margin={1.2}>
                 <Selection>
@@ -125,10 +130,30 @@ function App() {
 
                     {/* Gaming room */}
 
-                    {/* <InvisibleWall 
-                        position={[-1.17, 0, -0.1]} rotation={[0, Math.PI/2, 0]}
-                        scale={[37, 21, 2]} 
-                    /> */}
+                    <InvisibleWall
+                        onPointerOver={(e) => e.stopPropagation()} 
+                        position={[-1.17, 0, -0.9]} rotation={[0, Math.PI/2, 0]}
+                        scale={[25, 21, 1]} 
+                    />
+
+                    <InvisibleWall
+                        onPointerOver={(e) => e.stopPropagation()} 
+                        position={[-1.17, 0, 1.85]} rotation={[0, Math.PI/2, 0]}
+                        scale={[9, 21, 1]} 
+                    />
+
+                    <InvisibleWall
+                        onPointerOver={(e) => e.stopPropagation()} 
+                        position={[-2.1, 0, 2.5]} rotation={[0, 0, 0]}
+                        scale={[21, 21, 1]} 
+                    />
+
+                    {/* adjust this invisible wall tmrw!! */}
+                    <InvisibleWall
+                        onPointerOver={(e) => e.stopPropagation()} 
+                        position={[-2.1, 0, 2.5]} rotation={[0, 0, 0]}
+                        scale={[21, 21, 1]} 
+                    />
                     
                     <BoxOpen
                             position={[-1.4, 0.125, 0]} 
@@ -259,9 +284,9 @@ function App() {
                     />
 
                     <StardewValley
-                        position={[-1.55, 1.07, -3.2]}
-                        scale={[0.04, 0.04, 0.04]}
-                        rotation={[0, 0, 0]}
+                        position={[-1.56, 1.12, -3.2]}
+                        scale={[0.035, 0.035, 0.035]}
+                        rotation={[-0.25, 0, 0]}
                         onPointerEnter={(e) => HighlightObject(e)} 
                         onPointerLeave={(e) => UnhighlightObject(e)}
                     />
@@ -277,9 +302,15 @@ function App() {
                     />
                     
                     <BarCounter
-                        position={[-0.3, 0.1, -2.8]}
+                        position={[-0.5, 0.1, -2.8]}
                         rotation={[0, Math.PI/2, 0]}
-                        scale={[7, 1.3, 1]}
+                        scale={[4.5, 1.2, 1.6]}
+                    />
+
+                    <Sink
+                        position={[-1, 0.09, -2.23]}
+                        rotation={[0, Math.PI, 0]}
+                        scale={[1.2, 1.2, 1.2]}
                     />
 
                     <FlatTv
@@ -288,9 +319,46 @@ function App() {
                         rotation={[0, Math.PI/2, 0]} 
                     />
 
+                    <Fridge
+                        position={[-0.9, 0.09, -1.4]}
+                        rotation={[0, -Math.PI/2, 0]}
+                        scale={[0.8, 0.5, 0.6]} 
+                    />
+
+                    <Fridge
+                        position={[-0.9, 0.09, -1.8]}
+                        rotation={[0, -Math.PI/2, 0]}
+                        scale={[0.8, 0.5, 0.6]} 
+                    />
+
+                    {/* <ModernRug 
+                        position={[0.2, 0.125, 0.4]}
+                        rotation={[0, Math.PI/2, 0]}
+                        scale={[0.17, 0.17, 0.17]}
+                    /> */}
+
                     <ModernRug 
-                        position={[0.8, 0.125, -0.8]}
-                        scale={[0.15, 0.15, 0.15]}
+                        position={[0.7, 0.125, -0.8]}
+                        rotation={[0, 0, 0]}
+                        scale={[0.17, 0.17, 0.17]}
+                    />
+
+                    <TavernCouch
+                        position={[1.1, 0.12, -0.80]}
+                        rotation={[0, -Math.PI/2, 0]}
+                        scale={[0.19, 0.19, 0.19]}
+                    />
+                    
+                    <TavernCouchSmall
+                        position={[0.6, 0.12, -1.5]}
+                        rotation={[0, -Math.PI + Math.PI, 0]}
+                        scale={[0.19, 0.19, 0.19]}
+                    />
+
+                    <TavernCouchSmall
+                        position={[0.6, 0.12, -0.1]}
+                        rotation={[0, Math.PI, 0]}
+                        scale={[0.19, 0.19, 0.19]}
                     />
 
 
@@ -397,6 +465,43 @@ function FinalFantasy() {
 
 // -------------------------------------------------------------------------------------------------
 
+// Reset camera position
+function ResetCameraPos() {
+    if (camera) {
+        // console.log(camera.current.getFocalLength());
+        camera.current.zoom = 1;
+        camera.current.updateProjectionMatrix();
+        camera.current.position.set(-10, 3, 0);
+    }
+}
+
+// Zooming
+function ZoomIn() {
+    if (camera) {
+        if (camera.current.zoom < 9) {
+            camera.current.zoom += 0.1;
+            camera.current.updateProjectionMatrix();
+            // console.log(camera.current.zoom);
+        }
+    }
+}
+
+function ZoomOut() {
+    if (camera) {
+        if (camera.current.zoom >= 0.6) {
+            camera.current.zoom -= 0.1;
+            camera.current.updateProjectionMatrix();
+            // console.log(camera.current.zoom);
+        }  
+    }
+}
+
+function ResetZoom() {
+    if (camera) {
+        camera.current.zoom = 1;
+    }
+}
+
 // Set movement controls
 function SetMovementKeybinds( controls, u, l, b, r ) {
     controls.keys["UP"] = u;
@@ -446,7 +551,7 @@ function SelectToZoom({ children }) {
     //     easing.dampQ(state.camera.quaternion, q, 0.4, dt)
     // })
     return (
-        <group onClick={(e) => (e.stopPropagation(), e.delta <= 2 && api.refresh(e.object).fit())} onPointerMissed={(e) => e.button === 0 && api.refresh().fit().to({position: [-8, 3, 0]})}>
+        <group onClick={(e) => (e.stopPropagation(), e.delta <= 2 && api.refresh(e.object).fit())}>
         {children}
         </group>
     )
@@ -465,6 +570,23 @@ function UnhighlightObject (e) {
 
 // -------------------------------------------------------------------------------------------------
 // OVERLAYS, POPUPS
+
+// HTML element vars
+const settingsOverlay = document.getElementById( "settings-overlay" );
+const keyboardControlsOverlay = document.getElementById( "keyboard-controls-overlay" );
+const helpOverlay = document.getElementById( "help-overlay" );
+const creditsOverlay = document.getElementById( "credits-overlay" );
+const keybindPopup = document.getElementById( "keybind-popup" );
+
+const zoomKeybindContainer = document.getElementById( "zoom-keybind-container" );
+const movementKeybindContainer = document.getElementById( "movement-keybind-container" );
+const snapKeybindContainer = document.getElementById( "snap-keybind-container" );
+
+var keybindPrompt = document.getElementById("keybind-prompt");
+var keybindError = document.getElementById("keybind-error");
+
+const navBarGameLst = document.getElementById( "nav-bar-game-lst" );
+var navBarToggleBtn = document.getElementById( "nav-bar-toggle-btn" );
 
 // Helper func for clicking on game models
 var gamePopup = document.getElementById( "game-popup" );
@@ -524,40 +646,28 @@ function DisplayInfo ( objName ) {
 }
 
 // Create the Go To buttons with their room names
-function CreateGoToBtn( roomName ) {
+function CreateGoToBtn( {roomName} ) {
     return (
         <button type="button" className="btn btn-primary" id={"go-to-" + roomName + "-btn"}>Go To</button>
     );
 }
 
-createRoot(document.getElementById('go-to-lobby-btn-container')).render(<CreateGoToBtn roomName={"lobby"} />)
-createRoot(document.getElementById('go-to-games-btn-container')).render(<CreateGoToBtn roomName={"games"} />)
-createRoot(document.getElementById('go-to-ie-btn-container')).render(<CreateGoToBtn roomName={"ie"} />)
-createRoot(document.getElementById('go-to-faq-btn-container')).render(<CreateGoToBtn roomName={"faq"} />)
+createRoot(document.getElementById('go-to-lobby-btn-container')).render(<CreateGoToBtn roomName="lobby" />)
+createRoot(document.getElementById('go-to-games-btn-container')).render(<CreateGoToBtn roomName="games" />)
+createRoot(document.getElementById('go-to-ie-btn-container')).render(<CreateGoToBtn roomName="ie" />)
+createRoot(document.getElementById('go-to-faq-btn-container')).render(<CreateGoToBtn roomName="faq" />)
 
-
-
-
-
-
-// HTML element vars
-const settingsOverlay = document.getElementById( "settings-overlay" );
-const keyboardControlsOverlay = document.getElementById( "keyboard-controls-overlay" );
-const helpOverlay = document.getElementById( "help-overlay" );
-const creditsOverlay = document.getElementById( "credits-overlay" );
-const keybindPopup = document.getElementById( "keybind-popup" );
-
-const zoomKeybindContainer = document.getElementById( "zoom-keybind-container" );
-const movementKeybindContainer = document.getElementById( "movement-keybind-container" );
-const snapKeybindContainer = document.getElementById( "snap-keybind-container" );
-
-var keybindPrompt = document.getElementById("keybind-prompt");
-var keybindError = document.getElementById("keybind-error");
-
-const navBarGameLst = document.getElementById( "nav-bar-game-lst" );
+// document.getElementById("go-to-games-btn").onclick =
+// function () {
+//     if (camera) {
+//         camera.current.position.set();
+//     }
+// };
 
 // Keybinds
 const keybinds = new Set();
+keybinds.add("Control");
+keybinds.add("Tab");
 const keybindsDict = 
 {
     "Toggle Settings": "",
@@ -602,35 +712,72 @@ function( e ) {
             setToKey = e.key;
             validKeybind = true;
         } else {
-            let errorPostfix = keybindError.innerHTML.split("is")[1];
-            if (e.key == "ArrowUp") {
-                keybindPrompt.innerHTML = prefix + "to ↑";
-                keybindError.innerHTML = "'↑' is" + errorPostfix;
-            } else if (e.key == "ArrowLeft") {
-                keybindPrompt.innerHTML = prefix + "to ←";
-                keybindError.innerHTML = "'←' is" + errorPostfix;
-            } else if (e.key == "ArrowDown") {
-                keybindPrompt.innerHTML = prefix + "to ↓";
-                keybindError.innerHTML = "'↓' is" + errorPostfix;
-            } else if (e.key == "ArrowRight") {
-                keybindPrompt.innerHTML = prefix + "to →";
-                keybindError.innerHTML = "'→' is" + errorPostfix;
-            } else {
+            if (e.key == "Control" || e.key == "Tab") {
                 keybindPrompt.innerHTML = prefix + "to " + e.key;
-                keybindError.innerHTML = `'${e.key}' is` + errorPostfix;
+                keybindError.innerHTML = "This is an illegal keybind. Please use another key.";
+                validKeybind = false;
+                keybindError.style.color = "red";
+                keybindError.style.visibility = "visible";
+            } else {
+                let errorPostfix = "is already being used. Enter a different key.";
+                if (e.key == "ArrowUp") {
+                    keybindPrompt.innerHTML = prefix + "to ↑";
+                    keybindError.innerHTML = "'↑' " + errorPostfix;
+                } else if (e.key == "ArrowLeft") {
+                    keybindPrompt.innerHTML = prefix + "to ←";
+                    keybindError.innerHTML = "'←' " + errorPostfix;
+                } else if (e.key == "ArrowDown") {
+                    keybindPrompt.innerHTML = prefix + "to ↓";
+                    keybindError.innerHTML = "'↓' " + errorPostfix;
+                } else if (e.key == "ArrowRight") {
+                    keybindPrompt.innerHTML = prefix + "to →";
+                    keybindError.innerHTML = "'→' " + errorPostfix;
+                } else {
+                    keybindPrompt.innerHTML = prefix + "to " + e.key;
+                    keybindError.innerHTML = `'${e.key}' ` + errorPostfix;
+                }
+                validKeybind = false;
+                keybindError.style.color = "red";
+                keybindError.style.visibility = "visible";
             }
-            validKeybind = false;
-            keybindError.style.color = "red";
-            keybindError.style.visibility = "visible";
         }
     }
 
     if (e.key == keybindsDict["Toggle Settings"]) {
-        ToggleSettings();
+        if (!keybindOpen) {
+            // if (camera) {
+            //     console.log(camera.current.getFocalLength());
+            // }
+            ToggleSettings();
+        }
     }
 
     if (e.key == keybindsDict["Zoom In"]) {
         ZoomIn();
+    }
+
+    if (e.key == keybindsDict["Zoom Out"]) {
+        ZoomOut();
+    }
+
+    if (e.key == "r") {
+        ResetCameraPos();
+    }
+    
+    if (e.key == keybindsDict["Snap to Lobby"]) {
+        GoToLobby();
+    }
+
+    if (e.key == keybindsDict["Snap to Games"]) {
+        GoToGames();
+    }
+    
+    if (e.key == keybindsDict["Snap to Industry Events"]) {
+        GoToIe();
+    }
+
+    if (e.key == keybindsDict["Snap to FAQ"]) {
+        GoToFaq();
     }
 
 };
@@ -640,6 +787,8 @@ var settingsOpen = false;
 var keyBoardControlsOpen = false;
 var helpOpen = false;
 var creditsOpen = false;
+var navBarOpen = false;
+var anySettingsOpen = false;
 
 // Toggle the settings overlay by clicking
 document.getElementById( "settings-btn" ).onclick = 
@@ -665,6 +814,21 @@ function() {
     ToggleCredits();
 };
 
+// Change the navBarOpen var onclick
+navBarToggleBtn.onclick = 
+function() {
+    ToggleNavBar();
+};
+
+function UpdateAnySettingsOpen() {
+    anySettingsOpen = settingsOpen || keyBoardControlsOpen || helpOpen || creditsOpen;
+    if (anySettingsOpen) {
+        navBarToggleBtn.disabled = true;
+    } else {
+        navBarToggleBtn.disabled = false;
+    }
+}
+
 // Toggle the settings overlay
 function ToggleSettings() {
     // console.log(settingsOpen);
@@ -678,12 +842,16 @@ function ToggleSettings() {
         creditsOverlay.style.visibility = "hidden";
         creditsOpen = false;
     } else if (!settingsOpen) {
-        settingsOverlay.style.visibility = "visible";
-        settingsOpen = true;
+        if (!navBarOpen) {
+            settingsOverlay.style.visibility = "visible";
+            settingsOpen = true;
+        }
     } else if (settingsOpen) {
         settingsOverlay.style.visibility = "hidden";
         settingsOpen = false;
     }
+
+    UpdateAnySettingsOpen();
 }
 
 // Toggle the keyboard controls overlay
@@ -696,6 +864,8 @@ function ToggleKeyboardControls() {
         settingsOverlay.style.visibility = "hidden";
         settingsOpen = false;
     }
+
+    UpdateAnySettingsOpen();
 }
 
 // Toggle the help overlay
@@ -707,6 +877,8 @@ function ToggleHelp() {
         settingsOverlay.style.visibility = "hidden";
         settingsOpen = false;
     }
+
+    UpdateAnySettingsOpen();
 }
 
 // Toggle the credits overlay
@@ -717,6 +889,17 @@ function ToggleCredits() {
 
         settingsOverlay.style.visibility = "hidden";
         settingsOpen = false;
+    }
+
+    UpdateAnySettingsOpen();
+}
+
+// Change the navBarOpen var
+function ToggleNavBar() {
+    if (!navBarOpen) {
+        navBarOpen = true;
+    } else {
+        navBarOpen = false;
     }
 }
 
@@ -755,7 +938,7 @@ function GenerateZoomKeybinds () {
         <>
             {CreateKeybind("Toggle Settings", "Escape")}
             {CreateKeybind("Zoom In", "Shift")}
-            {CreateKeybind("Zoom Out", "Control")}
+            {CreateKeybind("Zoom Out", "z")}
         </>
     )
 }
@@ -810,8 +993,72 @@ function CloseKeybind() {
     }
 }
 
+function GoToLobby() {
+    if (camera) {
+        camera.current.position.set(10, 3, 0);
+        camera.current.lookAt(0, 0, 0);
+        camera.current.updateProjectionMatrix();
+    }
+}
+
+function GoToGames() {
+    if (camera) {
+        camera.current.position.set(-10, 3, 0);
+        camera.current.lookAt(0, 0, 0);
+        camera.current.updateProjectionMatrix();
+    }
+}
+
+function GoToIe() {
+    if (camera) {
+        camera.current.position.set(-1, 3, -15);
+        camera.current.lookAt(0, 0, 0);
+        camera.current.updateProjectionMatrix();
+    }
+}
+
+function GoToFaq() {
+    if (camera) {
+        camera.current.position.set(-1, 3, 15);
+        camera.current.lookAt(0, 0, 0);
+        camera.current.updateProjectionMatrix();
+    }
+}
+
 // Wait for the doc to load, then assign all keybind btn onclick events to open the keybind popup
 $( document ).ready(function() {
+    var goToLobbyBtn = document.getElementById("go-to-lobby-btn");
+    if (goToLobbyBtn) {
+        goToLobbyBtn.onclick =
+        function () {
+            GoToLobby();
+        };
+    }
+
+    var goToGamesBtn = document.getElementById('go-to-games-btn')
+    if (goToGamesBtn) {
+        goToGamesBtn.onclick =
+        function () {
+            GoToGames();
+        };
+    }
+
+    var goToIeBtn = document.getElementById('go-to-ie-btn')
+    if (goToIeBtn) {
+        goToIeBtn.onclick =
+        function () {
+            GoToIe();
+        };
+    }
+
+    var goToFaqBtn = document.getElementById('go-to-faq-btn')
+    if (goToFaqBtn) {
+        goToFaqBtn.onclick =
+        function () {
+            GoToFaq();
+        };
+    }
+
     for ( let keybind of allKeybindBtns ) {
         keybind.onclick = 
             function () {
@@ -827,6 +1074,7 @@ function () {
     if (setToKey != "" && validKeybind) {
         keybinds.delete(keybindsDict[changeControl]);
         keybindsDict[changeControl] = setToKey;
+        keybinds.add(setToKey);
 
         let key = keybindsDict[changeControl];
 
@@ -880,24 +1128,13 @@ var papa_csv = Papa.parse('/descriptions.csv', {
 
 function CreateGameTab( gameTitle, description, link ) {
     return (
-        <div className="game-tab" id={gameTitle+"-tab"} key={gameTitle+"-tab"}>
-
-            <div className="row">
-                <div className="col-4">
-                    <button type="button" className="btn btn-light" id={gameTitle+"-btn"}>{gameTitle}</button>
-                </div>
-                <div className="col-8">
-                    <p>{description}</p>
-                </div>
+        <div className="card" id={gameTitle+"-tab"} key={gameTitle+"-tab"}>
+            <img src={gameTitle+".png"} className="card-img-top" alt={gameTitle + " cover"}></img>
+            <div className="card-body">
+                <h5 className="card-title">{gameTitle}</h5>
+                <p className='card-description'>{description}</p>
+                <a href={link} target="_blank" className="btn btn-primary">Play the game</a>
             </div>
-
-            <div className="row">
-                <div className="col-4"></div>
-                <div className="col-8">
-                    <a href={link} target="_blank">{link}</a>
-                </div>
-            </div>
-           
         </div>
     )
 }
@@ -914,5 +1151,75 @@ function GenerateGameLst() {
         </>
     )
 }
+
+var lobbyCollapseBtn = document.getElementById("lobby-collapse-btn");
+var lobbyCollapseOpen = false;
+lobbyCollapseBtn.onclick =
+function () {
+    if (!lobbyCollapseOpen) {
+        lobbyCollapseOpen = true;
+        lobbyCollapseBtn.innerHTML = "Hide";
+    } else {
+        lobbyCollapseOpen = false;
+        lobbyCollapseBtn.innerHTML = "Show";
+    }
+};
+
+var gamesCollapseBtn = document.getElementById("games-collapse-btn");
+var gamesCollapseOpen = false;
+gamesCollapseBtn.onclick =
+function () {
+    if (!gamesCollapseOpen) {
+        gamesCollapseOpen = true;
+        gamesCollapseBtn.innerHTML = "Hide";
+    } else {
+        gamesCollapseOpen = false;
+        gamesCollapseBtn.innerHTML = "Show";
+    }
+};
+
+var ieCollapseBtn = document.getElementById("ie-collapse-btn");
+var ieCollapseOpen = false;
+ieCollapseBtn.onclick =
+function () {
+    if (!ieCollapseOpen) {
+        ieCollapseOpen = true;
+        ieCollapseBtn.innerHTML = "Hide";
+    } else {
+        ieCollapseOpen = false;
+        ieCollapseBtn.innerHTML = "Show";
+    }
+};
+
+var faqCollapseBtn = document.getElementById("faq-collapse-btn");
+var faqCollapseOpen = false;
+faqCollapseBtn.onclick =
+function () {
+    if (!faqCollapseOpen) {
+        faqCollapseOpen = true;
+        faqCollapseBtn.innerHTML = "Hide";
+    } else {
+        faqCollapseOpen = false;
+        faqCollapseBtn.innerHTML = "Show";
+    }
+};
+
+// animation name: body|Take 001|BaseLayer
+function BearMO () {
+    const { scene, animations } = useGLTF('bearmofloat.glb');
+    const modelRef = useRef();
+    const animationAction = useRef();
+    const {actions} = useAnimations(animations);
+
+    const playAnimation = (name) => {
+        if (actions['body|Take 001|BaseLayer']) {
+            actions['body|Take 001|BaseLayer'].play();
+        }
+    }
+    
+    return <primitive object = {scene} ref = {modelRef} onclick = {() => playAnimation('body|Take 001|BaseLayer')}/>;
+}
+
+
 
 createRoot(document.getElementById('root')).render(<App />)

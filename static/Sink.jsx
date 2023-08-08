@@ -7,7 +7,7 @@ Files: Sink.glb [44.62KB] > Sink-transformed.glb [6.39KB] (86%)
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
-export function Model(props) {
+export function Sink(props) {
   const { nodes, materials } = useGLTF('/Sink-transformed.glb')
   return (
     <group {...props} dispose={null}>

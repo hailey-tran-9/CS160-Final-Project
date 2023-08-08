@@ -7,7 +7,7 @@ Files: Fridge.glb [38.56KB] > Fridge-transformed.glb [3.86KB] (90%)
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
-export function Model(props) {
+export function Fridge(props) {
   const { nodes, materials } = useGLTF('/Fridge-transformed.glb')
   return (
     <group {...props} dispose={null}>

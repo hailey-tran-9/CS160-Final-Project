@@ -7,7 +7,7 @@ Files: Champagne.glb [25.78KB] > Champagne-transformed.glb [5.22KB] (80%)
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
-export function Model(props) {
+export function Champagne(props) {
   const { nodes, materials } = useGLTF('/Champagne-transformed.glb')
   return (
     <group {...props} dispose={null}>

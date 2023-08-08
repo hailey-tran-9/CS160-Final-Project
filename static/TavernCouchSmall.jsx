@@ -7,7 +7,7 @@ Files: TavernCouchSmall.glb [19.05KB] > TavernCouchSmall-transformed.glb [5.22KB
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
-export function Model(props) {
+export function TavernCouchSmall(props) {
   const { nodes, materials } = useGLTF('/TavernCouchSmall-transformed.glb')
   return (
     <group {...props} dispose={null}>

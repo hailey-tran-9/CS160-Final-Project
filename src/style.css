@@ -111,11 +111,11 @@ body {
     width: 100%;
 }
 
-#keybind-error {
+#keybind-error, #keybind-illegal {
     visibility: hidden;
 }
 
-#keybind-error p {
+#keybind-error p, #keybind-illegal p {
     margin-bottom: 0.5rem;
 }
 
@@ -183,7 +183,8 @@ body {
     margin-bottom: 0;
 }
 
-.game-tab {
+.card {
+    width: 18rem;
     margin-bottom: 2rem;
 }
 
