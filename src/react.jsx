@@ -60,11 +60,11 @@ import erased from '../static/erased.png'
 import silentHill from '../static/SilentHill.jpeg'
 import ff7 from '../static/FF7.jpeg'
 
-
-
+var camera;
 
 function App() {
-    const cameraRef = useRef()
+    const cameraRef = useRef();
+    camera = cameraRef;
 
     return (
 
@@ -295,29 +295,127 @@ function App() {
 
 
                 </Bounds>
-                <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 2} enableDamping={false} enablePan={true} listenToKeyEvents={window} keyPanSpeed={20.0} maxDistance = {25} minDistance= {4}/>
+                <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 2} enableDamping={false} maxDistance = {25} minDistance= {4}/>
                 <Sky scale={1000} sunPosition={[500, 150, -1000]} turbidity={0.1} />
                 <CameraOrbitController />
             </Canvas>
         </div>
     )
 
-  }
+}
 
+// Importing 2d images
+function JJK() {
+    const texture = useLoader(THREE.TextureLoader, jjk);
 
+    return (
+        <mesh position={[-3.0, 1.15, -2.83]}>
+        <planeGeometry attach="geometry" args={[0.6, 0.8]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+function AnimalCrossing() {
+    const texture = useLoader(THREE.TextureLoader, AnimalCross);
+
+    return (
+        <mesh position={[-2.3, 1, -2.81]}>
+        <planeGeometry attach="geometry" args={[0.7, 0.7]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+function Ruby() {
+    const texture = useLoader(THREE.TextureLoader, ruby);
+
+    return (
+        <mesh position={[-1.9, 1.3, -2.83]}>
+        <planeGeometry attach="geometry" args={[1.1, 0.8]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+function Erased() {
+    const texture = useLoader(THREE.TextureLoader, erased);
+
+    return (
+        <mesh position={[-1.25, 0.9, 0.4]} rotation={[0, -Math.PI/2, 0]}>
+        <planeGeometry attach="geometry" args={[0.4, 0.55]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+function SilentHill() {
+    const texture = useLoader(THREE.TextureLoader, silentHill);
+
+    return (
+        <mesh position={[-1.25, 1.4, -2.2]} rotation={[0, -Math.PI/2, 0]}>
+        <planeGeometry attach="geometry" args={[0.5, 0.65]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+function FinalFantasy() {
+    const texture = useLoader(THREE.TextureLoader, ff7);
+
+    return (
+        <mesh position={[-1.25, 1.4, -0.75]} rotation={[0, -Math.PI/2, 0]}>
+        <planeGeometry attach="geometry" args={[0.6, 0.8]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+// function Ocean() {
+//     const ref = useRef()
+//     const gl = useThree((state) => state.gl)
+//     const waterNormals = useLoader(THREE.TextureLoader, '/Water_preview.png')
+//     waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping
+//     const geom = useMemo(() => new THREE.PlaneGeometry(10000, 10000), [])
+//     const config = useMemo(
+//       () => ({
+//         textureWidth: 512,
+//         textureHeight: 512,
+//         waterNormals,
+//         sunDirection: new THREE.Vector3(),
+//         sunColor: 0xffffff,
+//         waterColor: 0x001e0f,
+//         distortionScale: 10,
+//         fog: false,
+//         format: gl.encoding
+//       }),
+//       [waterNormals]
+//     )
+//     useFrame((state, delta) => (ref.current.material.uniforms.time.value += delta/10))
+//     return <water ref={ref} args={[geom, config]} rotation-x={-Math.PI / 2} />
+// }
+
+// -------------------------------------------------------------------------------------------------
+
+// Set movement controls
 function SetMovementKeybinds( controls, u, l, b, r ) {
     controls.keys["UP"] = u;
     controls.keys["LEFT"] = l;
     controls.keys["BOTTOM"] = b;
     controls.keys["RIGHT"] = r;
+    // console.log(controls.keys);
 }
-export default SetMovementKeybinds;
 
+var movementControls;
+
+// Orbit Controller with keyboard functionality
 const CameraOrbitController = () => {
     const { camera, gl } = useThree();
 
     useEffect(() => {
         const controls = new OrbitC(camera, gl.domElement);
+        movementControls = controls;
+        controls.keyPanSpeed = 20.0;
         SetMovementKeybinds(controls, "KeyW", "KeyA", "KeyS", "KeyD");
         // console.log(controls.keys);
         controls.listenToKeyEvents( window );
@@ -327,75 +425,6 @@ const CameraOrbitController = () => {
     }, [camera, gl]);
     return null;
 };
-
-  // Importing 2d images
-  function JJK() {
-    const texture = useLoader(THREE.TextureLoader, jjk);
-
-    return (
-      <mesh position={[-3.0, 1.15, -2.83]}>
-        <planeBufferGeometry attach="geometry" args={[0.6, 0.8]} />
-        <meshBasicMaterial attach="material" map={texture} />
-      </mesh>
-    )
-  }
-
-  function AnimalCrossing() {
-    const texture = useLoader(THREE.TextureLoader, AnimalCross);
-
-    return (
-      <mesh position={[-2.3, 1, -2.81]}>
-        <planeBufferGeometry attach="geometry" args={[0.7, 0.7]} />
-        <meshBasicMaterial attach="material" map={texture} />
-      </mesh>
-    )
-  }
-
-  function Ruby() {
-    const texture = useLoader(THREE.TextureLoader, ruby);
-
-    return (
-      <mesh position={[-1.9, 1.3, -2.83]}>
-        <planeBufferGeometry attach="geometry" args={[1.1, 0.8]} />
-        <meshBasicMaterial attach="material" map={texture} />
-      </mesh>
-    )
-  }
-
-  function Erased() {
-    const texture = useLoader(THREE.TextureLoader, erased);
-
-    return (
-      <mesh position={[-1.25, 0.9, 0.4]} rotation={[0, -Math.PI/2, 0]}>
-        <planeBufferGeometry attach="geometry" args={[0.4, 0.55]} />
-        <meshBasicMaterial attach="material" map={texture} />
-      </mesh>
-    )
-  }
-
-  function SilentHill() {
-    const texture = useLoader(THREE.TextureLoader, silentHill);
-
-    return (
-      <mesh position={[-1.25, 1.4, -2.2]} rotation={[0, -Math.PI/2, 0]}>
-        <planeBufferGeometry attach="geometry" args={[0.5, 0.65]} />
-        <meshBasicMaterial attach="material" map={texture} />
-      </mesh>
-    )
-  }
-
-  function FinalFantasy() {
-    const texture = useLoader(THREE.TextureLoader, ff7);
-
-    return (
-      <mesh position={[-1.25, 1.4, -0.75]} rotation={[0, -Math.PI/2, 0]}>
-        <planeBufferGeometry attach="geometry" args={[0.6, 0.8]} />
-        <meshBasicMaterial attach="material" map={texture} />
-      </mesh>
-    )
-  }
-
-
 
 // REF: https://codesandbox.io/s/bounds-and-makedefault-rz2g0?file=/src/App.js
 // This component wraps children in a group with a click handler
@@ -423,7 +452,7 @@ function SelectToZoom({ children }) {
     )
 }
   
-//Model focus functions
+// Model focus functions
 function HighlightObject (e) {
     let thisScale = e.eventObject.scale;
     thisScale.set(thisScale.x * 1.2, thisScale.y * 1.2, thisScale.z * 1.2)
@@ -433,6 +462,9 @@ function UnhighlightObject (e) {
     let thisScale = e.eventObject.scale;
     thisScale.set(thisScale.x / 1.2, thisScale.y / 1.2, thisScale.z / 1.2);
 }
+
+// -------------------------------------------------------------------------------------------------
+// OVERLAYS, POPUPS
 
 // Helper func for clicking on game models
 var gamePopup = document.getElementById( "game-popup" );
@@ -450,6 +482,7 @@ function ToggleGamePopup () {
     }
 }
 
+// To prevent clicking elsewhere activating the popup
 function CloseGamePopup() {
     // console.log(gamePopupOpen);
     if (gamePopupOpen) {
@@ -457,6 +490,7 @@ function CloseGamePopup() {
     }
 }
 
+// When a game model is clicked, load the corresponding info
 function DisplayInfo ( objName ) {
     for (let i in data) {
         if (data[i]["Game Title"] == objName) {
@@ -489,29 +523,345 @@ function DisplayInfo ( objName ) {
     }
 }
 
-function Ocean() {
-    const ref = useRef()
-    const gl = useThree((state) => state.gl)
-    const waterNormals = useLoader(THREE.TextureLoader, '/Water_preview.png')
-    waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping
-    const geom = useMemo(() => new THREE.PlaneGeometry(10000, 10000), [])
-    const config = useMemo(
-      () => ({
-        textureWidth: 512,
-        textureHeight: 512,
-        waterNormals,
-        sunDirection: new THREE.Vector3(),
-        sunColor: 0xffffff,
-        waterColor: 0x001e0f,
-        distortionScale: 10,
-        fog: false,
-        format: gl.encoding
-      }),
-      [waterNormals]
-    )
-    useFrame((state, delta) => (ref.current.material.uniforms.time.value += delta/10))
-    return <water ref={ref} args={[geom, config]} rotation-x={-Math.PI / 2} />
+// Create the Go To buttons with their room names
+function CreateGoToBtn( roomName ) {
+    return (
+        <button type="button" className="btn btn-primary" id={"go-to-" + roomName + "-btn"}>Go To</button>
+    );
 }
+
+createRoot(document.getElementById('go-to-lobby-btn-container')).render(<CreateGoToBtn roomName={"lobby"} />)
+createRoot(document.getElementById('go-to-games-btn-container')).render(<CreateGoToBtn roomName={"games"} />)
+createRoot(document.getElementById('go-to-ie-btn-container')).render(<CreateGoToBtn roomName={"ie"} />)
+createRoot(document.getElementById('go-to-faq-btn-container')).render(<CreateGoToBtn roomName={"faq"} />)
+
+
+
+
+
+
+// HTML element vars
+const settingsOverlay = document.getElementById( "settings-overlay" );
+const keyboardControlsOverlay = document.getElementById( "keyboard-controls-overlay" );
+const helpOverlay = document.getElementById( "help-overlay" );
+const creditsOverlay = document.getElementById( "credits-overlay" );
+const keybindPopup = document.getElementById( "keybind-popup" );
+
+const zoomKeybindContainer = document.getElementById( "zoom-keybind-container" );
+const movementKeybindContainer = document.getElementById( "movement-keybind-container" );
+const snapKeybindContainer = document.getElementById( "snap-keybind-container" );
+
+var keybindPrompt = document.getElementById("keybind-prompt");
+var keybindError = document.getElementById("keybind-error");
+
+const navBarGameLst = document.getElementById( "nav-bar-game-lst" );
+
+// Keybinds
+const keybinds = new Set();
+const keybindsDict = 
+{
+    "Toggle Settings": "",
+    "Zoom In": "",
+    "Zoom Out": "",
+    "Move Up": "",
+    "Move Left": "",
+    "Move Down": "",
+    "Move Right": "",
+    "Snap Up": "",
+    "Snap Left": "",
+    "Snap Down": "",
+    "Snap Right": ""
+};
+var setToKey;
+var validKeybind;
+var changeControl;
+
+// Handle keyboard input
+document.onkeydown = 
+function( e ) {
+    // console.log(e.key);
+
+    if (keybindOpen) {
+        let prefix = keybindPrompt.innerHTML.split("to")[0];
+        // console.log(keybinds);
+        // console.log(e.key);
+        // console.log(keybinds.has(e.key));
+        if (!keybinds.has(e.key)) {
+            if (e.key == "ArrowUp") {
+                keybindPrompt.innerHTML = prefix + "to ↑";
+            } else if (e.key == "ArrowLeft") {
+                keybindPrompt.innerHTML = prefix + "to ←";
+            } else if (e.key == "ArrowDown") {
+                keybindPrompt.innerHTML = prefix + "to ↓";
+            } else if (e.key == "ArrowRight") {
+                keybindPrompt.innerHTML = prefix + "to →";
+            } else {
+                keybindPrompt.innerHTML = prefix + "to " + e.key;
+            }
+            keybindError.style.visibility = "hidden";
+            setToKey = e.key;
+            validKeybind = true;
+        } else {
+            let errorPostfix = keybindError.innerHTML.split("is")[1];
+            if (e.key == "ArrowUp") {
+                keybindPrompt.innerHTML = prefix + "to ↑";
+                keybindError.innerHTML = "'↑' is" + errorPostfix;
+            } else if (e.key == "ArrowLeft") {
+                keybindPrompt.innerHTML = prefix + "to ←";
+                keybindError.innerHTML = "'←' is" + errorPostfix;
+            } else if (e.key == "ArrowDown") {
+                keybindPrompt.innerHTML = prefix + "to ↓";
+                keybindError.innerHTML = "'↓' is" + errorPostfix;
+            } else if (e.key == "ArrowRight") {
+                keybindPrompt.innerHTML = prefix + "to →";
+                keybindError.innerHTML = "'→' is" + errorPostfix;
+            } else {
+                keybindPrompt.innerHTML = prefix + "to " + e.key;
+                keybindError.innerHTML = `'${e.key}' is` + errorPostfix;
+            }
+            validKeybind = false;
+            keybindError.style.color = "red";
+            keybindError.style.visibility = "visible";
+        }
+    }
+
+    if (e.key == keybindsDict["Toggle Settings"]) {
+        ToggleSettings();
+    }
+
+    if (e.key == keybindsDict["Zoom In"]) {
+        ZoomIn();
+    }
+
+};
+
+// Overlay vars
+var settingsOpen = false;
+var keyBoardControlsOpen = false;
+var helpOpen = false;
+var creditsOpen = false;
+
+// Toggle the settings overlay by clicking
+document.getElementById( "settings-btn" ).onclick = 
+function() {
+    ToggleSettings();
+};
+
+// Toggle the keyboard controls overlay by clicking
+document.getElementById( "keyboard-controls-btn" ).onclick = 
+function() {
+    ToggleKeyboardControls();
+};
+
+// Toggle the help overlay by clicking
+document.getElementById( "help-btn" ).onclick = 
+function() {
+    ToggleHelp();
+};
+
+// Toggle the credits overlay by clicking
+document.getElementById( "credits-btn" ).onclick = 
+function() {
+    ToggleCredits();
+};
+
+// Toggle the settings overlay
+function ToggleSettings() {
+    // console.log(settingsOpen);
+    if (keyBoardControlsOpen && !settingsOpen) {
+        keyboardControlsOverlay.style.visibility = "hidden";
+        keyBoardControlsOpen = false;
+    } else if (helpOpen && !settingsOpen) {
+        helpOverlay.style.visibility = "hidden";
+        helpOpen = false;
+    } else if (creditsOpen && !settingsOpen) {
+        creditsOverlay.style.visibility = "hidden";
+        creditsOpen = false;
+    } else if (!settingsOpen) {
+        settingsOverlay.style.visibility = "visible";
+        settingsOpen = true;
+    } else if (settingsOpen) {
+        settingsOverlay.style.visibility = "hidden";
+        settingsOpen = false;
+    }
+}
+
+// Toggle the keyboard controls overlay
+function ToggleKeyboardControls() {
+    // console.log(keyBoardControlsOpen);
+    if (!keyBoardControlsOpen) {
+        keyboardControlsOverlay.style.visibility = "visible";
+        keyBoardControlsOpen = true;
+
+        settingsOverlay.style.visibility = "hidden";
+        settingsOpen = false;
+    }
+}
+
+// Toggle the help overlay
+function ToggleHelp() {
+    if (!helpOpen) {
+        helpOverlay.style.visibility = "visible";
+        helpOpen = true;
+
+        settingsOverlay.style.visibility = "hidden";
+        settingsOpen = false;
+    }
+}
+
+// Toggle the credits overlay
+function ToggleCredits() {
+    if (!creditsOpen) {
+        creditsOverlay.style.visibility = "visible";
+        creditsOpen = true;
+
+        settingsOverlay.style.visibility = "hidden";
+        settingsOpen = false;
+    }
+}
+
+function CreateKeybind( control, key ) {
+    keybinds.add(key);
+    keybindsDict[control] = key;
+
+    if (key == "ArrowUp") {
+        key = "↑";
+    } else if (key == "ArrowLeft") {
+        key = "←";
+    } else if (key == "ArrowDown") {
+        key = "↓";
+    } else if (key == "ArrowRight") {
+        key = "→";
+    }
+
+    return (
+        <div className="keybind-container">
+
+            <div className="row">
+                <div className="col-6">
+                    <button type="button" className="btn btn-dark keybind-btn" id={control+"-btn"}>{key}</button>
+                </div>
+                <div className="col-6">
+                    <p className="align-middle text-left ml-2">{control}</p>
+                </div>
+            </div>
+           
+        </div>
+    )
+}
+
+function GenerateZoomKeybinds () {
+    return (
+        <>
+            {CreateKeybind("Toggle Settings", "Escape")}
+            {CreateKeybind("Zoom In", "Shift")}
+            {CreateKeybind("Zoom Out", "Control")}
+        </>
+    )
+}
+
+function GenerateMovementKeybinds () {
+    return (
+        <>
+            {CreateKeybind("Move Up", "w")}
+            {CreateKeybind("Move Left", "a")}
+            {CreateKeybind("Move Down", "s")}
+            {CreateKeybind("Move Right", "d")}
+        </>
+    )
+}
+
+function GenerateSnapKeybinds () {
+    return (
+        <>
+            {CreateKeybind("Snap to Lobby", "ArrowUp")}
+            {CreateKeybind("Snap to Games", "ArrowLeft")}
+            {CreateKeybind("Snap to Industry Events", "ArrowDown")}
+            {CreateKeybind("Snap to FAQ", "ArrowRight")}
+        </>
+    )
+}
+
+createRoot(zoomKeybindContainer).render(<GenerateZoomKeybinds />)
+createRoot(movementKeybindContainer).render(<GenerateMovementKeybinds />)
+createRoot(snapKeybindContainer).render(<GenerateSnapKeybinds />)
+
+// Keybind Popup vars
+var keybindOpen = false;
+
+var allKeybindBtns = document.getElementsByClassName( "keybind-btn" );
+
+// Open the keybind popup
+function OpenKeybind() {
+    if (!keybindOpen) {
+        setToKey = "";
+        keybindError.style.visibility = "hidden";
+        keybindPopup.style.visibility = "visible";
+        keybindOpen = true;
+    }
+}
+
+// Close the keybind popup
+function CloseKeybind() {
+    if (keybindOpen) {
+        keybindError.style.visibility = "hidden";
+        keybindPopup.style.visibility = "hidden";
+        keybindOpen = false;
+    }
+}
+
+// Wait for the doc to load, then assign all keybind btn onclick events to open the keybind popup
+$( document ).ready(function() {
+    for ( let keybind of allKeybindBtns ) {
+        keybind.onclick = 
+            function () {
+                changeControl = keybind.id.replace("-btn", "");
+                keybindPrompt.innerHTML = "Change " + keybind.innerHTML + " to ___";
+                OpenKeybind();
+            };
+    }
+});
+
+document.getElementById("keybind-confirm-btn").onclick =
+function () {
+    if (setToKey != "" && validKeybind) {
+        keybinds.delete(keybindsDict[changeControl]);
+        keybindsDict[changeControl] = setToKey;
+
+        let key = keybindsDict[changeControl];
+
+        let upKey = "Key" + (keybindsDict["Move Up"]).toUpperCase();
+        let leftKey = "Key" + (keybindsDict["Move Left"]).toUpperCase();
+        let downKey = "Key" + (keybindsDict["Move Down"]).toUpperCase();
+        let rightKey = "Key" + (keybindsDict["Move Right"]).toUpperCase();
+
+        if (movementControls) {
+            if (changeControl == "Move Up" || changeControl == "Move Left" || changeControl == "Move Down" ||
+                changeControl == "Move Right") {
+                SetMovementKeybinds(movementControls, upKey, leftKey, downKey, rightKey)
+            }
+        }
+
+        if (key == "ArrowUp") {
+            document.getElementById( changeControl + "-btn" ).innerHTML = "↑";
+        } else if (key == "ArrowLeft") {
+            document.getElementById( changeControl + "-btn" ).innerHTML = "←";
+        } else if (key == "ArrowDown") {
+            document.getElementById( changeControl + "-btn" ).innerHTML = "↓";
+        } else if (key == "ArrowRight") {
+            document.getElementById( changeControl + "-btn" ).innerHTML = "→";
+        } else {
+            document.getElementById( changeControl + "-btn" ).innerHTML = keybindsDict[changeControl];
+        }
+
+        CloseKeybind();
+    }
+};
+
+document.getElementById("keybind-cancel-btn").onclick =
+function () {
+    CloseKeybind();
+};
 
 // Store the info from descriptions.csv into an JS object
 var data;
@@ -523,28 +873,46 @@ var papa_csv = Papa.parse('/descriptions.csv', {
     complete: function(results) {
         // console.log("Parse results: ", results.data);
         data = results.data;
+        createRoot(navBarGameLst).render(<GenerateGameLst />)
     }
 });
 // console.log("console: ", data);
 
-
-function CreateGoToBtn( roomName ) {
+function CreateGameTab( gameTitle, description, link ) {
     return (
-        <button type="button" className="btn btn-primary" id={"go-to-" + roomName + "-btn"}>Go To</button>
-    );
+        <div className="game-tab" id={gameTitle+"-tab"} key={gameTitle+"-tab"}>
+
+            <div className="row">
+                <div className="col-4">
+                    <button type="button" className="btn btn-light" id={gameTitle+"-btn"}>{gameTitle}</button>
+                </div>
+                <div className="col-8">
+                    <p>{description}</p>
+                </div>
+            </div>
+
+            <div className="row">
+                <div className="col-4"></div>
+                <div className="col-8">
+                    <a href={link} target="_blank">{link}</a>
+                </div>
+            </div>
+           
+        </div>
+    )
 }
 
-createRoot(document.getElementById('go-to-lobby-btn-container')).render(<CreateGoToBtn roomName={"lobby"} />)
-createRoot(document.getElementById('go-to-games-btn-container')).render(<CreateGoToBtn roomName={"games"} />)
-createRoot(document.getElementById('go-to-ie-btn-container')).render(<CreateGoToBtn roomName={"ie"} />)
-createRoot(document.getElementById('go-to-faq-btn-container')).render(<CreateGoToBtn roomName={"faq"} />)
-  
+function GenerateGameLst() {
+    let tabs = [];
+    for (let i in data) {
+        tabs.push(CreateGameTab(data[i]["Game Title"], data[i]["Description"], data[i]["Itch.io Link"]));
+    }
+
+    return (
+        <>
+            {tabs}
+        </>
+    )
+}
+
 createRoot(document.getElementById('root')).render(<App />)
-
-
-
-
-
-
-
-
