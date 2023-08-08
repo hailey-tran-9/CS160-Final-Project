@@ -1,7 +1,9 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { createRoot } from 'react-dom/client'
 
 import Papa from 'papaparse'
+
+// import SetMovementKeybinds from './react.jsx'
 
 // HTML element vars
 const settingsOverlay = document.getElementById( "settings-overlay" );
@@ -35,6 +37,7 @@ const keybindsDict =
     "Rotate Down": "",
     "Rotate Right": ""
 };
+export default keybindsDict;
 var setToKey;
 var validKeybind;
 var changeControl;
@@ -233,10 +236,10 @@ function GenerateMovementKeybinds () {
 function GenerateRotationKeybinds () {
     return (
         <>
-            {CreateKeybind("Rotate Up", "ArrowUp")}
-            {CreateKeybind("Rotate Left", "ArrowLeft")}
-            {CreateKeybind("Rotate Down", "ArrowDown")}
-            {CreateKeybind("Rotate Right", "ArrowRight")}
+            {CreateKeybind("Snap to Lobby", "ArrowUp")}
+            {CreateKeybind("Snap to Games", "ArrowLeft")}
+            {CreateKeybind("Snap to Industry Events", "ArrowDown")}
+            {CreateKeybind("Snap to FAQ", "ArrowRight")}
         </>
     )
 }
@@ -281,6 +284,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+var movementKeybinds = {
+    "UP": keybindsDict["Move Up"],
+    "LEFT": keybindsDict["Move Left"],
+    "BOTTOM": keybindsDict["Move Down"],
+    "RIGHT": keybindsDict["Move Right"],
+}
+
 document.getElementById("keybind-confirm-btn").onclick =
 function () {
     if (setToKey != "" && validKeybind) {
@@ -288,6 +298,18 @@ function () {
         keybindsDict[changeControl] = setToKey;
 
         let key = keybindsDict[changeControl];
+
+        if (changeControl == "Move Up") {
+            movementKeybinds["UP"] = key;
+        } else if (changeControl == "Move Left") {
+            movementKeybinds["LEFT"] = key;
+        } else if (changeControl == "Move Down") {
+            movementKeybinds["BOTTOM"] = key;
+        } else if (changeControl == "Move Right") {
+            movementKeybinds["RIGHT"] = key;
+        }
+        // export {movementKeybinds};
+
         if (key == "ArrowUp") {
             document.getElementById( changeControl + "-btn" ).innerHTML = "↑";
         } else if (key == "ArrowLeft") {

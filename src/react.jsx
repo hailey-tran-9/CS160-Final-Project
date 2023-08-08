@@ -1,4 +1,4 @@
-import React, { useRef, useState, Suspense, useMemo } from 'react'
+import React, { useRef, useState, Suspense, useMemo, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Canvas, extend, useFrame, useThree, useLoader } from '@react-three/fiber'
 import { PerspectiveCamera, OrbitControls, Bounds, useBounds, Sky} from '@react-three/drei'
@@ -8,10 +8,14 @@ import { MathUtils } from 'three'
 import { Water } from "three-stdlib";
 extend({ Water });
 import * as THREE from 'three';
+import * as easing from "maath/easing";
+
+import { OrbitControls as OrbitC } from 'three/examples/jsm/controls/OrbitControls';
 
 import Papa from 'papaparse'
 
 import { Rooms } from '../static/Rooms'
+import { Rooms_1 } from '../static/Rooms_1';
 import { Couch } from '../static/Couch'
 import { BoxClosed } from '../static/BoxClosed'
 import { BoxingRing } from '../static/BoxingRing'
@@ -41,17 +45,26 @@ import { ToyBlocks } from '../static/ToyBlocks'
 import { Shirts } from '../static/Shirts'
 import { KawaiiArcade } from '../static/KawaiiArcade'
 import { AdjustableDesk } from '../static/AdjustableDesk'
+import { FlatTv } from '../static/FlatTv'
+import { BarCounter } from '../static/BarCounter'
+import { ModernRug } from '../static/ModernRug'
+import { InvisibleWall } from '../static/InvisibleWall'
+import { StardewValley } from '../static/StardewValley'
 //import * as Model from '../static'
+
 
 import jjk from '../static/jjk.jpeg'
 import AnimalCross from '../static/ac.jpg'
 import ruby from '../static/ruby.png'
 import erased from '../static/erased.png'
+import silentHill from '../static/SilentHill.jpeg'
+import ff7 from '../static/FF7.jpeg'
+
+
 
 
 function App() {
     const cameraRef = useRef()
-    const goToGamesBtn = document.getElementById("go-to-games-btn");
 
     return (
 
@@ -60,8 +73,8 @@ function App() {
             <Canvas>
                 <ambientLight intensity={.7}/>
                 <directionalLight />
-                <PerspectiveCamera ref = {cameraRef} makeDefault position={[-8, 3, 0]}/>
-                <Rooms position={[0, 0, 0]}  scale={[8, 8, 8]}/>
+                <PerspectiveCamera ref = {cameraRef} makeDefault position={[-10, 3, 0]} near={0.1} far={1000}  fov={45}/>
+                <Rooms_1 position={[0, 0, 0]}  scale={[8, 8, 8]}/>
                 <Bounds fit clip observe margin={1.2}>
                 <Selection>
                 <EffectComposer multisampling={8} autoClear={false}>
@@ -96,14 +109,14 @@ function App() {
                         <BoxingRing
                             onPointerEnter={(e) => HighlightObject(e)} 
                             onPointerLeave={(e) => UnhighlightObject(e)}
-                            position={[-2.6, 0.2, -0.5]} rotation={[0, 7*Math.PI/5, 0]} 
+                            position={[-2.6, 0.22, -0.5]} rotation={[0, 7*Math.PI/5, 0]} 
                             scale={[0.04, 0.04, 0.04]}
                         />
 
                         <ToyBlocks
                             onPointerEnter={(e) => HighlightObject(e)} 
                             onPointerLeave={(e) => UnhighlightObject(e)}
-                            position={[-3, 0.18, -0.1]} rotation={[0, 0, 0]}
+                            position={[-2.5, 1.04, 1.35]} rotation={[0, 0, 0]}
                             scale={[2, 2, 2]}
                         />
                         
@@ -111,6 +124,11 @@ function App() {
                 </Selection>
 
                     {/* Gaming room */}
+
+                    {/* <InvisibleWall 
+                        position={[-1.17, 0, -0.1]} rotation={[0, Math.PI/2, 0]}
+                        scale={[37, 21, 2]} 
+                    /> */}
                     
                     <BoxOpen
                             position={[-1.4, 0.125, 0]} 
@@ -127,11 +145,6 @@ function App() {
                         position={[-3.2, 0.28, -1.4]} rotation={[0, - Math.PI / 2, 0]} 
                         scale={[0.8, 0.8, 0.8]}
                     />
-
-                    {/* <Desk 
-                        position={[-1.6, 0.270, 1.6]}
-                        scale={[0.5, 0.35, 0.46]}
-                    /> */}
                     
                     <AdjustableDesk 
                         position={[-1.48, 0.125, 1.7]}
@@ -145,7 +158,7 @@ function App() {
                     />
 
                     <Carpet
-                        position={[-2.4, 0.13, -1.5]} rotation={[0, Math.PI, 0]} 
+                        position={[-2.4, 0.15, -1.5]} rotation={[0, Math.PI, 0]} 
                         scale={[0.7, 0.6, 0.6]}
                     />
 
@@ -156,7 +169,7 @@ function App() {
 
                     <Tv  
                         position={[-1.5, 0.45, -1.35]} rotation={[0, -Math.PI/2, 0]} 
-                        scale={[0.06, 0.06, 0.06]} 
+                        scale={[0.07, 0.07, 0.07]} 
                     />
 
                     <CoffeeTable
@@ -165,12 +178,12 @@ function App() {
                     />
 
                     <Controller
-                        position={[-2.4, 0.33, -1.7]} rotation={[0,-Math.PI/3, 0]} 
-                        scale={[0.008, 0.008, 0.008]}
+                        position={[-1.5, 0.29, -1.7]} rotation={[0,-Math.PI/3, 0]} 
+                        scale={[0.006, 0.006, 0.006]}
                     />
 
                     <Polaroids
-                        position={[-1.25, 0.9, -0.3]} rotation={[0, Math.PI, 0]}
+                        position={[-1.27, 1.2, -0.1]} rotation={[0, Math.PI, 0]}
                         scale={[0.5, 0.5, 0.5]}
                     />
 
@@ -185,12 +198,12 @@ function App() {
                     />
 
                     <Stairs
-                        position={[-3.5, 0, 0.85]} rotation={[0, Math.PI/2, 0]}
-                        scale={[0.65, 0.65, 0.65]}
+                        position={[-3.5, 0.03, 0.77]} rotation={[0, Math.PI/2, 0]}
+                        scale={[0.7, 0.7, 0.7]}
                     />
 
                     <Bed
-                        position={[-5.3, 0.8, -3]} rotation={[0, -Math.PI/2, 0]}
+                        position={[-5.3, 0.92, -3]} rotation={[0, -Math.PI/2, 0]}
                         scale={[0.015, 0.01, 0.015]}
                     />
 
@@ -202,18 +215,22 @@ function App() {
 
                     <Erased />
 
+                    <SilentHill />
+
+                    <FinalFantasy />
+
                     <FigPlant
-                        position={[-1.5, 0.1, -2.6]}
-                        scale={[0.08, 0.08, 0.08]}
+                        position={[-1.5, 0.15, -2.6]}
+                        scale={[0.1, 0.1, 0.1]}
                     />
 
                     <Railing
-                        position={[-1.8, 1, 1]} rotation={[0, 0, 0]}
+                        position={[-1.8, 1.1, 1]} rotation={[0, 0, 0]}
                         scale={[0.8, 0.3, 0.6]}
                     />
 
                     <Nightstand
-                        position={[-1.4, 1, 1.5]} rotation={[0, Math.PI, 0]}
+                        position={[-1.4, 1.1, 1.5]} rotation={[0, Math.PI, 0]}
                         scale={[0.3, 0.3, 0.3]}
                     />
 
@@ -232,38 +249,92 @@ function App() {
                     />
 
                     <IeShelves 
-                        position={[-2.5 + 0.5, 0.4, 2.66]} rotation={[0, -Math.PI/2, 0]} 
-                        scale={[0.5, 0.5, 0.5]} 
+                        position={[-2., 0.12, -3.2]} rotation={[0, -Math.PI/2, 0]} 
+                        scale={[1.25, 1.25, 1.25]} 
                     />
 
                     <IeShelves 
-                        position={[-3.03 + 0.5, 0.4, 2.66]} rotation={[0, -Math.PI/2, 0]} 
-                        scale={[0.5, 0.5, 0.5]} 
+                        position={[-3.03 + 0.5, 0.4, -3.1]} rotation={[0, -Math.PI/2, 0]} 
+                        scale={[0, 0, 0]} 
                     />
+
+                    <StardewValley
+                        position={[-1.55, 1.07, -3.2]}
+                        scale={[0.04, 0.04, 0.04]}
+                        rotation={[0, 0, 0]}
+                        onPointerEnter={(e) => HighlightObject(e)} 
+                        onPointerLeave={(e) => UnhighlightObject(e)}
+                    />
+
+
+
 
                     {/* Tavern */}
                     <KawaiiArcade 
-                    position={[-0.9, 0.45, 1.5]}
-                    rotation={[0, Math.PI/2, 0]}
-                    scale={[20, 20, 20]}
+                        position={[-0.9, 0.45, 1.5]}
+                        rotation={[0, Math.PI/2, 0]}
+                        scale={[20, 20, 20]}
+                    />
+                    
+                    <BarCounter
+                        position={[-0.3, 0.1, -2.8]}
+                        rotation={[0, Math.PI/2, 0]}
+                        scale={[7, 1.3, 1]}
                     />
 
+                    <FlatTv
+                        position={[-.8, 1.5, -0.9]}
+                        scale={[0.25, 0.25, 0.25]}
+                        rotation={[0, Math.PI/2, 0]} 
+                    />
+
+                    <ModernRug 
+                        position={[0.8, 0.125, -0.8]}
+                        scale={[0.15, 0.15, 0.15]}
+                    />
+
+
                 </Bounds>
-                <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 2} enableDamping={false} />
+                <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 2} enableDamping={false} enablePan={true} listenToKeyEvents={window} keyPanSpeed={20.0} maxDistance = {25} minDistance= {4}/>
                 <Sky scale={1000} sunPosition={[500, 150, -1000]} turbidity={0.1} />
+                <CameraOrbitController />
             </Canvas>
         </div>
     )
 
   }
 
+
+function SetMovementKeybinds( controls, u, l, b, r ) {
+    controls.keys["UP"] = u;
+    controls.keys["LEFT"] = l;
+    controls.keys["BOTTOM"] = b;
+    controls.keys["RIGHT"] = r;
+}
+export default SetMovementKeybinds;
+
+const CameraOrbitController = () => {
+    const { camera, gl } = useThree();
+
+    useEffect(() => {
+        const controls = new OrbitC(camera, gl.domElement);
+        SetMovementKeybinds(controls, "KeyW", "KeyA", "KeyS", "KeyD");
+        // console.log(controls.keys);
+        controls.listenToKeyEvents( window );
+        return () => {
+            controls.dispose();
+        };
+    }, [camera, gl]);
+    return null;
+};
+
   // Importing 2d images
   function JJK() {
     const texture = useLoader(THREE.TextureLoader, jjk);
 
     return (
-      <mesh scale={[1/8, 1.5/8, 4/8]} position={[-3.2, 0.9, -2.84]}>
-        <planeBufferGeometry attach="geometry" args={[3, 3]} />
+      <mesh position={[-3.0, 1.15, -2.83]}>
+        <planeBufferGeometry attach="geometry" args={[0.6, 0.8]} />
         <meshBasicMaterial attach="material" map={texture} />
       </mesh>
     )
@@ -273,8 +344,8 @@ function App() {
     const texture = useLoader(THREE.TextureLoader, AnimalCross);
 
     return (
-      <mesh position={[-2.6, 0.85, -2.84]}>
-        <planeBufferGeometry attach="geometry" args={[0.5, 0.5]} />
+      <mesh position={[-2.3, 1, -2.81]}>
+        <planeBufferGeometry attach="geometry" args={[0.7, 0.7]} />
         <meshBasicMaterial attach="material" map={texture} />
       </mesh>
     )
@@ -284,8 +355,8 @@ function App() {
     const texture = useLoader(THREE.TextureLoader, ruby);
 
     return (
-      <mesh position={[-1.8, 0.9, -2.84]}>
-        <planeBufferGeometry attach="geometry" args={[0.85, 0.5]} />
+      <mesh position={[-1.9, 1.3, -2.83]}>
+        <planeBufferGeometry attach="geometry" args={[1.1, 0.8]} />
         <meshBasicMaterial attach="material" map={texture} />
       </mesh>
     )
@@ -295,8 +366,30 @@ function App() {
     const texture = useLoader(THREE.TextureLoader, erased);
 
     return (
-      <mesh position={[-1.25, 0.9, 0.5]} rotation={[0, -Math.PI/2, 0]}>
-        <planeBufferGeometry attach="geometry" args={[0.3, 0.4]} />
+      <mesh position={[-1.25, 0.9, 0.4]} rotation={[0, -Math.PI/2, 0]}>
+        <planeBufferGeometry attach="geometry" args={[0.4, 0.55]} />
+        <meshBasicMaterial attach="material" map={texture} />
+      </mesh>
+    )
+  }
+
+  function SilentHill() {
+    const texture = useLoader(THREE.TextureLoader, silentHill);
+
+    return (
+      <mesh position={[-1.25, 1.4, -2.2]} rotation={[0, -Math.PI/2, 0]}>
+        <planeBufferGeometry attach="geometry" args={[0.5, 0.65]} />
+        <meshBasicMaterial attach="material" map={texture} />
+      </mesh>
+    )
+  }
+
+  function FinalFantasy() {
+    const texture = useLoader(THREE.TextureLoader, ff7);
+
+    return (
+      <mesh position={[-1.25, 1.4, -0.75]} rotation={[0, -Math.PI/2, 0]}>
+        <planeBufferGeometry attach="geometry" args={[0.6, 0.8]} />
         <meshBasicMaterial attach="material" map={texture} />
       </mesh>
     )
@@ -309,6 +402,20 @@ function App() {
 // Clicking any object will refresh and fit bounds
 function SelectToZoom({ children }) {
     const api = useBounds()
+    // const ref = useRef()
+    // const clicked = useRef()
+    // useEffect(() => {
+    //     clicked.current = ref.current.getObjectByName(params?.id)
+    //     if (clicked.current) {
+    //         clicked.current.parent.updateWorldMatrix(true, true)
+    //         clicked.current.parent.localToWorld(p.set(0, GOLDENRATIO / 2, 1.25))
+    //         clicked.current.parent.getWorldQuaternion(q)
+    //     }
+    // })
+    // useFrame((state, dt) => {
+    //     easing.damp3(state.camera.position, p, 0.4, dt)
+    //     easing.dampQ(state.camera.quaternion, q, 0.4, dt)
+    // })
     return (
         <group onClick={(e) => (e.stopPropagation(), e.delta <= 2 && api.refresh(e.object).fit())} onPointerMissed={(e) => e.button === 0 && api.refresh().fit().to({position: [-8, 3, 0]})}>
         {children}
@@ -420,17 +527,6 @@ var papa_csv = Papa.parse('/descriptions.csv', {
 });
 // console.log("console: ", data);
 
-function CameraZoom (q = new THREE.Quaternion(), p = new THREE.Vector3()) {
-    const ref = useRef();
-    const cameraRef = useRef();
-    useEffect(() => {
-            
-    })
-    useFrame((state, dt) => {
-        easing.damp3(state.camera.position, p, 0.4, dt)
-        easing.dampQ(state.camera.quaternion, q, 0.4, dt)
-    })
-} 
 
 function CreateGoToBtn( roomName ) {
     return (
@@ -442,14 +538,13 @@ createRoot(document.getElementById('go-to-lobby-btn-container')).render(<CreateG
 createRoot(document.getElementById('go-to-games-btn-container')).render(<CreateGoToBtn roomName={"games"} />)
 createRoot(document.getElementById('go-to-ie-btn-container')).render(<CreateGoToBtn roomName={"ie"} />)
 createRoot(document.getElementById('go-to-faq-btn-container')).render(<CreateGoToBtn roomName={"faq"} />)
-
-// function RepositionCamera() {
-//     const api = useBounds()
-//     return (
-//         <CreateGoToBtn onClick={(e) => e.button === 0 && api.refresh().fit().to({position: [-8, 3, 0]})}></CreateGoToBtn>
-//     )
-// }
-
-// createRoot(document.getElementById('go-to-games-btn-container')).render(<RepositionCamera></RepositionCamera>)
   
 createRoot(document.getElementById('root')).render(<App />)
+
+
+
+
+
+
+
+
