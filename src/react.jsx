@@ -1,7 +1,7 @@
 import React, { useRef, useState, Suspense, useMemo, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Canvas, extend, useFrame, useThree, useLoader } from '@react-three/fiber'
-import { PerspectiveCamera, OrbitControls, Bounds, useBounds, Sky, useAnimations, useGLTF } from '@react-three/drei'
+import { PerspectiveCamera, OrbitControls, Bounds, useBounds, Sky, useAnimations, useGLTF, Text, RoundedBox } from '@react-three/drei'
 import { Selection, Select, EffectComposer, Outline } from '@react-three/postprocessing'
 import { BlendFunction, Resizer, KernelSize } from 'postprocessing'
 import { MathUtils } from 'three'
@@ -11,6 +11,9 @@ import * as THREE from 'three';
 import * as easing from "maath/easing";
 
 import { OrbitControls as OrbitC } from 'three/examples/jsm/controls/OrbitControls';
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
+extend({ TextGeometry })
 
 import Papa from 'papaparse'
 
@@ -49,14 +52,18 @@ import { FlatTv } from '../static/FlatTv'
 import { BarCounter } from '../static/BarCounter'
 import { ModernRug } from '../static/ModernRug'
 import { InvisibleWall } from '../static/InvisibleWall'
-import { StardewValley } from '../static/StardewValley'
 import { Sink } from '../static/Sink'
 import { Fridge } from '../static/Fridge'
 import { TavernCouch } from '../static/TavernCouch'
 import { TavernCouchSmall } from '../static/TavernCouchSmall'
 import { TavernShelf } from '../static/TavernShelf'
 import { Champagne } from '../static/Champagne'
+import { Bearmofloat } from '../static/Bearmofloat'
 
+import { StardewValley } from '../static/StardewValley'
+import { Issac } from '../static/Isaac'
+import { TheoryCraft } from '../static/TheoryCraft'
+import { Disruptive } from '../static/Disruptive'
 
 import jjk from '../static/jjk.jpeg'
 import AnimalCross from '../static/ac.jpg'
@@ -125,6 +132,16 @@ function App() {
                             scale={[2, 2, 2]}
                         />
                         
+                        
+                    <StardewValley
+                        position={[-1.56, 1.12, -3.2]}
+                        scale={[0.035, 0.035, 0.035]}
+                        rotation={[-0.25, 0, 0]}
+                        onPointerEnter={(e) => HighlightObject(e)} 
+                        onPointerLeave={(e) => UnhighlightObject(e)}
+                    />
+
+                    {/* <Issac/> */}
                     </SelectToZoom>
                 </Selection>
 
@@ -154,6 +171,8 @@ function App() {
                         position={[-2.1, 0, 2.5]} rotation={[0, 0, 0]}
                         scale={[21, 21, 1]} 
                     />
+                    
+            
                     
                     <BoxOpen
                             position={[-1.4, 0.125, 0]} 
@@ -283,13 +302,6 @@ function App() {
                         scale={[0, 0, 0]} 
                     />
 
-                    <StardewValley
-                        position={[-1.56, 1.12, -3.2]}
-                        scale={[0.035, 0.035, 0.035]}
-                        rotation={[-0.25, 0, 0]}
-                        onPointerEnter={(e) => HighlightObject(e)} 
-                        onPointerLeave={(e) => UnhighlightObject(e)}
-                    />
 
 
 
@@ -361,15 +373,47 @@ function App() {
                         scale={[0.19, 0.19, 0.19]}
                     />
 
+                    <Bearmofloat>
+                        position={[0.6, 0.12, -0.1]}
+                        rotation={[0, Math.PI, 0]}
+                        scale = {[100,100,100]}
+                    </Bearmofloat> 
+{/* 
+            
+                    <Text id="chatText" position={[1,3,1]} color="black">
+                        Good Morning
+                    </Text>
+
+                    <RoundedBox
+                        id="chatbox"
+                        position={[-2, 1.15, 2.65]}
+                        args={[1.5, 1.5, 0.1]} // Width, height, depth. Default is [1, 1, 1]
+                        radius={0.05} // Radius of the rounded corners. Default is 0.05
+                        smoothness={4} // The number of curve segments. Default is 4
+                        creaseAngle={0.4} // Smooth normals everywhere except faces that meet at an angle greater than the crease angle
+                        // {...meshProps} // All THREE.Mesh props are valid
+                        >
+                        <meshPhongMaterial color="#f3f3f3"/>
+                    </RoundedBox> */}
 
                 </Bounds>
+
                 <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 2} enableDamping={false} maxDistance = {25} minDistance= {4}/>
                 <Sky scale={1000} sunPosition={[500, 150, -1000]} turbidity={0.1} />
                 <CameraOrbitController />
+                {/* <BearMo /> */}
             </Canvas>
         </div>
     )
 
+}
+
+function ChatBox({props}) {
+    return (
+        <>
+            
+        </>
+    )
 }
 
 // Importing 2d images
@@ -1204,21 +1248,6 @@ function () {
     }
 };
 
-// animation name: body|Take 001|BaseLayer
-function BearMO () {
-    const { scene, animations } = useGLTF('bearmofloat.glb');
-    const modelRef = useRef();
-    const animationAction = useRef();
-    const {actions} = useAnimations(animations);
-
-    const playAnimation = (name) => {
-        if (actions['body|Take 001|BaseLayer']) {
-            actions['body|Take 001|BaseLayer'].play();
-        }
-    }
-    
-    return <primitive object = {scene} ref = {modelRef} onclick = {() => playAnimation('body|Take 001|BaseLayer')}/>;
-}
 
 
 
