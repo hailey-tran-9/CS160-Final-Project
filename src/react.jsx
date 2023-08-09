@@ -17,8 +17,7 @@ extend({ TextGeometry })
 
 import Papa from 'papaparse'
 
-import { Rooms } from '../static/Rooms'
-import { Rooms_1 } from '../static/Rooms_1';
+import { Rooms } from '../static/Room'
 import { Couch } from '../static/Couch'
 import { BoxClosed } from '../static/BoxClosed'
 import { BoxingRing } from '../static/BoxingRing'
@@ -58,7 +57,15 @@ import { TavernCouch } from '../static/TavernCouch'
 import { TavernCouchSmall } from '../static/TavernCouchSmall'
 import { TavernShelf } from '../static/TavernShelf'
 import { Champagne } from '../static/Champagne'
+import { WoodenStool } from '../static/WoodenStool'
+import { MetalStool } from '../static/MetalStool'
+import { PoolTable } from '../static/PoolTable'
 import { Bearmofloat } from '../static/Bearmofloat'
+
+import { BeehiveBlue } from '../static/BeehiveBlue'
+import { BeehiveRed } from '../static/BeehiveRed'
+import { BeehiveGreen } from '../static/BeehiveGreen'
+import { BeehivePink } from '../static/BeehivePink'
 
 import { StardewValley } from '../static/StardewValley'
 import { Issac } from '../static/Isaac'
@@ -71,6 +78,7 @@ import ruby from '../static/ruby.png'
 import erased from '../static/erased.png'
 import silentHill from '../static/SilentHill.jpeg'
 import ff7 from '../static/FF7.jpeg'
+import destiny from '../static/destiny.jpg'
 
 var camera;
 
@@ -85,8 +93,8 @@ function App() {
             <Canvas>
                 <ambientLight intensity={.7}/>
                 <directionalLight />
-                <PerspectiveCamera ref = {cameraRef} makeDefault position={[-1, 3, 15]} near={0.1} far={1000} fov={45}/>
-                <Rooms_1 position={[0, 0, 0]}  scale={[8, 8, 8]}/>
+                <PerspectiveCamera ref = {cameraRef} makeDefault position={[10, 3, 0]} near={0.1} far={1000} fov={45}/>
+                <Rooms position={[0, 0, 0]}  scale={[8, 8, 8]}/>
                 <Bounds fit clip observe margin={1.2}>
                 <Selection>
                 <EffectComposer multisampling={8} autoClear={false}>
@@ -134,7 +142,7 @@ function App() {
                         
                         
                     <StardewValley
-                        position={[-1.56, 1.12, -3.2]}
+                        position={[-1.4, 1.12, -3.2]}
                         scale={[0.035, 0.035, 0.035]}
                         rotation={[-0.25, 0, 0]}
                         onPointerEnter={(e) => HighlightObject(e)} 
@@ -142,6 +150,15 @@ function App() {
                     />
 
                     {/* <Issac/> */}
+
+                    <TheoryCraft
+                        position={[-2.43, 0.8, -3.3]}
+                        rotation={[0, Math.PI/2, 0]}
+                        scale={[1.5, 1.5, 1.5]}
+                        onPointerEnter={(e) => HighlightObject(e)} 
+                        onPointerLeave={(e) => UnhighlightObject(e)}
+                    />
+                    
                     </SelectToZoom>
                 </Selection>
 
@@ -149,27 +166,38 @@ function App() {
 
                     <InvisibleWall
                         onPointerOver={(e) => e.stopPropagation()} 
-                        position={[-1.17, 0, -0.9]} rotation={[0, Math.PI/2, 0]}
-                        scale={[25, 21, 1]} 
+                        position={[-1.19, 0, -0.9]} rotation={[0, Math.PI/2, 0]}
+                        scale={[25, 21, 0.5]} 
                     />
 
                     <InvisibleWall
                         onPointerOver={(e) => e.stopPropagation()} 
-                        position={[-1.17, 0, 1.85]} rotation={[0, Math.PI/2, 0]}
-                        scale={[9, 21, 1]} 
+                        position={[-1.19, 0, 1.85]} rotation={[0, Math.PI/2, 0]}
+                        scale={[9, 21, 0.5]} 
                     />
 
                     <InvisibleWall
                         onPointerOver={(e) => e.stopPropagation()} 
                         position={[-2.1, 0, 2.5]} rotation={[0, 0, 0]}
-                        scale={[21, 21, 1]} 
+                        scale={[21, 21, 0.5]} 
                     />
 
-                    {/* adjust this invisible wall tmrw!! */}
                     <InvisibleWall
                         onPointerOver={(e) => e.stopPropagation()} 
-                        position={[-2.1, 0, 2.5]} rotation={[0, 0, 0]}
-                        scale={[21, 21, 1]} 
+                        position={[0.4, 0, 2.5]} rotation={[0, 0, 0]}
+                        scale={[8, 21, 0.5]} 
+                    />
+
+                    <InvisibleWall
+                        onPointerOver={(e) => e.stopPropagation()} 
+                        position={[-0.2, 1, 2.5]} rotation={[0, 0, 0]}
+                        scale={[8, 10, 0.5]} 
+                    />
+
+                    <InvisibleWall
+                        onPointerOver={(e) => e.stopPropagation()} 
+                        position={[-1.5, 0, -2.9]} rotation={[0, 0, 0]}
+                        scale={[27, 21, 0.5]} 
                     />
                     
             
@@ -257,7 +285,7 @@ function App() {
 
                     <Ruby />
 
-                    <Erased />
+                    <Destiny />
 
                     <SilentHill />
 
@@ -293,13 +321,18 @@ function App() {
                     />
 
                     <IeShelves 
-                        position={[-2., 0.12, -3.2]} rotation={[0, -Math.PI/2, 0]} 
-                        scale={[1.25, 1.25, 1.25]} 
+                        position={[-2.48, 0.12, -3.2]} rotation={[0, -Math.PI/2, 0]} 
+                        scale={[1.25, 1.25, 1.5]} 
+                    />
+                    
+                    <IeShelves 
+                        position={[-1.4, 0.12, -3.2]} rotation={[0, -Math.PI/2, 0]} 
+                        scale={[1.25, 1.25, 1.5]} 
                     />
 
                     <IeShelves 
-                        position={[-3.03 + 0.5, 0.4, -3.1]} rotation={[0, -Math.PI/2, 0]} 
-                        scale={[0, 0, 0]} 
+                        position={[0.3, 0.12, -3.2]} rotation={[0, -Math.PI/2, 0]} 
+                        scale={[1.25, 1.25, 1.5]} 
                     />
 
 
@@ -314,64 +347,98 @@ function App() {
                     />
                     
                     <BarCounter
-                        position={[-0.5, 0.1, -2.8]}
+                        position={[-0.5, 0.1, -0.51]}
                         rotation={[0, Math.PI/2, 0]}
-                        scale={[4.5, 1.2, 1.6]}
+                        scale={[3, 1.2, 1.6]}
+                    />
+
+                    <BarCounter
+                        position={[-0.22, 0.1, -0.51]}
+                        rotation={[0, Math.PI/2, 0]}
+                        scale={[1.25, 1.2, 0.26]}
+                    />
+
+                    <BarCounter
+                        position={[-0.22, 0.1, 0]}
+                        rotation={[0, Math.PI/2, 0]}
+                        scale={[1.75, 1.2, 0.26]}
                     />
 
                     <Sink
-                        position={[-1, 0.09, -2.23]}
-                        rotation={[0, Math.PI, 0]}
-                        scale={[1.2, 1.2, 1.2]}
+                        position={[-0.5, 0.09, 0.78]}
+                        rotation={[0, Math.PI/2, 0]}
+                        scale={[1.1, 1.21, 0.62]}
+                    />
+
+                    <BarCounter
+                        position={[-0.22, 0.1, 0.72]}
+                        rotation={[0, Math.PI/2, 0]}
+                        scale={[1.25, 1.2, 0.26]}
                     />
 
                     <FlatTv
-                        position={[-.8, 1.5, -0.9]}
-                        scale={[0.25, 0.25, 0.25]}
+                        position={[-.8, 1.4, -1.8]}
+                        scale={[0.32, 0.32, 0.32]}
                         rotation={[0, Math.PI/2, 0]} 
                     />
 
-                    <Fridge
-                        position={[-0.9, 0.09, -1.4]}
-                        rotation={[0, -Math.PI/2, 0]}
-                        scale={[0.8, 0.5, 0.6]} 
+                    <TavernShelf 
+                        position={[-0.8, 0.2, -0.5]}
+                        scale={[0.0000014, 0.0000012, 0.0000012]}
                     />
-
-                    <Fridge
-                        position={[-0.9, 0.09, -1.8]}
-                        rotation={[0, -Math.PI/2, 0]}
-                        scale={[0.8, 0.5, 0.6]} 
-                    />
-
-                    {/* <ModernRug 
-                        position={[0.2, 0.125, 0.4]}
-                        rotation={[0, Math.PI/2, 0]}
-                        scale={[0.17, 0.17, 0.17]}
-                    /> */}
 
                     <ModernRug 
-                        position={[0.7, 0.125, -0.8]}
-                        rotation={[0, 0, 0]}
+                        position={[0, 0.125, -1.9]}
+                        rotation={[0, Math.PI/2, 0]}
                         scale={[0.17, 0.17, 0.17]}
                     />
 
                     <TavernCouch
-                        position={[1.1, 0.12, -0.80]}
-                        rotation={[0, -Math.PI/2, 0]}
+                        position={[0, 0.12, -2.5]}
+                        rotation={[0, 0, 0]}
                         scale={[0.19, 0.19, 0.19]}
                     />
                     
                     <TavernCouchSmall
-                        position={[0.6, 0.12, -1.5]}
-                        rotation={[0, -Math.PI + Math.PI, 0]}
+                        position={[-0.7, 0.12, -1.4]}
+                        rotation={[0, -Math.PI/4 + Math.PI, 0]}
                         scale={[0.19, 0.19, 0.19]}
                     />
 
                     <TavernCouchSmall
-                        position={[0.6, 0.12, -0.1]}
-                        rotation={[0, Math.PI, 0]}
+                        position={[0.6, 0.12, -1.5]}
+                        rotation={[0, Math.PI/4 + Math.PI, 0]}
                         scale={[0.19, 0.19, 0.19]}
                     />
+
+                    <MetalStool
+                        position={[0, 0, -0.35]}
+                        scale={[0.04, 0.05, 0.04]}
+                    />
+                    <MetalStool
+                        position={[0, 0, 0.0]}
+                        scale={[0.04, 0.05, 0.04]}
+                    />
+
+                    <MetalStool
+                        position={[0, 0, 0.35]}
+                        scale={[0.04, 0.05, 0.04]}
+                    />
+
+                    <MetalStool
+                        position={[0, 0, 0.65]}
+                        scale={[0.04, 0.05, 0.04]}
+                    />
+
+                    <PoolTable
+                        position={[0.8, 0.2, -0.1]}
+                        rotation={[0, Math.PI/2, 0]}
+                        scale={[0.07, 0.07, 0.07]}
+                    />
+    
+            
+
+                    {/* Bearmo Chat Box */}
 
                     <Bearmofloat>
                         position={[0.6, 0.12, -0.1]}
@@ -398,7 +465,7 @@ function App() {
 
                 </Bounds>
 
-                <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 2} enableDamping={false} maxDistance = {25} minDistance= {4}/>
+                <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 2} enableDamping={false} maxDistance = {20} minDistance= {4}/>
                 <Sky scale={1000} sunPosition={[500, 150, -1000]} turbidity={0.1} />
                 <CameraOrbitController />
                 {/* <BearMo /> */}
@@ -450,8 +517,8 @@ function Ruby() {
     )
 }
 
-function Erased() {
-    const texture = useLoader(THREE.TextureLoader, erased);
+function Destiny() {
+    const texture = useLoader(THREE.TextureLoader, destiny);
 
     return (
         <mesh position={[-1.25, 0.9, 0.4]} rotation={[0, -Math.PI/2, 0]}>
@@ -632,6 +699,8 @@ var keybindError = document.getElementById("keybind-error");
 const navBarGameLst = document.getElementById( "nav-bar-game-lst" );
 var navBarToggleBtn = document.getElementById( "nav-bar-toggle-btn" );
 
+var chatPopup = document.getElementById("chat-popup");
+
 // Helper func for clicking on game models
 var gamePopup = document.getElementById( "game-popup" );
 var gamePopupOpen = false;
@@ -700,13 +769,6 @@ createRoot(document.getElementById('go-to-lobby-btn-container')).render(<CreateG
 createRoot(document.getElementById('go-to-games-btn-container')).render(<CreateGoToBtn roomName="games" />)
 createRoot(document.getElementById('go-to-ie-btn-container')).render(<CreateGoToBtn roomName="ie" />)
 createRoot(document.getElementById('go-to-faq-btn-container')).render(<CreateGoToBtn roomName="faq" />)
-
-// document.getElementById("go-to-games-btn").onclick =
-// function () {
-//     if (camera) {
-//         camera.current.position.set();
-//     }
-// };
 
 // Keybinds
 const keybinds = new Set();
@@ -824,6 +886,10 @@ function( e ) {
         GoToFaq();
     }
 
+    if (e.key == "c") {
+        ToggleChat();
+    }
+
 };
 
 // Overlay vars
@@ -833,6 +899,7 @@ var helpOpen = false;
 var creditsOpen = false;
 var navBarOpen = false;
 var anySettingsOpen = false;
+var chatOpen = false;
 
 // Toggle the settings overlay by clicking
 document.getElementById( "settings-btn" ).onclick = 
@@ -865,7 +932,7 @@ function() {
 };
 
 function UpdateAnySettingsOpen() {
-    anySettingsOpen = settingsOpen || keyBoardControlsOpen || helpOpen || creditsOpen;
+    anySettingsOpen = settingsOpen || keyBoardControlsOpen || helpOpen || creditsOpen || chatOpen;
     if (anySettingsOpen) {
         navBarToggleBtn.disabled = true;
     } else {
@@ -945,6 +1012,19 @@ function ToggleNavBar() {
     } else {
         navBarOpen = false;
     }
+}
+
+// Toggle the chat popup
+function ToggleChat() {
+    if (!chatOpen) {
+        chatPopup.style.visibility = "visible";
+        chatOpen = true;
+    } else {
+        chatPopup.style.visibility = "hidden";
+        chatOpen = false;
+    }
+
+    UpdateAnySettingsOpen();
 }
 
 function CreateKeybind( control, key ) {

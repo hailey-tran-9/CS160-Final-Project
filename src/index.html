@@ -139,25 +139,73 @@
     <div class="fill d-flex justify-content-center align-items-center" id="chat-popup-container">
         <div class="popup d-flex" id="chat-popup">
 
-            <div class="container-fluid">
-    
-                <div class="row">
-                    <h4 id="header">How can I help you today?</h4>
-                </div>
-    
-                <div class="row">
-                    <div class="col">
-                        <button type="button" class="btn btn-info" id="club-btn">Club</button>
+            <div class="arrow-right"></div>
+            <div class="arrow-right-white"></div>
+
+            <div class="container-fluid overflow-auto" id="chat-popup-body">
+
+                <!-- <div id="chat-main">
+                    <div class="row mb-2">
+                        <h4 class="d-flex justify-content-center mt-3" id="chat-main-header">How can I help you today?</h4>
                     </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-info" id="events-btn">Events</button>
+        
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <button type="button" class="btn light-blue-btn" id="club-btn">Club</button>
+                        </div>
+                        <div class="col d-flex justify-content-center">
+                            <button type="button" class="btn light-blue-btn" id="events-btn">Events</button>
+                        </div>
+                        <div class="col d-flex justify-content-center">
+                            <button type="button" class="btn light-blue-btn" id="decal-btn">Decal</button>
+                        </div>
                     </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-info" id="decal-btn">Decal</button>
+                </div> -->
+
+                <div id="chat-club">
+                    <div class="row mb-2">
+                        <h3 class="ml-3" id="chat-club-header">Club Information</h3>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="row">
+                            <p id="chat-club-description">
+                                Game Design and Development at Berkeley is a club to help those interested in game design understand common tools and work environments that other indie and major industry developers work in. We encourage students from all backgrounds to come and join, as game design has many facets that people can be involved in; development, art, music, writing, and project management.
+                                <br>
+                                <br>
+                                Our three goals as an organization are:
+                            </p>
+                        </div>
+                        <div class="row">
+                            <p class="indent">
+                                1. Creating a space to foster a community for those interested in game design and development
+                                <br>
+                                2. Getting more people interested in game design and development
+                                <br>
+                                3. Providing support for a pipeline that will enable everyone to work on their own games, including industry events, workshops, and game jams
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div id="chat-club-btn-lst">
+                            <div class="row d-flex justify-content-center">
+                                <button type="button" class="btn light-blue-btn-lg" id="mission-btn">Mission Statement</button>
+                            </div>
+                            <div class="row d-flex justify-content-center">
+                                <button type="button" class="btn light-blue-btn-lg" id="party-btn">Party System</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <divc class="row d-flex justify-content-end align-items-end align-self-end">
+                        <button type="button" class="btn btn-light chat-back-btn">Back</button>
                     </div>
                 </div>
                 
             </div>
+
+            
             
         </div>
     </div>

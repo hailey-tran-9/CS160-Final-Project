@@ -201,3 +201,124 @@ body {
     padding-left: 0;
     padding-right: 0;
 }
+
+#chat-popup {
+    width: 45rem;
+    height: 40rem;
+    left: 5rem;
+
+    background: none;
+    border: none;
+}
+
+#chat-popup-body {
+    position: absolute;
+    width: 40rem;
+    height: 40rem;
+
+    z-index: 2;
+
+    padding: 1rem;
+
+    top: 0;
+    left: 0;
+
+    background:rgba(35, 35, 35, 0.9);
+    border: white solid 2px;
+    border-radius: 10px;
+
+    color: white;
+}
+
+.arrow-right {
+    position: absolute;
+    top: 4.15rem;
+    right: 1.5rem;
+    z-index: 1;
+
+    width: 0; 
+    height: 0; 
+    border-top: 38.5px solid transparent;
+    border-bottom: 38.5px solid transparent;
+    
+    border-left: 60px solid white;
+}
+
+.arrow-right-white {
+    position: absolute;
+    top: 4.5rem;
+    right: 1.9rem;
+    z-index: 3;
+
+    width: 0; 
+    height: 0; 
+    border-top: 32.5px solid transparent;
+    border-bottom: 32.5px solid transparent;
+    
+    border-left: 52px solid rgb(0, 0, 0, 0.9);
+}
+
+.light-blue-btn-sm {
+    width: 10rem;
+
+    --bs-btn-color: white;
+    --bs-btn-bg: #2a9df4;
+    --bs-btn-border-color: #2a9df4;
+    --bs-btn-hover-color: white;
+    --bs-btn-hover-bg: #187bcd;
+    --bs-btn-hover-border-color: #187bcd;
+    --bs-btn-focus-shadow-rgb: 11,172,204;
+    --bs-btn-active-color: white;
+    --bs-btn-active-bg: #1167b1;
+    --bs-btn-active-border-color: #1167b1;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: white;
+    --bs-btn-disabled-bg: #ADD7FF;
+    --bs-btn-disabled-border-color: #ADD7FF;
+}
+
+.light-blue-btn-lg {
+    width: 25rem;
+
+    --bs-btn-color: white;
+    --bs-btn-bg: #2a9df4;
+    --bs-btn-border-color: #2a9df4;
+    --bs-btn-hover-color: white;
+    --bs-btn-hover-bg: #187bcd;
+    --bs-btn-hover-border-color: #187bcd;
+    --bs-btn-focus-shadow-rgb: 11,172,204;
+    --bs-btn-active-color: white;
+    --bs-btn-active-bg: #1167b1;
+    --bs-btn-active-border-color: #1167b1;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: white;
+    --bs-btn-disabled-bg: #ADD7FF;
+    --bs-btn-disabled-border-color: #ADD7FF;
+}
+
+#chat-club {
+    height: 100%;
+}
+
+#chat-club-btn-lst {
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+#chat-club-btn-lst .row {
+    margin-bottom: 0.5rem;
+}
+
+.indent {
+    padding-left: 3rem;
+}
+
+.chat-back-btn {
+    width: 5rem;
+    margin-right: 1rem;
+    margin-top: 5rem;
+}
+
+.dummy-row {
+    height: 1rem;
+}

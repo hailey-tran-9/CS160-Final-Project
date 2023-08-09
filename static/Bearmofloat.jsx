@@ -9,15 +9,21 @@ import { useGLTF, useAnimations } from '@react-three/drei'
 
 export function Bearmofloat(props) {
   const { nodes, materials, animations } = useGLTF('/bearmofloat-transformed.glb')
-  const { actions } = useAnimations(animations)
+  const { ref, actions, names } = useAnimations(animations)
+  console.log(animations)
 
   useEffect(() => {
     console.log(actions);
-    if (actions && actions[0]) {
-        console.log("I am here")
-        actions[0].play(); 
-      }
-    }, [actions]);
+  //   actions[names[4]].reset().fadeIn(0.5).play()
+  //   // In the clean-up phase, fade it out
+  //   return () => actions[names[4]].fadeOut(0.5)
+  // }, [4, actions, names])
+    console.log(actions['get'])
+    if (actions && actions['get']){
+      actions['get'].setLoop('repeat');
+      actions['get'].play();
+    }
+  }, [actions]);
 
 
   return (
@@ -44,3 +50,5 @@ export function Bearmofloat(props) {
 }
 
 useGLTF.preload('/bearmofloat-transformed.glb')
+
+export default Bearmofloat;
