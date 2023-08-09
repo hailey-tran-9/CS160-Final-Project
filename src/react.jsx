@@ -1536,7 +1536,7 @@ function () {
 
 document.getElementById('prereq-btn').onclick =
 function () {
-    TogglePages(prereqPage, "prereq");
+    ToggleMainPages(prereqPage, "prereq");
 }
 
 createRoot(document.getElementById('root')).render(<App />)

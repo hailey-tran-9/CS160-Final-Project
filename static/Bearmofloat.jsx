@@ -4,12 +4,13 @@ Command: npx gltfjsx@6.2.10 bearmofloat.glb --transform
 Files: bearmofloat.glb [118.27KB] > bearmofloat-transformed.glb [31.3KB] (74%)
 */
 
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useMemo } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import * as THREE from 'three'
-import { useFrame } from 'react-three-fiber';
+import { useFrame, useThree } from 'react-three-fiber';
 import { MathUtils } from 'three'
 import { Select } from '@react-three/postprocessing'
+import CameraControls from 'camera-controls'
 
 
 export function Bearmofloat(props) {
@@ -31,11 +32,20 @@ export function Bearmofloat(props) {
     mixer?.update(delta)
   })
 
-  useFrame(state => {
+  CameraControls.install({THREE})
+  const camera = useThree((state) => state.camera)
+  console.log(camera)
+  const gl = useThree((state) => state.gl)
+  console.log(gl)
+  const controls = useMemo(() => new CameraControls(camera, gl.domElement), [])
+  useFrame((state, delta) => {
     if (clicked) {
-      state.camera.lookAt((ref.current.position.x -1), (ref.current.position.y), (ref.current.position.z + 1))
-      state.camera.position.lerp(vec.set((ref.current.position.x + 3), (ref.current.position.y), (ref.current.position.z + 4)), 0.01)
+      state.camera.lookAt((ref.current.position.x - 1), (ref.current.position.y + 1), (ref.current.position.z))
+      state.camera.position.lerp(vec.set((ref.current.position.x-1), (ref.current.position.y + 1.5), (ref.current.position.z + 3)), 0.04)
       state.camera.updateProjectionMatrix()
+
+      controls.setLookAt((ref.current.position.x - 1), (ref.current.position.y + 1), (ref.current.position.z))
+      return controls.update(delta)
     }
   })
 
@@ -51,7 +61,12 @@ export function Bearmofloat(props) {
           model.scene.scale.set(32, 32, 32);}}
         onPointerOut={() => {hover(false); 
           model.scene.scale.set(30, 30, 30);}}
-        onClick={() => setClicked(!clicked)}
+        onClick={() => {setClicked(!clicked); 
+          setTimeout(function() {
+            console.log('executed here')
+            setClicked(false);
+          }, 3000);
+        }}
       />
     </Select>
     // <group {...props} dispose={null}>
