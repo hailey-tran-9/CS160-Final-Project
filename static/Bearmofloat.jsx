@@ -33,8 +33,8 @@ export function Bearmofloat(props) {
 
   useFrame(state => {
     if (clicked) {
-      state.camera.lookAt((ref.current.position.x -1), (ref.current.position.y), (ref.current.position.z + 1))
-      state.camera.position.lerp(vec.set((ref.current.position.x + 3), (ref.current.position.y), (ref.current.position.z + 4)), 0.01)
+      state.camera.lookAt((ref.current.position.x - 0.75), (ref.current.position.y + 1.2), (ref.current.position.z + 1))
+      state.camera.position.lerp(vec.set((ref.current.position.x-0.6), (ref.current.position.y + 1.5), (ref.current.position.z + 3)), 0.5)
       state.camera.updateProjectionMatrix()
     }
   })

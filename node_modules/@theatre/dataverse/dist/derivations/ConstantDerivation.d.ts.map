@@ -1,0 +1,1 @@
+{"version":3,"file":"ConstantDerivation.d.ts","sourceRoot":"","sources":["../../src/derivations/ConstantDerivation.ts"],"names":[],"mappings":"AAAA,OAAO,kBAAkB,MAAM,sBAAsB,CAAA;AAErD;;GAEG;AACH,MAAM,CAAC,OAAO,OAAO,kBAAkB,CAAC,CAAC,CAAE,SAAQ,kBAAkB,CAAC,CAAC,CAAC;IACtE,OAAO,CAAC,QAAQ,CAAC,EAAE,CAAG;IAEtB;;OAEG;gBACS,CAAC,EAAE,CAAC;CAiBjB"}

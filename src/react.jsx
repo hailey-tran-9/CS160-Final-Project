@@ -10,6 +10,10 @@ extend({ Water });
 import * as THREE from 'three';
 import * as easing from "maath/easing";
 
+import studio from '@theatre/studio'
+import extension from '@theatre/r3f/dist/extension'
+import { editable, SheetProvider } from '@theatre/r3f'
+import { getProject } from '@theatre/core'
 // import { editable, configure } from 'react-three-editable';
 // import editableState from './editableState.json';
 
@@ -84,8 +88,11 @@ import erased from '../static/erased.png'
 import silentHill from '../static/SilentHill.jpeg'
 import ff7 from '../static/FF7.jpeg'
 import destiny from '../static/destiny.jpg'
+import gddInfo from '../static/gddInfo.png'
+import gddBanner from '../static/gddbanner.png'
 
 var camera;
+
 
 function App() {
     const cameraRef = useRef();
@@ -117,6 +124,7 @@ function App() {
                         />
 
                         <CardboardBox
+                            onClick={(e) => DisplayInfo( "Package Runner 20XX" )}
                             onPointerEnter={(e) => HighlightObject(e)} 
                             onPointerLeave={(e) => UnhighlightObject(e)}
                             position={[-1.6, 0.15, -0.6]} 
@@ -171,7 +179,7 @@ function App() {
                     
                     </SelectToZoom>
 
-                    <Bearmofloat />
+                    <Bearmofloat/>
 
                 </Selection>
 
@@ -299,7 +307,7 @@ function App() {
                         position={[-5.3, 0.92, -3]} rotation={[0, -Math.PI/2, 0]}
                         scale={[0.015, 0.01, 0.015]}
                     />
-
+                    
                     <JJK />
 
                     <AnimalCrossing />
@@ -311,6 +319,8 @@ function App() {
                     <SilentHill />
 
                     <FinalFantasy />
+
+                    <GddInfo />
 
                     <FigPlant
                         position={[-1.5, 0.15, -2.6]}
@@ -375,13 +385,18 @@ function App() {
                     />
 
                     <BeehiveRed
-                        position={[-1.6, -0.43, -3.6]}
-                        rotation={[0, Math.PI*1.65, 0]}
+                        position={[-1.9, -0.43, -3.8]}
+                        rotation={[0, Math.PI/1.25, 0]}
                         scale={[25, 25, 25]}
                     />
 
                     <BeehiveBlue
                         position={[-1.5, 0.34, -3.2]}
+                        rotation={[0, Math.PI, 0]}
+                        scale={[25, 25, 25]}
+                    />
+                    <BeehiveBlue
+                        position={[-1.5, 0.74, -3.2]}
                         rotation={[0, Math.PI, 0]}
                         scale={[25, 25, 25]}
                     />
@@ -400,7 +415,7 @@ function App() {
 
                     <BeehiveGreen
                         position={[-1.4, 0.34, -3.6]}
-                        rotation={[0, Math.PI*1.75, 0]}
+                        rotation={[0, Math.PI/8, 0]}
                         scale={[25, 25, 25]}
                     >
                         <TheoryCraft scale={[100, 100, 100]}/>
@@ -618,6 +633,30 @@ function FinalFantasy() {
     )
 }
 
+function GddInfo() {
+    const texture = useLoader(THREE.TextureLoader, gddInfo);
+
+    return (
+        <mesh position={[-1.1, 1.4, 1]} rotation={[0, Math.PI/2, 0]}>
+        <planeGeometry attach="geometry" args={[1.2, 0.8]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+function GddBanner() {
+    const texture = useLoader(THREE.TextureLoader, gddBanner);
+
+    return (
+        <mesh position={[-0.8, 1.4, 1.2]} rotation={[0, Math.PI/2, 0]}>
+        <planeGeometry attach="geometry" args={[1.2, 0.8]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+
+
 // function Ocean() {
 //     const ref = useRef()
 //     const gl = useThree((state) => state.gl)
@@ -796,6 +835,7 @@ function CloseGamePopup() {
 // When a game model is clicked, load the corresponding info
 function DisplayInfo ( objName ) {
     for (let i in data) {
+        console.log(i);
         if (data[i]["Game Title"] == objName) {
             // console.log(data[i]);
 
