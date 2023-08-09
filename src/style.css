@@ -218,7 +218,7 @@ body {
 
     z-index: 2;
 
-    padding: 1rem;
+    padding: 1.5rem;
 
     top: 0;
     left: 0;
@@ -314,11 +314,29 @@ body {
 }
 
 .chat-back-btn {
+    position: absolute;
     width: 5rem;
-    margin-right: 1rem;
-    margin-top: 5rem;
+
+    bottom: 1.5rem;
+    right: 1.5rem;
 }
 
-.dummy-row {
-    height: 1rem;
+.chat-main-btn {
+    position: absolute;
+    width: 5rem;
+
+    bottom: 1.5rem;
+    left: 1.5rem;
+}
+
+.chat-page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    padding: 1.5rem;
+
+    visibility: hidden;
 }

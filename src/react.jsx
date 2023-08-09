@@ -10,6 +10,9 @@ extend({ Water });
 import * as THREE from 'three';
 import * as easing from "maath/easing";
 
+// import { editable, configure } from 'react-three-editable';
+// import editableState from './editableState.json';
+
 import { OrbitControls as OrbitC } from 'three/examples/jsm/controls/OrbitControls';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
@@ -60,7 +63,9 @@ import { Champagne } from '../static/Champagne'
 import { WoodenStool } from '../static/WoodenStool'
 import { MetalStool } from '../static/MetalStool'
 import { PoolTable } from '../static/PoolTable'
+import { Noguchi_coffee_table } from '../static/Noguchi_coffee_table'
 import { Bearmofloat } from '../static/Bearmofloat'
+
 
 import { BeehiveBlue } from '../static/BeehiveBlue'
 import { BeehiveRed } from '../static/BeehiveRed'
@@ -141,26 +146,36 @@ function App() {
                         />
                         
                         
-                    <StardewValley
-                        position={[-1.4, 1.12, -3.2]}
-                        scale={[0.035, 0.035, 0.035]}
-                        rotation={[-0.25, 0, 0]}
-                        onPointerEnter={(e) => HighlightObject(e)} 
-                        onPointerLeave={(e) => UnhighlightObject(e)}
-                    />
+                        <StardewValley
+                            position={[-1.5, 0.3, -3.2]}
+                            scale={[0.035, 0.035, 0.035]}
+                            rotation={[-0.25, 0, 0]}
+                            onPointerEnter={(e) => HighlightObject(e)} 
+                            onPointerLeave={(e) => UnhighlightObject(e)}
+                        />
 
-                    {/* <Issac/> */}
+                        {/* <Issac/> */}
 
-                    <TheoryCraft
-                        position={[-2.43, 0.8, -3.3]}
-                        rotation={[0, Math.PI/2, 0]}
-                        scale={[1.5, 1.5, 1.5]}
-                        onPointerEnter={(e) => HighlightObject(e)} 
-                        onPointerLeave={(e) => UnhighlightObject(e)}
-                    />
+                        <TheoryCraft
+                            position={[-2.43, 0.8, -3.3]}
+                            rotation={[0, Math.PI/2, 0]}
+                            scale={[1.5, 1.5, 1.5]}
+                            onPointerEnter={(e) => HighlightObject(e)} 
+                            onPointerLeave={(e) => UnhighlightObject(e)}
+                        />
+
+                        <Disruptive
+                            position={[-1.4, 1.12, -3.2]}
+                            scale={[5, 5, 5]}
+                        /> 
                     
                     </SelectToZoom>
+
+                    <Bearmofloat />
+
                 </Selection>
+
+                    
 
                     {/* Gaming room */}
 
@@ -204,8 +219,14 @@ function App() {
                     
                     <BoxOpen
                             position={[-1.4, 0.125, 0]} 
-                            rotation={[0, -Math.PI/9, 0]} 
+                            rotation={[0, -Math.PI/3, 0]} 
                             scale={[1, 1, 1]} 
+                    />
+
+                    <BoxClosed
+                        position={[-1.8, 0.125, 0]} 
+                        rotation={[0, -Math.PI/9, 0]} 
+                        scale={[1, 1, 1]} 
                     />
 
                     <Couch  
@@ -315,7 +336,7 @@ function App() {
 
 
                     {/* Industry Event Room */}
-                    <IeShelves 
+                    {/* <IeShelves 
                         position={[-1.975 + 0.5, 0.4, 2.66]} rotation={[0, -Math.PI/2, 0]} 
                         scale={[0.01, 0.01, 0.01]} 
                     />
@@ -333,10 +354,58 @@ function App() {
                     <IeShelves 
                         position={[0.3, 0.12, -3.2]} rotation={[0, -Math.PI/2, 0]} 
                         scale={[1.25, 1.25, 1.5]} 
+                    /> */}
+
+                    <BeehiveRed
+                        position={[-1, -0.43, -3.2]}
+                        rotation={[0, Math.PI, 0]}
+                        scale={[25, 25, 25]}
                     />
 
+                    <BeehiveRed
+                        position={[-1, 0, -3.2]}
+                        rotation={[0, Math.PI, 0]}
+                        scale={[25, 25, 25]}
+                    />
 
+                    <BeehiveRed
+                        position={[-1, 0.43, -3.2]}
+                        rotation={[0, Math.PI, 0]}
+                        scale={[25, 25, 25]}
+                    />
 
+                    <BeehiveRed
+                        position={[-1.6, -0.43, -3.6]}
+                        rotation={[0, Math.PI*1.65, 0]}
+                        scale={[25, 25, 25]}
+                    />
+
+                    <BeehiveBlue
+                        position={[-1.5, 0.34, -3.2]}
+                        rotation={[0, Math.PI, 0]}
+                        scale={[25, 25, 25]}
+                    />
+
+                    <BeehivePink
+                        position={[-1.64, 0.34, -3.2]}
+                        rotation={[0, Math.PI, 0]}
+                        scale={[25, 25, 25]}
+                    />
+
+                    {/* <BeehiveGreen
+                        position={[-1, 0.34, -3.2]}
+                        rotation={[0, Math.PI, 0]}
+                        scale={[25, 25, 25]}
+                    /> */}
+
+                    <BeehiveGreen
+                        position={[-1.4, 0.34, -3.6]}
+                        rotation={[0, Math.PI*1.75, 0]}
+                        scale={[25, 25, 25]}
+                    >
+                        <TheoryCraft scale={[100, 100, 100]}/>
+                    </BeehiveGreen>
+                    
 
 
                     {/* Tavern */}
@@ -411,6 +480,12 @@ function App() {
                         scale={[0.19, 0.19, 0.19]}
                     />
 
+                    <Noguchi_coffee_table
+                        position={[0.5, 0.1, -2.2]}
+                        rotation={[0, Math.PI, 0]}
+                        scale={[0.0008, 0.0008, 0.0008]}
+                    />
+
                     <MetalStool
                         position={[0, 0, -0.35]}
                         scale={[0.04, 0.05, 0.04]}
@@ -438,14 +513,8 @@ function App() {
     
             
 
-                    {/* Bearmo Chat Box */}
 
-                    <Bearmofloat>
-                        position={[0.6, 0.12, -0.1]}
-                        rotation={[0, Math.PI, 0]}
-                        scale = {[100,100,100]}
-                    </Bearmofloat> 
-{/* 
+                    {/* 
             
                     <Text id="chatText" position={[1,3,1]} color="black">
                         Good Morning
@@ -468,7 +537,6 @@ function App() {
                 <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 2} enableDamping={false} maxDistance = {20} minDistance= {4}/>
                 <Sky scale={1000} sunPosition={[500, 150, -1000]} turbidity={0.1} />
                 <CameraOrbitController />
-                {/* <BearMo /> */}
             </Canvas>
         </div>
     )
@@ -1018,9 +1086,11 @@ function ToggleNavBar() {
 function ToggleChat() {
     if (!chatOpen) {
         chatPopup.style.visibility = "visible";
+        OpenChat();
         chatOpen = true;
     } else {
         chatPopup.style.visibility = "hidden";
+        currPage[0].style.visibility = "hidden";
         chatOpen = false;
     }
 
@@ -1328,7 +1398,145 @@ function () {
     }
 };
 
+var mainPage = document.getElementById( "chat-main" );
+var clubPage = document.getElementById( "chat-club" );
+var missionPage = document.getElementById( "chat-mission" );
+var partyPage = document.getElementById( "chat-party" );
+var eventsPage = document.getElementById( "chat-events" );
+var bjPage = document.getElementById( "chat-bj" );
+var iePage = document.getElementById( "chat-ie" );
+var showcasePage = document.getElementById( "chat-showcase" );
+var decalPage = document.getElementById( "chat-decal" );
+var applicationPage = document.getElementById( "chat-application" );
+var prereqPage = document.getElementById( "chat-prereq" );
 
+var currPage;
 
+function OpenChat() {
+    mainPage.style.visibility = "visible";
+    currPage = [mainPage, "main"];
+}
+
+function ToggleMainPages( page, pageName ) {
+    mainPage.style.visibility = "hidden";
+
+    page.style.visibility = "visible";
+    currPage[0] = page;
+    currPage[1] = pageName;
+}
+
+function TogglePages( page, pageName ) {
+    currPage[0].style.visibility = "hidden";
+    
+    page.style.visibility = "visible";
+    currPage[0] = page;
+    currPage[1] = pageName;
+}
+
+function GoBack() {
+    let pageName = currPage[1];
+    if (pageName == "club" || pageName == "events" || pageName == "decal") {
+        currPage[0].style.visibility = "hidden";
+
+        mainPage.style.visibility = "visible";
+        currPage[0] = mainPage;
+        currPage[1] = "main";
+    } else if (pageName == "mission" || pageName == "party") {
+        currPage[0].style.visibility = "hidden";
+
+        clubPage.style.visibility = "visible";
+        currPage[0] = clubPage;
+        currPage[1] = "club";
+    } else if (pageName == "bj" || pageName == "ie" || pageName == "showcase") {
+        currPage[0].style.visibility = "hidden";
+
+        eventsPage.style.visibility = "visible";
+        currPage[0] = eventsPage;
+        currPage[1] = "events";
+    } else if (pageName == "application" || pageName == "prereq") {
+        currPage[0].style.visibility = "hidden";
+
+        decalPage.style.visibility = "visible";
+        currPage[0] = decalPage;
+        currPage[1] = "decal";
+    }
+}
+
+function GoMain() {
+    currPage[0].style.visibility = "hidden";
+    
+    mainPage.style.visibility = "visible";
+    currPage[0] = mainPage;
+    currPage[1] = "main";
+}
+
+var backBtns = document.getElementsByClassName( "chat-back-btn" );
+for ( let btn of backBtns ) {
+    btn.onclick = 
+        function () {
+            GoBack();
+        };
+}
+
+var mainBtns = document.getElementsByClassName( "chat-main-btn" );
+for ( let btn of mainBtns ) {
+    btn.onclick = 
+        function () {
+            GoMain();
+        };
+}
+
+// Club
+document.getElementById('club-btn').onclick =
+function () {
+    ToggleMainPages(clubPage, "club");
+}
+
+document.getElementById('mission-btn').onclick =
+function () {
+    TogglePages(missionPage, "mission");
+}
+
+document.getElementById('party-btn').onclick =
+function () {
+    TogglePages(partyPage, "party");
+}
+
+// Events
+document.getElementById('events-btn').onclick =
+function () {
+    ToggleMainPages(eventsPage, "events");
+}
+
+document.getElementById('bj-btn').onclick =
+function () {
+    TogglePages(bjPage, "bj");
+}
+
+document.getElementById('ie-btn').onclick =
+function () {
+    TogglePages(iePage, "ie");
+}
+
+document.getElementById('showcase-btn').onclick =
+function () {
+    TogglePages(showcasePage, "showcase");
+}
+
+// Decal
+document.getElementById('decal-btn').onclick =
+function () {
+    ToggleMainPages(decalPage, "decal");
+}
+
+document.getElementById('application-btn').onclick =
+function () {
+    TogglePages(applicationPage, "application");
+}
+
+document.getElementById('prereq-btn').onclick =
+function () {
+    TogglePages(prereqPage, "prereq");
+}
 
 createRoot(document.getElementById('root')).render(<App />)

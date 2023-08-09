@@ -4,48 +4,75 @@ Command: npx gltfjsx@6.2.10 bearmofloat.glb --transform
 Files: bearmofloat.glb [118.27KB] > bearmofloat-transformed.glb [31.3KB] (74%)
 */
 
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useState } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
+import * as THREE from 'three'
+import { useFrame } from 'react-three-fiber';
+import { MathUtils } from 'three'
+import { Select } from '@react-three/postprocessing'
+
 
 export function Bearmofloat(props) {
-  const { nodes, materials, animations } = useGLTF('/bearmofloat-transformed.glb')
-  const { ref, actions, names } = useAnimations(animations)
-  console.log(animations)
+  const ref = useRef()
+  const model = useGLTF('/bearmofloat-transformed.glb')
+  const [hovered, hover] = useState(null)
+  const [clicked, setClicked] = useState(false)
+  const vec = new THREE.Vector3()
+  let mixer
+  if (model.animations.length) {
+    mixer = new THREE.AnimationMixer(model.scene);
+    model.animations.forEach(clip => {
+      const action = mixer.clipAction(clip);
+      action.play();
+    });
+  }
 
-  useEffect(() => {
-    console.log(actions);
-  //   actions[names[4]].reset().fadeIn(0.5).play()
-  //   // In the clean-up phase, fade it out
-  //   return () => actions[names[4]].fadeOut(0.5)
-  // }, [4, actions, names])
-    console.log(actions['get'])
-    if (actions && actions['get']){
-      actions['get'].setLoop('repeat');
-      actions['get'].play();
+  useFrame((state, delta) => {
+    mixer?.update(delta)
+  })
+
+  useFrame(state => {
+    if (clicked) {
+      state.camera.lookAt((ref.current.position.x -1), (ref.current.position.y), (ref.current.position.z + 1))
+      state.camera.position.lerp(vec.set((ref.current.position.x + 3), (ref.current.position.y), (ref.current.position.z + 4)), 0.01)
+      state.camera.updateProjectionMatrix()
     }
-  }, [actions]);
-
+  })
 
   return (
-    <group {...props} dispose={null}>
-      <group name="Scene">
-        <group name="body" position={[-0.002, 0, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[0.008, 0.01, 0.01]}>
-          <mesh name="Mesh" geometry={nodes.Mesh.geometry} material={materials.PaletteMaterial001} />
-          <mesh name="Mesh_1" geometry={nodes.Mesh_1.geometry} material={materials.PaletteMaterial001} />
-          <group name="ears" position={[0.07, 0.807, -5.66]} scale={[0.284, 0.344, 0.344]}>
-            <mesh name="pSphere1" geometry={nodes.pSphere1.geometry} material={materials.PaletteMaterial001} position={[0, -4.685, 0]} />
-          </group>
-          <group name="eyes" position={[-0.848, -0.436, -4.621]} scale={[0.141, 0.262, 0.262]}>
-            <mesh name="emo" geometry={nodes.emo.geometry} material={materials.PaletteMaterial001} position={[0, 1, 1.969]} rotation={[Math.PI / 2, 0, 0]} scale={[0.893, 0.382, 0.382]}>
-              <mesh name="pCube10" geometry={nodes.pCube10.geometry} material={materials.PaletteMaterial001} />
-            </mesh>
-          </group>
-          <mesh name="controls" geometry={nodes.controls.geometry} material={materials.PaletteMaterial001} position={[0.206, 0, 0]} scale={[1.26, 1, 1]}>
-            <mesh name="pCube15" geometry={nodes.pCube15.geometry} material={materials.PaletteMaterial001} />
-          </mesh>
-        </group>
-      </group>
-    </group>
+    <Select enabled={hovered}>
+      <primitive
+        ref = {ref}
+        object={model.scene}
+        scale={[30, 30, 30]}
+        rotation={[0, 4*Math.PI/9, 0]}
+        position={[0, 0.2, 3.5]}
+        onPointerOver={() => {hover(true);
+          model.scene.scale.set(32, 32, 32);}}
+        onPointerOut={() => {hover(false); 
+          model.scene.scale.set(30, 30, 30);}}
+        onClick={() => setClicked(!clicked)}
+      />
+    </Select>
+    // <group {...props} dispose={null}>
+    //   <group name="Scene">
+    //     <group name="body" position={[-0.002, 0, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[0.008, 0.01, 0.01]}>
+    //       <mesh name="Mesh" geometry={nodes.Mesh.geometry} material={materials.PaletteMaterial001} />
+    //       <mesh name="Mesh_1" geometry={nodes.Mesh_1.geometry} material={materials.PaletteMaterial001} />
+    //       <group name="ears" position={[0.07, 0.807, -5.66]} scale={[0.284, 0.344, 0.344]}>
+    //         <mesh name="pSphere1" geometry={nodes.pSphere1.geometry} material={materials.PaletteMaterial001} position={[0, -4.685, 0]} />
+    //       </group>
+    //       <group name="eyes" position={[-0.848, -0.436, -4.621]} scale={[0.141, 0.262, 0.262]}>
+    //         <mesh name="emo" geometry={nodes.emo.geometry} material={materials.PaletteMaterial001} position={[0, 1, 1.969]} rotation={[Math.PI / 2, 0, 0]} scale={[0.893, 0.382, 0.382]}>
+    //           <mesh name="pCube10" geometry={nodes.pCube10.geometry} material={materials.PaletteMaterial001} />
+    //         </mesh>
+    //       </group>
+    //       <mesh name="controls" geometry={nodes.controls.geometry} material={materials.PaletteMaterial001} position={[0.206, 0, 0]} scale={[1.26, 1, 1]}>
+    //         <mesh name="pCube15" geometry={nodes.pCube15.geometry} material={materials.PaletteMaterial001} />
+    //       </mesh>
+    //     </group>
+    //   </group>
+    // </group>
   )
 }
 
