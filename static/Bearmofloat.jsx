@@ -28,46 +28,39 @@ export function Bearmofloat(props) {
     });
   }
 
+
   useFrame((state, delta) => {
+    if (clicked) {
+      state.camera.lookAt((ref.current.position.x - 1), (ref.current.position.y + 1.2), (ref.current.position.z))
+      state.camera.position.lerp(vec.set((ref.current.position.x - 0.9), (ref.current.position.y + 1.6), (ref.current.position.z + 3)), 0.1)
+      state.camera.updateProjectionMatrix()
+    }
     mixer?.update(delta)
   })
 
-  CameraControls.install({THREE})
-  const camera = useThree((state) => state.camera)
-  console.log(camera)
-  const gl = useThree((state) => state.gl)
-  console.log(gl)
-  const controls = useMemo(() => new CameraControls(camera, gl.domElement), [])
-  useFrame((state, delta) => {
+  function ClickOff() {
     if (clicked) {
-      state.camera.lookAt((ref.current.position.x - 1), (ref.current.position.y + 1), (ref.current.position.z))
-      state.camera.position.lerp(vec.set((ref.current.position.x-1), (ref.current.position.y + 1.5), (ref.current.position.z + 3)), 0.04)
-      state.camera.updateProjectionMatrix()
-
-      controls.setLookAt((ref.current.position.x - 1), (ref.current.position.y + 1), (ref.current.position.z))
-      return controls.update(delta)
+      setClicked(false)
     }
-  })
+  }
 
   return (
     <Select enabled={hovered}>
-      <primitive
-        ref = {ref}
-        object={model.scene}
-        scale={[30, 30, 30]}
-        rotation={[0, 4*Math.PI/9, 0]}
-        position={[0, 0.2, 3.5]}
-        onPointerOver={() => {hover(true);
-          model.scene.scale.set(32, 32, 32);}}
-        onPointerOut={() => {hover(false); 
-          model.scene.scale.set(30, 30, 30);}}
-        onClick={() => {setClicked(!clicked); 
-          setTimeout(function() {
-            console.log('executed here')
-            setClicked(false);
-          }, 3000);
-        }}
-      />
+      <group {...props} dispose={null}>
+        <primitive
+          ref = {ref}
+          object={model.scene}
+          scale={[30, 30, 30]}
+          rotation={[0, 4*Math.PI/9, 0]}
+          position={[0, 0.2, 3.5]}
+          onPointerOver={() => {hover(true);
+            model.scene.scale.set(32, 32, 32);}}
+          onPointerOut={() => {hover(false); 
+            model.scene.scale.set(30, 30, 30);}}
+          onClick={() => setClicked(!clicked)}
+          onPointerMissed={() => ClickOff()}
+        />
+      </group>
     </Select>
     // <group {...props} dispose={null}>
     //   <group name="Scene">

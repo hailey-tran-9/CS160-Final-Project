@@ -7,7 +7,7 @@ Files: stair.glb [32.19KB] > stair-transformed.glb [3.63KB] (89%)
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
-export function Model(props) {
+export function Stair(props) {
   const { nodes, materials } = useGLTF('/stair-transformed.glb')
   return (
     <group {...props} dispose={null}>

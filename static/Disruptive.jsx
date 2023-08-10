@@ -4,15 +4,19 @@ Command: npx gltfjsx@6.2.10 Disruptive.glb --transform
 Files: Disruptive.glb [15.49KB] > Disruptive-transformed.glb [2.22KB] (86%)
 */
 
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { Select } from '@react-three/postprocessing'
 
 export function Disruptive(props) {
   const { nodes, materials } = useGLTF('/Disruptive-transformed.glb')
+  const [hovered, hover] = useState(null)
   return (
-    <group {...props} dispose={null}>
-      <mesh geometry={nodes.pCube5.geometry} material={materials.lambert2} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
-    </group>
+    <Select enabled={hovered}>
+      <group {...props} dispose={null} onPointerOver={() => hover(true)} onPointerOut={() => hover(false)}>
+        <mesh geometry={nodes.pCube5.geometry} material={materials.lambert2} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
+      </group>
+    </Select>
   )
 }
 

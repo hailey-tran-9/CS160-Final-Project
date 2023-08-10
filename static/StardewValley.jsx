@@ -8,15 +8,19 @@ Source: https://sketchfab.com/3d-models/my-stardew-valley-farm-75d4edbe7cef46428
 Title: My Stardew Valley Farm
 */
 
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { Select } from '@react-three/postprocessing'
 
 export function StardewValley(props) {
   const { nodes, materials } = useGLTF('/stardewValley-transformed.glb')
+  const [hovered, hover] = useState(null)
   return (
-    <group {...props} dispose={null}>
-      <mesh geometry={nodes.Object_2.geometry} material={materials.palette} position={[-4.703, 0, 4.703]} rotation={[-Math.PI / 2, 0, 0]} scale={0.075} />
-    </group>
+    <Select enabled={hovered}>
+      <group {...props} dispose={null} onPointerOver={() => hover(true)} onPointerOut={() => hover(false)}>
+        <mesh geometry={nodes.Object_2.geometry} material={materials.palette} position={[-4.703, 0, 4.703]} rotation={[-Math.PI / 2, 0, 0]} scale={0.075} />
+      </group>
+    </Select>
   )
 }
 

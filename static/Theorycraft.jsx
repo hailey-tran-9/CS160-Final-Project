@@ -4,15 +4,20 @@ Command: npx gltfjsx@6.2.10 theorycraft.glb --transform
 Files: theorycraft.glb [11.38KB] > theorycraft-transformed.glb [2.46KB] (78%)
 */
 
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { Select } from '@react-three/postprocessing'
 
 export function TheoryCraft(props) {
   const { nodes, materials } = useGLTF('/theorycraft-transformed.glb')
+  const [hovered, hover] = useState(null)
+
   return (
-    <group {...props} dispose={null}>
-      <mesh geometry={nodes.pCylinder1.geometry} material={materials.lambert2} position={[0, 0.019, 0]} rotation={[Math.PI / 2, Math.PI / 2, 0]} scale={[0.105, 0.105, 0.04]} />
-    </group>
+    <Select enabled={hovered}>
+      <group {...props} dispose={null} onPointerOver={() => hover(true)} onPointerOut={() => hover(false)}>
+        <mesh geometry={nodes.pCylinder1.geometry} material={materials.lambert2} position={[0, 0.019, 0]} rotation={[Math.PI / 2, Math.PI / 2, 0]} scale={[0.105, 0.105, 0.04]} />
+      </group>
+    </Select>
   )
 }
 
