@@ -64,6 +64,9 @@ import { WoodenStool } from '../static/WoodenStool'
 import { MetalStool } from '../static/MetalStool'
 import { PoolTable } from '../static/PoolTable'
 import { Noguchi_coffee_table } from '../static/Noguchi_coffee_table'
+import { Stair } from '../static/Stair.jsx'
+import { QuestionMark } from '../static/QuestionMark'
+
 import { Bearmofloat } from '../static/Bearmofloat'
 
 
@@ -85,9 +88,24 @@ import silentHill from '../static/SilentHill.jpeg'
 import ff7 from '../static/FF7.jpeg'
 import destiny from '../static/destiny.jpg'
 
+// Tavern Posters
+import gddbanner from '../static/gddbanner.png'
+import bearMoYellow from '../static/bearMoYellow.png'
+import discordPoster from '../static/discordPoster.png'
+import movieNight from '../static/movieNight.png'
+import funding from '../static/funding.png'
+import GDDXCMGG from '../static/GDDXCMGG.png'
+import GDDXUCBUGG from '../static/GDDXUCBUGG.png'
+import gameTournament from '../static/gameTournament.png'
+import GDDInfo from '../static/GDDInfo.png'
+import showcaseFall2022 from '../static/showcaseFall2022.jpeg'
+import showcaseSpring2022 from '../static/showcaseSpring2022.jpeg'
+import showcaseSpring2023 from '../static/showcaseSpring2023.jpeg'
+
 var camera;
 
 function App() {
+    console.log("react start");
     const cameraRef = useRef();
     camera = cameraRef;
 
@@ -102,23 +120,25 @@ function App() {
                 <Rooms position={[0, 0, 0]}  scale={[8, 8, 8]}/>
                 <Bounds fit clip observe margin={1.2}>
                 <Selection>
-                <EffectComposer multisampling={8} autoClear={false}>
-                    <Outline blur={true} visibleEdgeColor='white' edgeStrength={1000} width={10000} />
-                </EffectComposer>
+                    <EffectComposer multisampling={8} autoClear={false}>
+                        <Outline blur={true} visibleEdgeColor='white' hiddenEdgeColor='white' edgeStrength={1000} width={10000} />
+                    </EffectComposer>
                     <SelectToZoom>
                         <ElectricGuitar 
                             onClick={(e) => DisplayInfo( "[ME][TA]L" )} 
                             onPointerEnter={(e) => HighlightObject(e)} 
                             onPointerLeave={(e) => UnhighlightObject(e)}
-                            onPointerMissed={(e) => CloseGamePopup()} 
+                            onPointerMissed={(e) => CloseGamePopup("[ME][TA]L")} 
                             position={[-1.25, 0.125, -2.25]} 
                             rotation={[0, -Math.PI/2, 0]} 
                             scale={[0.04, 0.04, 0.04]} 
                         />
 
                         <CardboardBox
+                            onClick={(e) => DisplayInfo( "Package Runner 20XX" )} 
                             onPointerEnter={(e) => HighlightObject(e)} 
                             onPointerLeave={(e) => UnhighlightObject(e)}
+                            onPointerMissed={(e) => CloseGamePopup( "Package Runner 20XX" )} 
                             position={[-1.6, 0.15, -0.6]} 
                             rotation={[0, Math.PI/4, 0]} 
                             scale={[1.3, 1.3, 1.3]} 
@@ -134,6 +154,8 @@ function App() {
                         <BoxingRing
                             onPointerEnter={(e) => HighlightObject(e)} 
                             onPointerLeave={(e) => UnhighlightObject(e)}
+                            onClick={(e) => DisplayInfo( "Blind Man Brawl" )}
+                            onPointerMissed={(e) => CloseGamePopup( "Blind Man Brawl" )}
                             position={[-2.6, 0.22, -0.5]} rotation={[0, 7*Math.PI/5, 0]} 
                             scale={[0.04, 0.04, 0.04]}
                         />
@@ -147,7 +169,7 @@ function App() {
                         
                         
                         <StardewValley
-                            position={[-1.5, 0.3, -3.2]}
+                            position={[-1, 0.3, -3.2]}
                             scale={[0.035, 0.035, 0.035]}
                             rotation={[-0.25, 0, 0]}
                             onPointerEnter={(e) => HighlightObject(e)} 
@@ -157,27 +179,61 @@ function App() {
                         {/* <Issac/> */}
 
                         <TheoryCraft
-                            position={[-2.43, 0.8, -3.3]}
+                            position={[-2.1, 0.55, -3.3]}
                             rotation={[0, Math.PI/2, 0]}
-                            scale={[1.5, 1.5, 1.5]}
+                            scale={[1.25, 1.25, 1.25]}
                             onPointerEnter={(e) => HighlightObject(e)} 
                             onPointerLeave={(e) => UnhighlightObject(e)}
                         />
 
                         <Disruptive
-                            position={[-1.4, 1.12, -3.2]}
+                            position={[-1.45, 1.12, -3.2]}
                             scale={[5, 5, 5]}
+                            onPointerEnter={(e) => HighlightObject(e)} 
+                            onPointerLeave={(e) => UnhighlightObject(e)}
                         /> 
-                    
+                
                     </SelectToZoom>
 
-                    <Bearmofloat />
-
+                    <Bearmofloat 
+                        onClick={() => ToggleChat()}
+                        onPointerMissed={() => ExitChat()}
+                    />
                 </Selection>
 
-                    
+                    <QuestionMark
+                        scale={[0.03, 0.03, 0.03]}
+                        position={[0, 2.3, 3.5]}
+                    />
 
                     {/* Gaming room */}
+                    <Text scale={[0.5,0.5,0.1]} 
+                        position={[1.4, -0.3, 0]} 
+                        rotation={[0, 1.5, 0]}
+                        color = "black">
+                        Lobby
+                    </Text>
+
+                    <Text scale={[0.5,0.5,3]} 
+                        position={[-3.55, -0.3, 0]} 
+                        rotation={[0, 4.72, 0]}
+                        color = "black">
+                        Games
+                    </Text>
+
+                    <Text scale={[0.5,0.5,0.1]} 
+                        position={[-1, -0.3, 5]} 
+                        rotation={[0, 0, 0]}
+                        color = "black">
+                        FAQ
+                    </Text>
+
+                    <Text scale={[0.5,0.5,0.1]} 
+                        position={[-1, -0.3, -5.13]} 
+                        rotation={[0, 3.14, 0]}
+                        color = "black">
+                        Industry Events
+                    </Text>
 
                     <InvisibleWall
                         onPointerOver={(e) => e.stopPropagation()} 
@@ -369,44 +425,76 @@ function App() {
                     />
 
                     <BeehiveRed
-                        position={[-1, 0.43, -3.2]}
+                        position={[-1.38, 0.6, -3.2]}
                         rotation={[0, Math.PI, 0]}
                         scale={[25, 25, 25]}
                     />
 
                     <BeehiveRed
-                        position={[-1.6, -0.43, -3.6]}
-                        rotation={[0, Math.PI*1.65, 0]}
+                        position={[-2.75, -0.43, -3.5]}
+                        rotation={[0, Math.PI/1.12, 0]}
                         scale={[25, 25, 25]}
                     />
 
+                        <BeehiveBlue
+                            position={[-1.75, 0.34, -3.2]}
+                            rotation={[0, Math.PI, 0]}
+                            scale={[25, 25, 25]}
+                        />
+
                     <BeehiveBlue
-                        position={[-1.5, 0.34, -3.2]}
+                        position={[0, 0.34, -3.4]}
+                        rotation={[0, 3.5, 0]}
+                        scale={[25, 25, 25]}
+                    />
+                    
+                    <BeehiveBlue
+                            position={[-2.1, 1.5, -3.2]}
+                            rotation={[0, Math.PI, 0]}
+                            scale={[25, 25, 25]}
+                        />
+
+                    <BeehivePink
+                        position={[-1.75, 0.57, -3.2]}
                         rotation={[0, Math.PI, 0]}
                         scale={[25, 25, 25]}
                     />
 
                     <BeehivePink
-                        position={[-1.64, 0.34, -3.2]}
+                        position={[-3.25, 0.57, -3.2]}
+                        rotation={[0, Math.PI, 0]}
+                        scale={[25, 25, 25]}
+                    />
+                    
+                    <BeehivePink
+                        position={[-0.5, 1.25, -3.2]}
                         rotation={[0, Math.PI, 0]}
                         scale={[25, 25, 25]}
                     />
 
-                    {/* <BeehiveGreen
-                        position={[-1, 0.34, -3.2]}
+                    <BeehivePink
+                        position={[-3.65, 1.2, -3.2]}
                         rotation={[0, Math.PI, 0]}
                         scale={[25, 25, 25]}
-                    /> */}
+                    />
 
                     <BeehiveGreen
-                        position={[-1.4, 0.34, -3.6]}
-                        rotation={[0, Math.PI*1.75, 0]}
+                        position={[0.75, 1.2, -3.2]}
+                        rotation={[0, Math.PI, 0]}
                         scale={[25, 25, 25]}
-                    >
-                        <TheoryCraft scale={[100, 100, 100]}/>
-                    </BeehiveGreen>
-                    
+                    />
 
+                    <BeehiveGreen
+                        position={[-0.5, 0.75, -3.2]}
+                        rotation={[0, Math.PI, 0]}
+                        scale={[25, 25, 25]}
+                    />
+
+                    <BeehiveGreen
+                        position={[1, 0.79, -3.2]}
+                        rotation={[0, Math.PI, 0]}
+                        scale={[25, 25, 25]}
+                    />
 
                     {/* Tavern */}
                     <KawaiiArcade 
@@ -460,6 +548,7 @@ function App() {
                         position={[0, 0.125, -1.9]}
                         rotation={[0, Math.PI/2, 0]}
                         scale={[0.17, 0.17, 0.17]}
+                        asfasdfsa
                     />
 
                     <TavernCouch
@@ -506,11 +595,26 @@ function App() {
                     />
 
                     <PoolTable
-                        position={[0.8, 0.2, -0.1]}
+                        position={[0.8, 0.2, -0.3]}
                         rotation={[0, Math.PI/2, 0]}
                         scale={[0.07, 0.07, 0.07]}
                     />
-    
+
+                    <Stair
+                        position={[0.97, 0.25, 1]}
+                        rotation={[0, Math.PI/2, 0]}
+                        scale={[0.4, 0.4, 0.4]}
+                    />
+                    
+                    <DiscordPoster/>
+                    <MovieNight/>
+                    <Funding/>
+                    <ShowcaseFall2022/>
+                    <ShowcaseSpring2023/>
+                    <GDDBanner/>
+                    <GDDxCMGG/>
+                    <GDDxUCBUGG/>
+                    <GddInfo/>
             
 
 
@@ -550,6 +654,7 @@ function ChatBox({props}) {
         </>
     )
 }
+
 
 // Importing 2d images
 function JJK() {
@@ -612,6 +717,106 @@ function FinalFantasy() {
 
     return (
         <mesh position={[-1.25, 1.4, -0.75]} rotation={[0, -Math.PI/2, 0]}>
+        <planeGeometry attach="geometry" args={[0.6, 0.8]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+function DiscordPoster() {
+    const texture = useLoader(THREE.TextureLoader, discordPoster);
+
+    return (
+        <mesh position={[-0.1, 1, -2.7]} rotation={[0, Math.PI*2, 0]} scale={[1.7, 0.65, 1]}>
+        <planeGeometry attach="geometry" args={[0.6, 0.8]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+function MovieNight() {
+    const texture = useLoader(THREE.TextureLoader, movieNight);
+
+    return (
+        <mesh position={[-1, 0.8, -.95]} rotation={[0, Math.PI/2, 0]} scale={[0.5, 0.5, 0.5]}>
+        <planeGeometry attach="geometry" args={[0.6, 0.8]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+function Funding() {
+    const texture = useLoader(THREE.TextureLoader, funding);
+
+    return (
+        <mesh position={[-1, 0.8, -1.45]} rotation={[0, Math.PI/2, 0]} scale={[0.5, 0.5, 0.5]}>
+        <planeGeometry attach="geometry" args={[0.6, 0.8]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+
+function ShowcaseFall2022() {
+    const texture = useLoader(THREE.TextureLoader, showcaseFall2022);
+
+    return (
+        <mesh position={[-1.1, 1.2, 1.1]} rotation={[0, Math.PI/2, 0]} scale={[0.8, 0.3, 0.8]}>
+        <planeGeometry attach="geometry" args={[0.6, 0.8]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+function ShowcaseSpring2023() {
+    const texture = useLoader(THREE.TextureLoader, showcaseSpring2023);
+
+    return (
+        <mesh position={[-1.1, 1.4, 1.8]} rotation={[0, Math.PI/2, 0]} scale={[1.1, 0.5, 0.8]}>
+        <planeGeometry attach="geometry" args={[0.6, 0.8]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+function GddInfo() {
+    const texture = useLoader(THREE.TextureLoader, GDDInfo);
+
+    return (
+        <mesh position={[-1.1, 1.6, 1]} rotation={[0, Math.PI/2, 0]} scale={[0.5, 0.5, 0.5]}>
+        <planeGeometry attach="geometry" args={[1.2, 0.8]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+function GDDBanner() {
+    const texture = useLoader(THREE.TextureLoader, gddbanner);
+
+    return (
+        <mesh position={[-0.7, 1.53, -1.7]} rotation={[0, Math.PI/2, 0]} scale={[1.7, 0.5, 0.8]}>
+        <planeGeometry attach="geometry" args={[0.6, 0.8]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+function GDDxCMGG() {
+    const texture = useLoader(THREE.TextureLoader, GDDXCMGG);
+
+    return (
+        <mesh position={[-0.7, 1.5, -0.3]} rotation={[0, Math.PI/2, 0]} scale={[1.4, 0.6, 0.8]}>
+        <planeGeometry attach="geometry" args={[0.6, 0.8]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+function GDDxUCBUGG() {
+    const texture = useLoader(THREE.TextureLoader, GDDXUCBUGG);
+
+    return (
+        <mesh position={[-0.7, 1.4, 2.4]} rotation={[0, Math.PI, 0]} scale={[0.6, 0.6, 0.8]}>
         <planeGeometry attach="geometry" args={[0.6, 0.8]} />
         <meshBasicMaterial attach="material" map={texture} />
         </mesh>
@@ -765,6 +970,7 @@ var keybindPrompt = document.getElementById("keybind-prompt");
 var keybindError = document.getElementById("keybind-error");
 
 const navBarGameLst = document.getElementById( "nav-bar-game-lst" );
+var navBarIndustryLst = document.getElementById( "nav-bar-industry-lst" );
 var navBarToggleBtn = document.getElementById( "nav-bar-toggle-btn" );
 
 var chatPopup = document.getElementById("chat-popup");
@@ -778,6 +984,8 @@ function ToggleGamePopup () {
     // console.log(gamePopupOpen);
     if (!gamePopupOpen) {
         gamePopup.style.visibility = "visible";
+        console.log(gamePopup)
+        console.log('here')
         gamePopupOpen = true;
     } else {
         gamePopup.style.visibility = "hidden";
@@ -786,15 +994,17 @@ function ToggleGamePopup () {
 }
 
 // To prevent clicking elsewhere activating the popup
-function CloseGamePopup() {
-    // console.log(gamePopupOpen);
-    if (gamePopupOpen) {
+function CloseGamePopup( objName ) {
+    var gameTitle = document.getElementById("game-title").innerHTML;
+    // console.log(objName)
+    if (gamePopupOpen && gameTitle == objName) {
         ToggleGamePopup();
     }
 }
 
 // When a game model is clicked, load the corresponding info
 function DisplayInfo ( objName ) {
+    console.log(objName);
     for (let i in data) {
         if (data[i]["Game Title"] == objName) {
             // console.log(data[i]);
@@ -1086,8 +1296,8 @@ function ToggleNavBar() {
 function ToggleChat() {
     if (!chatOpen) {
         chatPopup.style.visibility = "visible";
-        OpenChat();
         chatOpen = true;
+        OpenChat();
     } else {
         chatPopup.style.visibility = "hidden";
         currPage[0].style.visibility = "hidden";
@@ -1095,6 +1305,16 @@ function ToggleChat() {
     }
 
     UpdateAnySettingsOpen();
+}
+
+function ExitChat() {
+    if(chatOpen) {
+        chatPopup.style.visibility = "hidden";
+        currPage[0].style.visibility = "hidden";
+        chatOpen = false;
+
+        navBarToggleBtn.disabled = false;
+    }
 }
 
 function CreateKeybind( control, key ) {
@@ -1190,7 +1410,7 @@ function CloseKeybind() {
 function GoToLobby() {
     if (camera) {
         camera.current.position.set(10, 3, 0);
-        camera.current.lookAt(0, 0, 0);
+        camera.current.setlookAt(0, 0, 0);
         camera.current.updateProjectionMatrix();
     }
 }
@@ -1198,7 +1418,7 @@ function GoToLobby() {
 function GoToGames() {
     if (camera) {
         camera.current.position.set(-10, 3, 0);
-        camera.current.lookAt(0, 0, 0);
+        camera.current.setlookAt(0, 0, 0);
         camera.current.updateProjectionMatrix();
     }
 }
@@ -1206,7 +1426,7 @@ function GoToGames() {
 function GoToIe() {
     if (camera) {
         camera.current.position.set(-1, 3, -15);
-        camera.current.lookAt(0, 0, 0);
+        camera.current.setlookAt(0, 0, 0);
         camera.current.updateProjectionMatrix();
     }
 }
@@ -1214,7 +1434,7 @@ function GoToIe() {
 function GoToFaq() {
     if (camera) {
         camera.current.position.set(-1, 3, 15);
-        camera.current.lookAt(0, 0, 0);
+        camera.current.setlookAt(0, 0, 0);
         camera.current.updateProjectionMatrix();
     }
 }
@@ -1320,6 +1540,21 @@ var papa_csv = Papa.parse('/descriptions.csv', {
 });
 // console.log("console: ", data);
 
+// Store the info from descriptions.csv into an JS object
+var industry;
+var papa_csv = Papa.parse('/industry.csv', {
+    download: true,
+    header: true,
+    quoteChar: '"',
+    delimiter:",",
+    complete: function(results) {
+        // console.log("Parse results: ", results.data);
+        industry = results.data;
+        createRoot(navBarIndustryLst).render(<GenerateIndustryLst />)
+    }
+});
+// console.log("console: ", data);
+
 function CreateGameTab( gameTitle, description, link ) {
     return (
         <div className="card" id={gameTitle+"-tab"} key={gameTitle+"-tab"}>
@@ -1333,10 +1568,38 @@ function CreateGameTab( gameTitle, description, link ) {
     )
 }
 
+function CreateIndustryTab( guestName, description, context, link="" ) {
+    return (
+        <div className="card" id={guestName+"-tab"} key={guestName+"-tab"}>
+            {/* <img src={guestName+".png"} className="card-img-top" alt={guestName + " cover"}></img> */}
+            <div className="card-body">
+                <h5 className="card-title">{guestName}</h5>
+                <p className='card-description' style={{fontSize: 12}}>{description}</p>
+                <br></br>
+                <p style={{fontSize: 12}}>{context}</p>
+                <a href={link} target="_blank" className="btn btn-primary">Link</a>
+            </div>
+        </div>
+    )
+}
+
 function GenerateGameLst() {
     let tabs = [];
     for (let i in data) {
         tabs.push(CreateGameTab(data[i]["Game Title"], data[i]["Description"], data[i]["Itch.io Link"]));
+    }
+
+    return (
+        <>
+            {tabs}
+        </>
+    )
+}
+
+function GenerateIndustryLst() {
+    let tabs = [];
+    for (let i in industry) {
+        tabs.push(CreateIndustryTab(industry[i]["Guest Name"], industry[i]["Description"], industry[i]["Context"], industry[i]["Link"]));
     }
 
     return (
@@ -1536,7 +1799,7 @@ function () {
 
 document.getElementById('prereq-btn').onclick =
 function () {
-    ToggleMainPages(prereqPage, "prereq");
+    TogglePages(prereqPage, "prereq");
 }
 
 createRoot(document.getElementById('root')).render(<App />)
