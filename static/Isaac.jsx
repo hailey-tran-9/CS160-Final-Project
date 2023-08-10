@@ -8,16 +8,20 @@ Source: https://sketchfab.com/3d-models/isaac-9ec61d883eb04c79981cada6eb300af7
 Title: Isaac
 */
 
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { Select } from '@react-three/postprocessing'
 
 export function Issac(props) {
   const { nodes, materials } = useGLTF('/isaac-transformed.glb')
+  const [hovered, hover] = useState(null)
   return (
-    <group {...props} dispose={null}>
-      <mesh geometry={nodes.Object_4.geometry} material={materials.Isaac} rotation={[Math.PI / 2, 0, 0]} scale={124.165} />
-      <mesh geometry={nodes.Object_6.geometry} material={materials['Isaac.001']} position={[0, 0.296, 0]} rotation={[Math.PI / 2, 0, 0]} scale={105.267} />
-    </group>
+    <Select enabled={hovered}>
+      <group {...props} dispose={null} onPointerOver={() => hover(true)} onPointerOut={() => hover(false)}>
+        <mesh geometry={nodes.Object_4.geometry} material={materials.Isaac} rotation={[Math.PI / 2, 0, 0]} scale={124.165} />
+        <mesh geometry={nodes.Object_6.geometry} material={materials['Isaac.001']} position={[0, 0.296, 0]} rotation={[Math.PI / 2, 0, 0]} scale={105.267} />
+      </group>
+    </Select>
   )
 }
 

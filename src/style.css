@@ -119,28 +119,28 @@ body {
     margin-bottom: 0.5rem;
 }
 
-#game-popup {
+.obj-popup {
     padding-top: 2rem;
     padding-bottom: 2rem;
 
     width: 55vw;
 }
 
-#game-popup .container-fluid {
+.obj-popup .container-fluid {
     margin-left: 1rem;
 }
 
-#game-title {
+.obj-title {
     margin-top: 0.5rem;
     margin-right: 1rem;
 }
 
-#game-description {
+.obj-description {
     margin-top: 0.5rem;
     margin-right: 0.75rem;
 }
 
-#game-url {
+.obj-url {
     margin-bottom: 0.5rem;
 }
 
@@ -160,27 +160,6 @@ body {
     padding-right: 1rem;
 
     color: white;
-}
-
-#nav-bar-game-lst {
-    max-width: 30rem; 
-    max-height: 86.05vh;
-
-    margin-top: 1rem;
-}
-
-#nav-bar-game-lst div {
-    padding-right: 1rem;
-}
-
-#nav-bar-game-lst button {
-    width: 100%;
-    word-wrap: break-word;
-}
-
-#nav-bar-game-lst .row, #nav-bar-game-lst .col {
-    height: auto;
-    margin-bottom: 0;
 }
 
 .card {

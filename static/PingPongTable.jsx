@@ -7,7 +7,7 @@ Files: PingPongTable.glb [56.92KB] > PingPongTable-transformed.glb [9.58KB] (83%
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
-export function Model(props) {
+export function PingPongTable(props) {
   const { nodes, materials } = useGLTF('/PingPongTable-transformed.glb')
   return (
     <group {...props} dispose={null}>

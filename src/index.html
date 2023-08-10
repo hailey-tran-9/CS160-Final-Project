@@ -58,9 +58,36 @@
             </div>
 
             <div class="row">
-                <p>You haven't been good for long<br>
-                    Is it the sound of your own thoughts<br>
-                    That always keeps you up at night?</p>
+                <div class="col">
+                    <div class="row">
+                        <img src="wasd.png" alt="WASD Keys Image">
+                    </div>
+                    <div class="row">
+                        <h5 class="d-flex justify-content-center align-items-center">Movement Controls (Keyboard)></h5>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <img src="mouse.png" alt="Mouse Image">
+                    </div>
+                    <div class="row">
+                        <h5 class="d-flex justify-content-center align-items-center">Movement Controls (Mouse)</h5>
+                    </div>
+                    <div class="row">
+                        <p class="d-flex justify-content-center align-items-center">Click and Drag</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <img src="key.png" alt="Settings Key Image">
+                    </div>
+                    <div class="row">
+                        <h5 class="d-flex justify-content-center align-items-center">Settings</h5>
+                    </div>
+                    <div class="row">
+                        <p class="d-flex justify-content-center align-items-center" id="help-settings">Escape</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -110,24 +137,51 @@
 
     <!-- Game Popup -->
     <div class="fill d-flex justify-content-center align-items-center" id="game-popup-container">
-        <div class="popup d-flex" id="game-popup">
+        <div class="popup d-flex obj-popup" id="game-popup">
 
             <div class="container-fluid">
     
                 <div class="row">
-                    <h4 id="game-title">TEST</h4>
+                    <h4 class="obj-title" id="game-title">TEST</h4>
                 </div>
     
                 <div class="row">
-                    <img src="" alt="[ME][TA]L Cover Image" id="game-img">
+                    <img src="" alt="Game Cover Image" id="game-img">
                 </div>
                 
                 <div class="row">
-                    <p id="game-description"></p>
+                    <p class="obj-description" id="game-description"></p>
                 </div>
     
                 <div class="row">
-                    <a href="url" id="game-url" target="_blank"></a>
+                    <a href="url" class="obj-url" id="game-url" target="_blank"></a>
+                </div>
+    
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Event Popup -->
+    <div class="fill d-flex justify-content-center align-items-center" id="event-popup-container">
+        <div class="popup d-flex obj-popup" id="event-popup">
+
+            <div class="container-fluid">
+    
+                <div class="row">
+                    <h4 class="obj-title" id="event-title">TEST</h4>
+                </div>
+    
+                <div class="row">
+                    <img src="" alt="Event Cover Image" id="event-img">
+                </div>
+                
+                <div class="row">
+                    <p class="obj-description" id="event-description"></p>
+                </div>
+    
+                <div class="row">
+                    <a href="url" class="obj-url" id="event-url" target="_blank"></a>
                 </div>
     
             </div>
@@ -177,6 +231,9 @@
                                 <br>
                                 Join our discord:
                                 <a href="https://discord.gg/yaFYJxc" target="_blank">https://discord.gg/yaFYJxc</a>
+                                <br>
+                                Visit our itch.io page:
+                                <a href="https://gddatberkeley.itch.io/" target="_blank">https://gddatberkeley.itch.io/</a>
                             </p>
                         </div>
                     </div>
@@ -493,7 +550,7 @@
                 </div>
                 <div class="collapse" id="games-collapse">
                     <div class="row">
-                        <div class="overflow-auto" id="nav-bar-game-lst"></div>
+                        <div class="overflow-auto mt-3" id="nav-bar-game-lst"></div>
                     </div>
                 </div>
             </div>
@@ -516,7 +573,7 @@
                 </div>
                 <div class="collapse" id="ie-collapse">
                     <div class="row">
-                        <div class="overflow-auto" id="nav-bar-industry-lst"></div>
+                        <div class="overflow-auto mt-3" id="nav-bar-industry-lst"></div>
                     </div>
                 </div>
             </div>

@@ -65,7 +65,11 @@ import { MetalStool } from '../static/MetalStool'
 import { PoolTable } from '../static/PoolTable'
 import { Noguchi_coffee_table } from '../static/Noguchi_coffee_table'
 import { Stair } from '../static/Stair.jsx'
+import { KirbyArcade } from '../static/KirbyArcade'
+import { Handrail } from '../static/Handrail'
+
 import { QuestionMark } from '../static/QuestionMark'
+import { GoldenGod } from '../static/GoldenGod'
 
 import { Bearmofloat } from '../static/Bearmofloat'
 
@@ -102,10 +106,13 @@ import showcaseFall2022 from '../static/showcaseFall2022.jpeg'
 import showcaseSpring2022 from '../static/showcaseSpring2022.jpeg'
 import showcaseSpring2023 from '../static/showcaseSpring2023.jpeg'
 
+import lemmedoitforyou from '../static/LemmeDoIt4U.mp4'
+import catVibing from '../static/catVibing.mp4'
+
+
 var camera;
 
 function App() {
-    console.log("react start");
     const cameraRef = useRef();
     camera = cameraRef;
 
@@ -125,46 +132,50 @@ function App() {
                     </EffectComposer>
                     <SelectToZoom>
                         <ElectricGuitar 
+                            position={[-1.25, 0.125, -2.25]} 
+                            rotation={[0, -Math.PI/2, 0]} 
+                            scale={[0.04, 0.04, 0.04]}
                             onClick={(e) => DisplayInfo( "[ME][TA]L" )} 
                             onPointerEnter={(e) => HighlightObject(e)} 
                             onPointerLeave={(e) => UnhighlightObject(e)}
                             onPointerMissed={(e) => CloseGamePopup("[ME][TA]L")} 
-                            position={[-1.25, 0.125, -2.25]} 
-                            rotation={[0, -Math.PI/2, 0]} 
-                            scale={[0.04, 0.04, 0.04]} 
                         />
 
                         <CardboardBox
+                            position={[-1.6, 0.15, -0.6]} 
+                            rotation={[0, Math.PI/4, 0]} 
+                            scale={[1.3, 1.3, 1.3]}
                             onClick={(e) => DisplayInfo( "Package Runner 20XX" )} 
                             onPointerEnter={(e) => HighlightObject(e)} 
                             onPointerLeave={(e) => UnhighlightObject(e)}
                             onPointerMissed={(e) => CloseGamePopup( "Package Runner 20XX" )} 
-                            position={[-1.6, 0.15, -0.6]} 
-                            rotation={[0, Math.PI/4, 0]} 
-                            scale={[1.3, 1.3, 1.3]} 
                         />
 
                         <Catharsis
-                            onPointerEnter={(e) => HighlightObject(e)} 
-                            onPointerLeave={(e) => UnhighlightObject(e)}
                             position={[-2.4, 0.37, -1.1]} rotation={[0, 7*Math.PI/5, 0]} 
                             scale={[0.3, 0.3, 0.3]}
+                            onPointerEnter={(e) => HighlightObject(e)} 
+                            onPointerLeave={(e) => UnhighlightObject(e)}
+                            onClick={(e) => DisplayInfo( "Catharsis" )}
+                            onPointerMissed={(e) => CloseGamePopup( "Catharsis" )}
                         />
 
                         <BoxingRing
+                            position={[-2.6, 0.22, -0.5]} rotation={[0, 7*Math.PI/5, 0]} 
+                            scale={[0.04, 0.04, 0.04]}
                             onPointerEnter={(e) => HighlightObject(e)} 
                             onPointerLeave={(e) => UnhighlightObject(e)}
                             onClick={(e) => DisplayInfo( "Blind Man Brawl" )}
                             onPointerMissed={(e) => CloseGamePopup( "Blind Man Brawl" )}
-                            position={[-2.6, 0.22, -0.5]} rotation={[0, 7*Math.PI/5, 0]} 
-                            scale={[0.04, 0.04, 0.04]}
                         />
 
                         <ToyBlocks
-                            onPointerEnter={(e) => HighlightObject(e)} 
-                            onPointerLeave={(e) => UnhighlightObject(e)}
                             position={[-2.5, 1.04, 1.35]} rotation={[0, 0, 0]}
                             scale={[2, 2, 2]}
+                            onPointerEnter={(e) => HighlightObject(e)} 
+                            onPointerLeave={(e) => UnhighlightObject(e)}
+                            onClick={(e) => DisplayInfo( "GET ME OUT" )}
+                            onPointerMissed={(e) => CloseGamePopup( "GET ME OUT" )}
                         />
                         
                         
@@ -174,9 +185,20 @@ function App() {
                             rotation={[-0.25, 0, 0]}
                             onPointerEnter={(e) => HighlightObject(e)} 
                             onPointerLeave={(e) => UnhighlightObject(e)}
+                            onClick={(e) => DisplayEvent( "Cole Medeiros" )}
+                            onPointerMissed={(e) => CloseEventPopup( "Cole Medeiros" )}
                         />
 
                         {/* <Issac/> */}
+                        <GoldenGod 
+                            position={[-0.26, 0.625, -3.2]}
+                            rotation={[0, Math.PI, 0]}
+                            scale={[0.027, 0.027, 0.027]}
+                            onPointerEnter={(e) => HighlightObject(e)} 
+                            onPointerLeave={(e) => UnhighlightObject(e)}
+                            onClick={(e) => DisplayEvent( "Edmund McMillen" )}
+                            onPointerMissed={(e) => CloseEventPopup( "Edmund McMillen" )}
+                        />
 
                         <TheoryCraft
                             position={[-2.1, 0.55, -3.3]}
@@ -184,13 +206,18 @@ function App() {
                             scale={[1.25, 1.25, 1.25]}
                             onPointerEnter={(e) => HighlightObject(e)} 
                             onPointerLeave={(e) => UnhighlightObject(e)}
+                            onClick={(e) => DisplayEvent( "Theorycraft Games" )}
+                            onPointerMissed={(e) => CloseEventPopup( "Theorycraft Games" )}
                         />
 
                         <Disruptive
-                            position={[-1.45, 1.12, -3.2]}
-                            scale={[5, 5, 5]}
+                            position={[-1.31, 1.14, -3.2]}
+                            rotation={[0, Math.PI, 0]}
+                            scale={[4, 4, 4]}
                             onPointerEnter={(e) => HighlightObject(e)} 
                             onPointerLeave={(e) => UnhighlightObject(e)}
+                            onClick={(e) => DisplayEvent( "Disruptive Games" )}
+                            onPointerMissed={(e) => CloseEventPopup( "Disruptive Games" )}
                         /> 
                 
                     </SelectToZoom>
@@ -207,28 +234,28 @@ function App() {
                     />
 
                     {/* Gaming room */}
-                    <Text scale={[0.5,0.5,0.1]} 
-                        position={[1.4, -0.3, 0]} 
-                        rotation={[0, 1.5, 0]}
+                    <Text scale={[0.3,0.3,0.1]} 
+                        position={[1.4, -0.3, -0.2]} 
+                        rotation={[0, 1.58, 0]}
                         color = "black">
                         Lobby
                     </Text>
 
-                    <Text scale={[0.5,0.5,3]} 
+                    <Text scale={[0.3,0.3,3]} 
                         position={[-3.55, -0.3, 0]} 
                         rotation={[0, 4.72, 0]}
                         color = "black">
                         Games
                     </Text>
 
-                    <Text scale={[0.5,0.5,0.1]} 
+                    <Text scale={[0.3,0.3,0.1]} 
                         position={[-1, -0.3, 5]} 
                         rotation={[0, 0, 0]}
                         color = "black">
                         FAQ
                     </Text>
 
-                    <Text scale={[0.5,0.5,0.1]} 
+                    <Text scale={[0.3,0.3,0.1]} 
                         position={[-1, -0.3, -5.13]} 
                         rotation={[0, 3.14, 0]}
                         color = "black">
@@ -392,26 +419,6 @@ function App() {
 
 
                     {/* Industry Event Room */}
-                    {/* <IeShelves 
-                        position={[-1.975 + 0.5, 0.4, 2.66]} rotation={[0, -Math.PI/2, 0]} 
-                        scale={[0.01, 0.01, 0.01]} 
-                    />
-
-                    <IeShelves 
-                        position={[-2.48, 0.12, -3.2]} rotation={[0, -Math.PI/2, 0]} 
-                        scale={[1.25, 1.25, 1.5]} 
-                    />
-                    
-                    <IeShelves 
-                        position={[-1.4, 0.12, -3.2]} rotation={[0, -Math.PI/2, 0]} 
-                        scale={[1.25, 1.25, 1.5]} 
-                    />
-
-                    <IeShelves 
-                        position={[0.3, 0.12, -3.2]} rotation={[0, -Math.PI/2, 0]} 
-                        scale={[1.25, 1.25, 1.5]} 
-                    /> */}
-
                     <BeehiveRed
                         position={[-1, -0.43, -3.2]}
                         rotation={[0, Math.PI, 0]}
@@ -498,7 +505,7 @@ function App() {
 
                     {/* Tavern */}
                     <KawaiiArcade 
-                        position={[-0.9, 0.45, 1.5]}
+                        position={[-0.9, 0.45, 1.55]}
                         rotation={[0, Math.PI/2, 0]}
                         scale={[20, 20, 20]}
                     />
@@ -533,11 +540,21 @@ function App() {
                         scale={[1.25, 1.2, 0.26]}
                     />
 
+
                     <FlatTv
-                        position={[-.8, 1.4, -1.8]}
+                        position={[-.8, 1.4, -0.5]}
                         scale={[0.32, 0.32, 0.32]}
                         rotation={[0, Math.PI/2, 0]} 
                     />
+                    
+                    <FlatTv
+                        position={[-.8, 1.4, -1.95]}
+                        scale={[0.32, 0.32, 0.32]}
+                        rotation={[0, Math.PI/2, 0]} 
+                    />
+
+                    <Video scale={[0.5, 0.5, 0.5]}/>
+
 
                     <TavernShelf 
                         position={[-0.8, 0.2, -0.5]}
@@ -605,6 +622,22 @@ function App() {
                         rotation={[0, Math.PI/2, 0]}
                         scale={[0.4, 0.4, 0.4]}
                     />
+
+                    <KirbyArcade
+                        position={[0.6, 0.4, 2.1]}
+                        rotation={[0, Math.PI, 0]}
+                        scale={[0.035, 0.035, 0.035]}
+                    />
+
+                    <Handrail
+                        position={[-0.23, 0.4, 1.3]}
+                        scale={[0.0085, 0.0035, 0.005]}
+                    />
+
+                    <Champagne
+                        position={[-1, 0.85, 0.4]}
+                        scale={[0.02, 0.02, 0.02]}
+                    />
                     
                     <DiscordPoster/>
                     <MovieNight/>
@@ -615,30 +648,12 @@ function App() {
                     <GDDxCMGG/>
                     <GDDxUCBUGG/>
                     <GddInfo/>
-            
-
-
-                    {/* 
-            
-                    <Text id="chatText" position={[1,3,1]} color="black">
-                        Good Morning
-                    </Text>
-
-                    <RoundedBox
-                        id="chatbox"
-                        position={[-2, 1.15, 2.65]}
-                        args={[1.5, 1.5, 0.1]} // Width, height, depth. Default is [1, 1, 1]
-                        radius={0.05} // Radius of the rounded corners. Default is 0.05
-                        smoothness={4} // The number of curve segments. Default is 4
-                        creaseAngle={0.4} // Smooth normals everywhere except faces that meet at an angle greater than the crease angle
-                        // {...meshProps} // All THREE.Mesh props are valid
-                        >
-                        <meshPhongMaterial color="#f3f3f3"/>
-                    </RoundedBox> */}
+                    <GameTournament/>
+                
 
                 </Bounds>
 
-                <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 2} enableDamping={false} maxDistance = {20} minDistance= {4}/>
+                <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 2} enableDamping={false} maxDistance = {20} minDistance= {1.5}/>
                 <Sky scale={1000} sunPosition={[500, 150, -1000]} turbidity={0.1} />
                 <CameraOrbitController />
             </Canvas>
@@ -647,16 +662,7 @@ function App() {
 
 }
 
-function ChatBox({props}) {
-    return (
-        <>
-            
-        </>
-    )
-}
-
-
-// Importing 2d images
+// Importing posters
 function JJK() {
     const texture = useLoader(THREE.TextureLoader, jjk);
 
@@ -734,6 +740,17 @@ function DiscordPoster() {
     )
 }
 
+function ShowcaseSpring2022() {
+    const texture = useLoader(THREE.TextureLoader, showcaseSpring2022);
+
+    return (
+        <mesh position={[0.7, 1.4, -2.7]} rotation={[0, Math.PI*2, 0]} scale={[3, 0.65, 1]}>
+        <planeGeometry attach="geometry" args={[0.6, 0.8]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
 function MovieNight() {
     const texture = useLoader(THREE.TextureLoader, movieNight);
 
@@ -761,7 +778,7 @@ function ShowcaseFall2022() {
     const texture = useLoader(THREE.TextureLoader, showcaseFall2022);
 
     return (
-        <mesh position={[-1.1, 1.2, 1.1]} rotation={[0, Math.PI/2, 0]} scale={[0.8, 0.3, 0.8]}>
+        <mesh position={[-1, 0.8, -2.1]} rotation={[0, Math.PI/2, 0]} scale={[0.8, 0.4, 0.8]}>
         <planeGeometry attach="geometry" args={[0.6, 0.8]} />
         <meshBasicMaterial attach="material" map={texture} />
         </mesh>
@@ -794,7 +811,7 @@ function GDDBanner() {
     const texture = useLoader(THREE.TextureLoader, gddbanner);
 
     return (
-        <mesh position={[-0.7, 1.53, -1.7]} rotation={[0, Math.PI/2, 0]} scale={[1.7, 0.5, 0.8]}>
+        <mesh position={[-0.7, 1.53, -1.85]} rotation={[0, Math.PI/2, 0]} scale={[1.7, 0.5, 0.8]}>
         <planeGeometry attach="geometry" args={[0.6, 0.8]} />
         <meshBasicMaterial attach="material" map={texture} />
         </mesh>
@@ -805,7 +822,7 @@ function GDDxCMGG() {
     const texture = useLoader(THREE.TextureLoader, GDDXCMGG);
 
     return (
-        <mesh position={[-0.7, 1.5, -0.3]} rotation={[0, Math.PI/2, 0]} scale={[1.4, 0.6, 0.8]}>
+        <mesh position={[-1.1, 1.2, 1.1]} rotation={[0, Math.PI/2, 0]} scale={[0.8, 0.4, 0.8]}>
         <planeGeometry attach="geometry" args={[0.6, 0.8]} />
         <meshBasicMaterial attach="material" map={texture} />
         </mesh>
@@ -819,6 +836,41 @@ function GDDxUCBUGG() {
         <mesh position={[-0.7, 1.4, 2.4]} rotation={[0, Math.PI, 0]} scale={[0.6, 0.6, 0.8]}>
         <planeGeometry attach="geometry" args={[0.6, 0.8]} />
         <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+function GameTournament() {
+    const texture = useLoader(THREE.TextureLoader, gameTournament);
+
+    return (
+        <mesh position={[-0.15, 1.5, 2.2]} rotation={[0, Math.PI, 0]} scale={[1.2, 0.6, 0.8]}>
+        <planeGeometry attach="geometry" args={[0.6, 0.8]} />
+        <meshBasicMaterial attach="material" map={texture} />
+        </mesh>
+    )
+}
+
+// Video
+function Video() {
+    const vid = document.createElement("video");
+    vid.src = lemmedoitforyou;
+    vid.crossOrigin = "Anonymous";
+    vid.loop = true;
+    vid.muted = true;
+    vid.play();
+    
+    return (
+        <mesh 
+            scale={[0.38, 0.36, 0.1]}
+            position={[-0.72, 1.52, -0.355]}
+            rotation={[0, Math.PI/2, 0]} 
+         >
+            <planeGeometry args={[3.2, 1.9]} />
+            <meshStandardMaterial emissive={"white"} side={THREE.DoubleSide}>
+                <videoTexture attach="map" args={[vid]} />
+                <videoTexture attach="emissiveMap" args={[vid]} />
+            </meshStandardMaterial>
         </mesh>
     )
 }
@@ -920,20 +972,6 @@ const CameraOrbitController = () => {
 // Clicking any object will refresh and fit bounds
 function SelectToZoom({ children }) {
     const api = useBounds()
-    // const ref = useRef()
-    // const clicked = useRef()
-    // useEffect(() => {
-    //     clicked.current = ref.current.getObjectByName(params?.id)
-    //     if (clicked.current) {
-    //         clicked.current.parent.updateWorldMatrix(true, true)
-    //         clicked.current.parent.localToWorld(p.set(0, GOLDENRATIO / 2, 1.25))
-    //         clicked.current.parent.getWorldQuaternion(q)
-    //     }
-    // })
-    // useFrame((state, dt) => {
-    //     easing.damp3(state.camera.position, p, 0.4, dt)
-    //     easing.dampQ(state.camera.quaternion, q, 0.4, dt)
-    // })
     return (
         <group onClick={(e) => (e.stopPropagation(), e.delta <= 2 && api.refresh(e.object).fit())}>
         {children}
@@ -984,8 +1022,6 @@ function ToggleGamePopup () {
     // console.log(gamePopupOpen);
     if (!gamePopupOpen) {
         gamePopup.style.visibility = "visible";
-        console.log(gamePopup)
-        console.log('here')
         gamePopupOpen = true;
     } else {
         gamePopup.style.visibility = "hidden";
@@ -1004,7 +1040,7 @@ function CloseGamePopup( objName ) {
 
 // When a game model is clicked, load the corresponding info
 function DisplayInfo ( objName ) {
-    console.log(objName);
+    // console.log(objName);
     for (let i in data) {
         if (data[i]["Game Title"] == objName) {
             // console.log(data[i]);
@@ -1016,7 +1052,7 @@ function DisplayInfo ( objName ) {
             var gameUrl = document.getElementById( "game-url" );
 
             // Change the text and image src
-            gameTitle.innerHTML = data[i]["Game Title"];
+            gameTitle.innerHTML = objName;
 
             var img = new Image();
             img.onload = function() {
@@ -1032,6 +1068,65 @@ function DisplayInfo ( objName ) {
             gameUrl.innerHTML = data[i]["Itch.io Link"];
 
             ToggleGamePopup();
+        }
+    }
+}
+
+// Helper func for clicking on industry event models
+var eventPopup = document.getElementById( "event-popup" );
+var eventPopupOpen = false;
+
+// Toggle event popup
+function ToggleEventPopup () {
+    // console.log(eventPopupOpen);
+    if (!eventPopupOpen) {
+        eventPopup.style.visibility = "visible";
+        eventPopupOpen = true;
+    } else {
+        eventPopup.style.visibility = "hidden";
+        eventPopupOpen = false;
+    }
+}
+
+// To prevent clicking elsewhere activating the popup
+function CloseEventPopup( objName ) {
+    var eventTitle = document.getElementById("event-title").innerHTML;
+    // console.log(objName, eventTitle, eventPopupOpen);
+    if (eventPopupOpen && eventTitle == objName) {
+        ToggleEventPopup();
+    }
+}
+
+// When a game model is clicked, load the corresponding info
+function DisplayEvent ( objName ) {
+    // console.log(objName);
+    for (let i in industry) {
+        if (industry[i]["Guest Name"] == objName) {
+            // console.log(industry[i]);
+
+            // Get HTML elements
+            var eventName = document.getElementById( "event-title" );
+            var eventImg = document.getElementById( "event-img" );
+            var eventDescription = document.getElementById( "event-description" );
+            var eventUrl = document.getElementById( "event-url" );
+
+            // Change the text and image src
+            eventName.innerHTML = objName;
+
+            var img = new Image();
+            img.onload = function() {
+                // console.log(this.width + 'x' + this.height);
+                eventImg.style.width = (this.width / 6) + "px";
+                eventImg.style.height =  (this.height / 6) + "px";
+            }
+            eventImg.src = objName + ".jpg";
+            img.src = objName + ".jpg";
+
+            eventDescription.innerHTML = industry[i]["Description"];
+            eventUrl.href = industry[i]["Link"];
+            eventUrl.innerHTML = industry[i]["Link"];
+
+            ToggleEventPopup();
         }
     }
 }
@@ -1129,9 +1224,6 @@ function( e ) {
 
     if (e.key == keybindsDict["Toggle Settings"]) {
         if (!keybindOpen) {
-            // if (camera) {
-            //     console.log(camera.current.getFocalLength());
-            // }
             ToggleSettings();
         }
     }
@@ -1410,7 +1502,7 @@ function CloseKeybind() {
 function GoToLobby() {
     if (camera) {
         camera.current.position.set(10, 3, 0);
-        camera.current.setlookAt(0, 0, 0);
+        camera.current.lookAt(0, 0, 0);
         camera.current.updateProjectionMatrix();
     }
 }
@@ -1418,7 +1510,7 @@ function GoToLobby() {
 function GoToGames() {
     if (camera) {
         camera.current.position.set(-10, 3, 0);
-        camera.current.setlookAt(0, 0, 0);
+        camera.current.lookAt(0, 0, 0);
         camera.current.updateProjectionMatrix();
     }
 }
@@ -1426,7 +1518,7 @@ function GoToGames() {
 function GoToIe() {
     if (camera) {
         camera.current.position.set(-1, 3, -15);
-        camera.current.setlookAt(0, 0, 0);
+        camera.current.lookAt(0, 0, 0);
         camera.current.updateProjectionMatrix();
     }
 }
@@ -1434,7 +1526,7 @@ function GoToIe() {
 function GoToFaq() {
     if (camera) {
         camera.current.position.set(-1, 3, 15);
-        camera.current.setlookAt(0, 0, 0);
+        camera.current.lookAt(0, 0, 0);
         camera.current.updateProjectionMatrix();
     }
 }
@@ -1516,6 +1608,10 @@ function () {
             document.getElementById( changeControl + "-btn" ).innerHTML = keybindsDict[changeControl];
         }
 
+        if (changeControl == "Toggle Settings") {
+            document.getElementById( "help-settings" ).innerHTML = setToKey;
+        }
+
         CloseKeybind();
     }
 };
@@ -1525,9 +1621,9 @@ function () {
     CloseKeybind();
 };
 
-// Store the info from descriptions.csv into an JS object
+// Store the info from games.csv into an JS object
 var data;
-var papa_csv = Papa.parse('/descriptions.csv', {
+var papa_csv = Papa.parse('/games.csv', {
     download: true,
     header: true,
     quoteChar: '"',
@@ -1542,7 +1638,7 @@ var papa_csv = Papa.parse('/descriptions.csv', {
 
 // Store the info from descriptions.csv into an JS object
 var industry;
-var papa_csv = Papa.parse('/industry.csv', {
+var papa_csv2 = Papa.parse('/industry.csv', {
     download: true,
     header: true,
     quoteChar: '"',
@@ -1561,7 +1657,7 @@ function CreateGameTab( gameTitle, description, link ) {
             <img src={gameTitle+".png"} className="card-img-top" alt={gameTitle + " cover"}></img>
             <div className="card-body">
                 <h5 className="card-title">{gameTitle}</h5>
-                <p className='card-description'>{description}</p>
+                <p className='card-description' style={{fontSize: 12}}>{description}</p>
                 <a href={link} target="_blank" className="btn btn-primary">Play the game</a>
             </div>
         </div>
@@ -1569,9 +1665,9 @@ function CreateGameTab( gameTitle, description, link ) {
 }
 
 function CreateIndustryTab( guestName, description, context, link="" ) {
-    return (
+    return (    
         <div className="card" id={guestName+"-tab"} key={guestName+"-tab"}>
-            {/* <img src={guestName+".png"} className="card-img-top" alt={guestName + " cover"}></img> */}
+            <img src={guestName+".jpg"} className="card-img-top" alt={guestName + " cover"}></img>
             <div className="card-body">
                 <h5 className="card-title">{guestName}</h5>
                 <p className='card-description' style={{fontSize: 12}}>{description}</p>
