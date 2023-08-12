@@ -1063,6 +1063,8 @@ function DisplayInfo ( objName ) {
             gameImg.src = data[i]["Game Title"] + ".png";
             img.src = data[i]["Game Title"] + ".png";
 
+            img.alt = data[i]["Game Title"] + " Image";
+
             gameDescription.innerHTML = data[i]["Description"];
             gameUrl.href = data[i]["Itch.io Link"];
             gameUrl.innerHTML = data[i]["Itch.io Link"];
