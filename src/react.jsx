@@ -1,7 +1,7 @@
 import React, { useRef, useState, Suspense, useMemo, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Canvas, extend, useFrame, useThree, useLoader } from '@react-three/fiber'
-import { PerspectiveCamera, OrbitControls, Bounds, useBounds, Sky, useAnimations, useGLTF, Text, RoundedBox } from '@react-three/drei'
+import { PerspectiveCamera, OrbitControls, Bounds, useBounds, Sky, useAnimations, useGLTF, Text, RoundedBox, Stats } from '@react-three/drei'
 import { Selection, Select, EffectComposer, Outline } from '@react-three/postprocessing'
 import { BlendFunction, Resizer, KernelSize } from 'postprocessing'
 import { MathUtils } from 'three'
@@ -120,12 +120,13 @@ function App() {
 
         <div id="canvas-container" style={{ width: "100%", height: "100vh" }}>
 
-            <Canvas>
+            <Canvas frameloop="demand">
                 <ambientLight intensity={.7}/>
                 <directionalLight />
                 <PerspectiveCamera ref = {cameraRef} makeDefault position={[10, 3, 0]} near={0.1} far={1000} fov={45}/>
                 <Rooms position={[0, 0, 0]}  scale={[8, 8, 8]}/>
                 <Bounds fit clip observe margin={1.2}>
+                <Stats />
                 <Selection>
                     <EffectComposer multisampling={8} autoClear={false}>
                         <Outline blur={true} visibleEdgeColor='white' hiddenEdgeColor='white' edgeStrength={1000} width={10000} />
