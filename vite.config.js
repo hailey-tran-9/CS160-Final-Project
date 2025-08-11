@@ -4,7 +4,7 @@ const isCodeSandbox =
 export default {
   root: "src/",
   publicDir: "../static/",
-  base: "./",
+  base: "/CS160-Final-Project/",
   server: {
     host: true,
     open: !isCodeSandbox, // Open if it's not a CodeSandbox
