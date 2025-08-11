@@ -554,7 +554,7 @@ function App() {
                         rotation={[0, Math.PI/2, 0]} 
                     />
 
-                    <Video scale={[0.5, 0.5, 0.5]}/>
+                    {/* <Video scale={[0.5, 0.5, 0.5]}/> */}
 
 
                     <TavernShelf 
