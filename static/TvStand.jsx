@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function TvStand(props) {
-  const { nodes, materials } = useGLTF('/tvStand-transformed.glb')
+  const { nodes, materials } = useGLTF('./tvStand-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes['Node-Mesh'].geometry} material={materials.Media_Base} />

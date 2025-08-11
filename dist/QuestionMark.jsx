@@ -12,7 +12,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function QuestionMark(props) {
-  const { nodes, materials } = useGLTF('/questionMark-transformed.glb')
+  const { nodes, materials } = useGLTF('./questionMark-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Torus002_Material001_0.geometry} material={materials['Material.001']} rotation={[-Math.PI / 2, 0, 0]} />

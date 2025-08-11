@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function BarTable(props) {
-  const { nodes, materials } = useGLTF('/BarTable-transformed.glb')
+  const { nodes, materials } = useGLTF('./BarTable-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.group1409490378.geometry} material={materials.PaletteMaterial001} />

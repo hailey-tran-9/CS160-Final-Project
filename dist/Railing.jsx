@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Railing(props) {
-  const { nodes, materials } = useGLTF('/railing-transformed.glb')
+  const { nodes, materials } = useGLTF('./railing-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.group622475369.geometry} material={materials.mat21} />

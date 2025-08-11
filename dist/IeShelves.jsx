@@ -12,7 +12,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function IeShelves(props) {
-  const { nodes, materials } = useGLTF('/ieShelves-transformed.glb')
+  const { nodes, materials } = useGLTF('./ieShelves-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.KALLAX__112x147_KALLAX_MAIN_COLOR_0.geometry} material={materials.KALLAX_MAIN_COLOR} position={[0, 0.75, 0]} rotation={[-Math.PI / 2, 0, 0]} />

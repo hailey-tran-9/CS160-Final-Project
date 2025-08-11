@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function ModernRug(props) {
-  const { nodes, materials } = useGLTF('/ModernRug-transformed.glb')
+  const { nodes, materials } = useGLTF('./ModernRug-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes['Modern_rug_Plane004-Mesh'].geometry} material={materials['78909C']} />

@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function FlatTv(props) {
-  const { nodes, materials } = useGLTF('/FlatTv-transformed.glb')
+  const { nodes, materials } = useGLTF('./FlatTv-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.group1257628551.geometry} material={materials.PaletteMaterial001} />

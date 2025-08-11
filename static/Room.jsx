@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Rooms(props) {
-  const { nodes, materials } = useGLTF('/room-transformed.glb')
+  const { nodes, materials } = useGLTF('./room-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.polySurface1.geometry} material={materials.PaletteMaterial001} position={[-0.133, 0.009, -0.046]} rotation={[Math.PI / 2, 0, 0]} scale={[0.041, 0.038, 0.003]} />

@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Stairs(props) {
-  const { nodes, materials } = useGLTF('/stairs-transformed.glb')
+  const { nodes, materials } = useGLTF('./stairs-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.stairsOpen.geometry} material={materials.woodDark} />

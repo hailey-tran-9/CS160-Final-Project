@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Desk(props) {
-  const { nodes, materials } = useGLTF('/desk-transformed.glb')
+  const { nodes, materials } = useGLTF('./desk-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.group328327309.geometry} material={materials.mat23} />

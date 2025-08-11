@@ -9,7 +9,7 @@ import { useGLTF } from '@react-three/drei'
 import { Select } from '@react-three/postprocessing'
 
 export function Disruptive(props) {
-  const { nodes, materials } = useGLTF('/Disruptive-transformed.glb')
+  const { nodes, materials } = useGLTF('./Disruptive-transformed.glb')
   const [hovered, hover] = useState(null)
   return (
     <Select enabled={hovered}>

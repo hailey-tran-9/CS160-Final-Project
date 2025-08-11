@@ -12,7 +12,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function KawaiiArcade(props) {
-  const { nodes, materials } = useGLTF('/kawaiiArcade-transformed.glb')
+  const { nodes, materials } = useGLTF('./kawaiiArcade-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.arcade_machine_MAT_arcade_0.geometry} material={materials.MAT_arcade} scale={0.01} />

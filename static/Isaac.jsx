@@ -13,7 +13,7 @@ import { useGLTF } from '@react-three/drei'
 import { Select } from '@react-three/postprocessing'
 
 export function Issac(props) {
-  const { nodes, materials } = useGLTF('/isaac-transformed.glb')
+  const { nodes, materials } = useGLTF('./isaac-transformed.glb')
   const [hovered, hover] = useState(null)
   return (
     <Select enabled={hovered}>

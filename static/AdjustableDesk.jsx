@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function AdjustableDesk(props) {
-  const { nodes, materials } = useGLTF('/adjustableDesk-transformed.glb')
+  const { nodes, materials } = useGLTF('./adjustableDesk-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Cube007_Cube008.geometry} material={materials.PaletteMaterial001} />

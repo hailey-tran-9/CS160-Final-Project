@@ -9,7 +9,7 @@ import { useGLTF } from '@react-three/drei'
 import { Select } from '@react-three/postprocessing'
 
 export function TheoryCraft(props) {
-  const { nodes, materials } = useGLTF('/theorycraft-transformed.glb')
+  const { nodes, materials } = useGLTF('./theorycraft-transformed.glb')
   const [hovered, hover] = useState(null)
 
   return (

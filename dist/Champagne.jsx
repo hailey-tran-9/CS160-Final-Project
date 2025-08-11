@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Champagne(props) {
-  const { nodes, materials } = useGLTF('/Champagne-transformed.glb')
+  const { nodes, materials } = useGLTF('./Champagne-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Bottle_of_Champagne_Circle009.geometry} material={materials.PaletteMaterial001} />

@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function PingPongTable(props) {
-  const { nodes, materials } = useGLTF('/PingPongTable-transformed.glb')
+  const { nodes, materials } = useGLTF('./PingPongTable-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Line025.geometry} material={materials.PaletteMaterial001} position={[-0.252, 0.617, 0.564]} rotation={[-Math.PI / 2, 0, -0.262]} />

@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Controller(props) {
-  const { nodes, materials } = useGLTF('/controller-transformed.glb')
+  const { nodes, materials } = useGLTF('./controller-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Xbox_Controller.geometry} material={materials.Mat} />

@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function BeehiveGreen(props) {
-  const { nodes, materials } = useGLTF('/BeehiveGreen-transformed.glb')
+  const { nodes, materials } = useGLTF('./BeehiveGreen-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <group position={[0.05, 0, 0]} rotation={[-Math.PI, 0, 0]} scale={[0.01, 0.01, 0.007]}>

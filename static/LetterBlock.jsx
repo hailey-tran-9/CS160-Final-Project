@@ -12,7 +12,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function LetterBlock(props) {
-  const { nodes, materials } = useGLTF('/letterBlock-transformed.glb')
+  const { nodes, materials } = useGLTF('./letterBlock-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Cube.geometry} material={materials.Edges} rotation={[-Math.PI / 2, 0, 0]} />

@@ -9,7 +9,7 @@ import { useGLTF } from '@react-three/drei'
 import { Select } from '@react-three/postprocessing'
 
 export function BoxingRing(props) {
-  const { nodes, materials } = useGLTF('/boxingRing-transformed.glb')
+  const { nodes, materials } = useGLTF('./boxingRing-transformed.glb')
   const [hovered, hover] = useState(null)
   return (
     <Select enabled = {hovered}>

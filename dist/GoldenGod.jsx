@@ -12,7 +12,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function GoldenGod(props) {
-  const { nodes, materials } = useGLTF('/GoldenGod-transformed.glb')
+  const { nodes, materials } = useGLTF('./GoldenGod-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.GoldenGod_Golden_God_0.geometry} material={materials.Golden_God} rotation={[-Math.PI / 2, 0, 0]} />

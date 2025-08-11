@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Switch(props) {
-  const { nodes, materials } = useGLTF('/switch-transformed.glb')
+  const { nodes, materials } = useGLTF('./switch-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.mesh621928186.geometry} material={materials.PaletteMaterial002} />

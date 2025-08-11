@@ -15,7 +15,7 @@ import CameraControls from 'camera-controls'
 
 export function Bearmofloat(props) {
   const ref = useRef()
-  const model = useGLTF('/bearmofloat-transformed.glb')
+  const model = useGLTF('./bearmofloat-transformed.glb')
   const [hovered, hover] = useState(null)
   const [clicked, setClicked] = useState(false)
   const vec = new THREE.Vector3()

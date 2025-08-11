@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Shelves(props) {
-  const { nodes, materials } = useGLTF('/shelves-transformed.glb')
+  const { nodes, materials } = useGLTF('./shelves-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Environment_Cabinet_Shelves.geometry} material={materials.Atlas} rotation={[Math.PI / 2, 0, 0]} />

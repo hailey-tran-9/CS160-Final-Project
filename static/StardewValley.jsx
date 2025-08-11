@@ -13,7 +13,7 @@ import { useGLTF } from '@react-three/drei'
 import { Select } from '@react-three/postprocessing'
 
 export function StardewValley(props) {
-  const { nodes, materials } = useGLTF('/stardewValley-transformed.glb')
+  const { nodes, materials } = useGLTF('./stardewValley-transformed.glb')
   const [hovered, hover] = useState(null)
   return (
     <Select enabled={hovered}>

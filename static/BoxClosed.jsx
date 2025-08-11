@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function BoxClosed(props) {
-  const { nodes, materials } = useGLTF('/boxClosed-transformed.glb')
+  const { nodes, materials } = useGLTF('./boxClosed-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.box_1.geometry} material={materials.wood} />

@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function BarCounter(props) {
-  const { nodes, materials } = useGLTF('/BarCounter-transformed.glb')
+  const { nodes, materials } = useGLTF('./BarCounter-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.kitchenBar_2.geometry} material={materials.wood} />

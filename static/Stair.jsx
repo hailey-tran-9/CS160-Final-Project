@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Stair(props) {
-  const { nodes, materials } = useGLTF('/stair-transformed.glb')
+  const { nodes, materials } = useGLTF('./stair-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <group position={[0.379, -0.214, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[0.431, 1.006, 0.146]}>

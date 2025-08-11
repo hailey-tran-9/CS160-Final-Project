@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function InvisibleWall(props) {
-  const { nodes, materials } = useGLTF('/InvisibleWall-transformed.glb')
+  const { nodes, materials } = useGLTF('./InvisibleWall-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.pCube1.geometry} material={materials.lambert2} position={[0.004, 0.047, 0.003]} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />

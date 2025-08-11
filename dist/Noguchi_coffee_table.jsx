@@ -12,7 +12,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Noguchi_coffee_table(props) {
-  const { nodes, materials } = useGLTF('/noguchi_coffee_table-transformed.glb')
+  const { nodes, materials } = useGLTF('./noguchi_coffee_table-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Object_2.geometry} material={materials.material} rotation={[-Math.PI / 2, 0, 0]} />

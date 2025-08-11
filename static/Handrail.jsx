@@ -12,7 +12,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Handrail(props) {
-  const { nodes, materials } = useGLTF('/handrail-transformed.glb')
+  const { nodes, materials } = useGLTF('./handrail-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Plane__0.geometry} material={materials['Scene_-_Root']} rotation={[-Math.PI, 0, Math.PI / 2]} scale={100} />

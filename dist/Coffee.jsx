@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Coffee(props) {
-  const { nodes, materials } = useGLTF('/coffee-transformed.glb')
+  const { nodes, materials } = useGLTF('./coffee-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.coffee_cup.geometry} material={materials['Material.001']} />

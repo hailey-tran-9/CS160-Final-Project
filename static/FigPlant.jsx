@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function FigPlant(props) {
-  const { nodes, materials } = useGLTF('/FigPlant-transformed.glb')
+  const { nodes, materials } = useGLTF('./FigPlant-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.RubberFigPottedPlant_mesh.geometry} material={materials.RubberFigPottedPlant_mat} />

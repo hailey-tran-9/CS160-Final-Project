@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Polaroids(props) {
-  const { nodes, materials } = useGLTF('/polaroids-transformed.glb')
+  const { nodes, materials } = useGLTF('./polaroids-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Node.geometry} material={materials.PaletteMaterial001} />

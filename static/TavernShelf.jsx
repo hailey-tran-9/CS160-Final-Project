@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function TavernShelf(props) {
-  const { nodes, materials } = useGLTF('/TavernShelf-transformed.glb')
+  const { nodes, materials } = useGLTF('./TavernShelf-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Box001.geometry} material={materials._crayfishdiffuse} />
